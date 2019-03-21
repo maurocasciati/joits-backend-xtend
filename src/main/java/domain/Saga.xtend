@@ -2,7 +2,6 @@ package domain
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
-import java.math.BigDecimal
 
 @Accessors
 class Saga implements Contenido {
@@ -13,10 +12,10 @@ class Saga implements Contenido {
 	String genero //accion, comedia, drama, ciencia ficcion
 	List<Funcion> funciones
 	List<Pelicula> peliculas
-	BigDecimal precioNivelClasico
+	Integer nivelClasico
 	
 	override precio() {
-		return this.precioPorPeliculas + precioNivelClasico
+		return this.precioPorPeliculas + nivelClasico
 	}
 	
 	def precioPorPeliculas() {

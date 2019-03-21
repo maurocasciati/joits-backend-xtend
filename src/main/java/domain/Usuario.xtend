@@ -12,4 +12,5 @@ class Usuario {
 		List<Usuario> listaDeAmigos
 		BigDecimal saldo
 		List<Contenido> historial
+		String contrasenia
 }
