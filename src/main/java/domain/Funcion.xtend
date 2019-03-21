@@ -1,19 +1,18 @@
 package domain
 
 import java.time.LocalDateTime
-import java.math.BigDecimal
 
 class Funcion {
 	LocalDateTime fechaHora
 	String nombreSala
 	Contenido contenido
 	
-	def BigDecimal precio(){
+	def Double precio(){
 		return this.contenido.precio() + this.precioFecha()
 	}
 	
-	def BigDecimal precioFecha() {
-		return new BigDecimal(20)
+	def Double precioFecha() {
+		return 20.0
 	}
 	
 }
