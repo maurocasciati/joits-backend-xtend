@@ -4,17 +4,22 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 
 @Accessors
-class Pelicula implements Contenido{
+class Pelicula extends Contenido {
 	val Double PRECIO_BASE = 30.0
-	String titulo
 	Integer anioRodaje
-	Float puntaje
-	String genero //accion, comedia, drama, ciencia ficcion	
-	List<Funcion> funciones
-	
+
+	new() {
+	}
+
+	new(String _titulo, Double _puntaje, String _genero, Integer _anioRodaje) {
+		titulo = _titulo
+		puntaje = _puntaje
+		genero = _genero
+		anioRodaje = _anioRodaje
+	}
+
 	override precio() {
 		return PRECIO_BASE
 	}
-	
-	
+
 }
