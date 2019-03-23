@@ -9,13 +9,17 @@ class Saga extends Contenido {
 	Integer anioRecopilacion
 	List<Pelicula> peliculas
 	Integer nivelClasico
-	
+
 	override precio() {
 		return this.precioPorPeliculas + nivelClasico
 	}
-	
+
 	def precioPorPeliculas() {
 		return peliculas.size * PRECIO_POR_PELICULA
 	}
-	
+
+	override getAnio() {
+		anioRecopilacion
+	}
+
 }

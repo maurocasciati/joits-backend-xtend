@@ -22,4 +22,8 @@ class Pelicula extends Contenido {
 		return PRECIO_BASE
 	}
 
+	override getAnio() {
+		anioRodaje
+	}
+
 }

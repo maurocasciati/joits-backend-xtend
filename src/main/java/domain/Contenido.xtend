@@ -17,4 +17,5 @@ abstract class Contenido extends Entidad {
 
 	def Double precio()
 
+	def Integer getAnio()
 }
