@@ -107,6 +107,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			apellido = "De Niro"
 			edad = 75
 			saldo = new BigDecimal(127803)
+			contrasenia = "roberto"
 		]
 
 		scorsese = new Usuario => [
@@ -114,6 +115,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			apellido = "Scorsese"
 			edad = 76
 			saldo = new BigDecimal(99912415)
+			contrasenia = "Ms2000"
 		]
 
 		cacho = new Usuario => [
@@ -121,6 +123,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			apellido = "Gomez"
 			edad = 45
 			saldo = new BigDecimal(2000)
+			contrasenia = "bocateamo"
 		]
 
 		messi = new Usuario => [
@@ -128,6 +131,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			apellido = "Messi"
 			edad = 31
 			saldo = new BigDecimal(9856)
+			contrasenia = "L10forever"
 		]
 
 		repoUsuarios.create(aniston)
