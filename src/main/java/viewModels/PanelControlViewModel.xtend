@@ -3,12 +3,14 @@ package viewModels
 import domain.Usuario
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
+import repositorios.RepoLocator
 
 @Observable
 @Accessors
 class PanelControlViewModel {
-	Usuario usuario
-	Integer saldoParaCargar
+	Usuario usuario = RepoLocator.repoUsuario.pool.get(0)
+	Integer saldoParaCargar = 0
+	Usuario amigoSeleccionado
 	
 	def nombreApellidoUsuario(){
 		return usuario.nombre + " " + usuario.apellido

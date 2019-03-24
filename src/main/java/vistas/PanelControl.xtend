@@ -21,8 +21,8 @@ import org.uqbar.arena.widgets.List
 
 class PanelControl extends Window<PanelControlViewModel> {
 
-	new(WindowOwner owner, PanelControlViewModel model) {
-		super(owner, model)
+	new(WindowOwner owner) {
+		super(owner, new PanelControlViewModel)
 	}
 
 	override createContents(Panel mainPanel) {
@@ -33,7 +33,7 @@ class PanelControl extends Window<PanelControlViewModel> {
 		new Panel(izquierda) => [
 			layout = new ColumnLayout(2)
 			new Label(it).text = "Usuario"
-			new Label(it).text = "nombreApellidoUsuario"
+			new Label(it) => [value <=> "nombreApellidoUsuario"]
 			new Label(it).text = "Edad"
 			new TextBox(it) => [
 				value <=> "usuario.edad"
@@ -42,6 +42,7 @@ class PanelControl extends Window<PanelControlViewModel> {
 
 		new Table<Usuario>(izquierda, Usuario) => [
 			bindItemsToProperty("usuario.listaDeAmigos")
+			value <=> "amigoSeleccionado"
 			numberVisibleRows = 3
 			new Column<Usuario>(it) => [
 				title = "Nombre"
@@ -72,13 +73,13 @@ class PanelControl extends Window<PanelControlViewModel> {
 				value <=> "saldoParaCargar"
 			]
 			new Button(derecha) => [
-				caption = "Agregar"
+				caption = "Cargar"
 				onClick[modelObject.cargarSaldo]
 			]
 			new Label(it).text = "Pelis vistas"
-			
+
 			new List(it) => [
-				items <=>"usuario.historial"
+				items <=> "amigoSeleccionado.historial"
 			]
 		]
 
