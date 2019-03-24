@@ -9,6 +9,7 @@ import repositorios.Entidad
 class Usuario extends Entidad {
 	String nombre
 	String apellido
+	String username
 	Integer edad
 	List<Usuario> listaDeAmigos
 	BigDecimal saldo
