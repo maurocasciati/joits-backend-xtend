@@ -94,9 +94,10 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 
 	def crearUsuarios() {
 
-		aniston = new Usuario => [
+			aniston = new Usuario => [
 			nombre = "Jennifer"
 			apellido = "Aniston"
+			username = "rachel_g"
 			edad = 50
 			saldo = new BigDecimal(330)
 			contrasenia = "jen123"
@@ -106,6 +107,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		deNiro = new Usuario => [
 			nombre = "Robert"
 			apellido = "De Niro"
+			username = "robertito"
 			edad = 75
 			saldo = new BigDecimal(964)
 			contrasenia = "roberto"
@@ -115,6 +117,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		scorsese = new Usuario => [
 			nombre = "Martin"
 			apellido = "Scorsese"
+			username = "MartyBoy"
 			edad = 76
 			saldo = new BigDecimal(167)
 			contrasenia = "Ms2000"
@@ -124,6 +127,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		cacho = new Usuario => [
 			nombre = "Cacho"
 			apellido = "Gomez"
+			username = "cachito27"
 			edad = 45
 			saldo = new BigDecimal(2020)
 			contrasenia = "bocateamo"
@@ -133,6 +137,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		messi = new Usuario => [
 			nombre = "Lionel"
 			apellido = "Messi"
+			username = "leomessi"
 			edad = 31
 			saldo = new BigDecimal(1312)
 			contrasenia = "L10forever"
