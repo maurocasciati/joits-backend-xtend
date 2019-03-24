@@ -17,6 +17,7 @@ import org.uqbar.arena.widgets.tables.Column
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.commons.model.utils.ObservableUtils
 import domain.Funcion
+import org.uqbar.arena.bindings.NotNullObservable
 
 class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 
@@ -37,23 +38,53 @@ class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 				agregarPanelPeliculas()
 				agregarPanelFunciones()
 			]
-
+			new Button(it) => [
+				caption = "Agregar entrada al carrito"
+				bindEnabled(new NotNullObservable("funcionSeleccionada"))
+				onClick[
+					this.modelObject.agregarAlCarrito()
+				]
+			]
+			new Panel(it) => [
+				layout = new HorizontalLayout
+				agregarLineaValor("Items en carrito: ", "cantidadItemsCarrito")
+				new Button(it) => [
+					caption = "Finalizar la compra"
+					onClick[
+						//TODO: Agregar msj error cuando el carrito esta vacio, y bindear con vista finalizarCompra
+					]
+				]
+				// TODO: Alinear boton a la derecha
+				new Button(it) => [
+					caption = "Panel de control"
+					onClick[
+						new PanelControl(this).open
+					]
+				]
+			]
 		]
 	}
 
 	def agregarBarraUsuario(Panel panel) {
 		new Panel(panel) => [
 			layout = new HorizontalLayout
-			new Label(it) => [
-				text = "nombreUsuario"
-				alignLeft
-			]
-			new Label(it) => [
-				text = "fechaHoy"
-				alignRight
-			]
+			agregarLineaValor("Usuario logueado:", "usuarioLogueado")
+			// TODO: Alinear fecha a la derecha
+			agregarLineaValor("Fecha: ", "fechaHoy")
 		]
+	}
 
+	def void agregarLineaValor(Panel panel, String nombre, String valor) {
+		var valorPanel = new Panel(panel)
+		valorPanel.layout = new HorizontalLayout
+		new Label(valorPanel) => [
+			text = nombre
+			alignLeft
+		]
+		new Label(valorPanel) => [
+			value <=> valor
+			alignLeft
+		]
 	}
 
 	def agregarPanelPeliculas(Panel panel) {
@@ -63,12 +94,12 @@ class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 				layout = new VerticalLayout
 				title = "Buscador de Películas:"
 				agregarBuscador()
-				agregarTabla("resultadoBusqueda")
+				agregarTabla("resultadoBusqueda", 6)
 			]
 			new GroupPanel(it) => [
 				layout = new VerticalLayout
 				title = "Películas recomendadas:"
-				agregarTabla("peliculasRecomendadas")
+				agregarTabla("peliculasRecomendadas", 4)
 			]
 		]
 
@@ -79,7 +110,7 @@ class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 		valorPanel.layout = new HorizontalLayout
 		new TextBox(valorPanel) => [
 			value <=> "valorDeBusqueda"
-			width = 200
+			width = 400
 			alignLeft
 		]
 		new Button(valorPanel) => [
@@ -88,11 +119,11 @@ class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 		]
 	}
 
-	def agregarTabla(Panel panel, String listado) {
+	def agregarTabla(Panel panel, String listado, Integer filas) {
 		new Table<Pelicula>(panel, typeof(Pelicula)) => [
 			items <=> listado
 			value <=> "peliculaSeleccionada"
-			numberVisibleRows = 6
+			numberVisibleRows = filas
 			new Column(it) => [
 				title = "Nombre"
 				bindContentsToProperty("titulo")
@@ -121,15 +152,16 @@ class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 			layout = new VerticalLayout
 			title = "Funciones:"
 			agregarTablaFunciones()
+			agregarLineaValor("Importe de la entrada seleccionada: ", "funcionSeleccionada.precio")
 		]
 
 	}
-	
+
 	def agregarTablaFunciones(Panel panel) {
 		new Table<Funcion>(panel, typeof(Funcion)) => [
 			items <=> "funciones"
 			value <=> "funcionSeleccionada"
-			numberVisibleRows = 6
+			numberVisibleRows = 13
 			new Column(it) => [
 				title = "Fecha"
 				bindContentsToProperty("fecha")
@@ -143,7 +175,7 @@ class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 			new Column(it) => [
 				title = "Sala"
 				bindContentsToProperty("nombreSala")
-				fixedSize = 100
+				fixedSize = 200
 			]
 		]
 	}
