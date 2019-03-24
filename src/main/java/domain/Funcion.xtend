@@ -1,7 +1,11 @@
 package domain
 
 import java.time.LocalDateTime
+import org.uqbar.commons.model.annotations.Observable
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
+@Observable
 class Funcion {
 	LocalDateTime fechaHora
 	String nombreSala
@@ -25,4 +29,13 @@ class Funcion {
 	def boolean esMiercoles() {
 		fechaHora.dayOfWeek.value == 3
 	}
+	
+	def getFecha() {
+		fechaHora.toLocalDate
+	}
+	
+	def getHora() {
+		fechaHora.toLocalTime
+	}
+	
 }
