@@ -100,6 +100,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 50
 			saldo = new BigDecimal(330)
 			contrasenia = "jen123"
+			historial = #[matrix, duroDeMatar]
 		]
 
 		deNiro = new Usuario => [
@@ -108,6 +109,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 75
 			saldo = new BigDecimal(964)
 			contrasenia = "roberto"
+			historial = #[redSocial, pulpFiction]
 		]
 
 		scorsese = new Usuario => [
@@ -116,6 +118,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 76
 			saldo = new BigDecimal(167)
 			contrasenia = "Ms2000"
+			historial = #[warGames, volverAlFuturo]
 		]
 
 		cacho = new Usuario => [
@@ -124,6 +127,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 45
 			saldo = new BigDecimal(2020)
 			contrasenia = "bocateamo"
+			historial = #[matrix, duroDeMatar]
 		]
 
 		messi = new Usuario => [
@@ -132,8 +136,10 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 31
 			saldo = new BigDecimal(1312)
 			contrasenia = "L10forever"
+			historial = #[matrix, duroDeMatar, redSocial, elDiaDeLaMarmota]
 		]
-
+		
+		aniston.listaDeAmigos = #[deNiro, scorsese, messi]
 		repoUsuarios.create(aniston)
 		repoUsuarios.create(cacho)
 		repoUsuarios.create(deNiro)
