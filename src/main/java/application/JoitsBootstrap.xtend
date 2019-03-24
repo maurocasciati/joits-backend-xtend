@@ -150,27 +150,29 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	def crearFunciones() {
 
 		var fecha = LocalDateTime.of(2019, Month.APRIL, 29, 18, 30, 40);
-		var fecha2 = fecha.plusHours(-5)
 
 		funcion1 = new Funcion(fecha, "Hoyts Unicenter")
-		funcion2 = new Funcion(fecha.plusHours(1), "ShowCase")
-		funcion3 = new Funcion(fecha.plusHours(2), "Multiplex Belgrano")
-		funcion4 = new Funcion(fecha2, "Hoyts Abasto")
-		funcion5 = new Funcion(fecha2.plusHours(1), "Cinemark")
-		funcion6 = new Funcion(fecha2.plusHours(2), "Village Recoleta")
-		funcion7 = new Funcion(fecha2.plusHours(3), "Atlas")
-		funcion8 = new Funcion(fecha.plusHours(1), "Multicenter")
-		funcion9 = new Funcion(fecha.plusDays(3), "Gaumont")
+		funcion2 = new Funcion(fecha.plusDays(3).plusHours(1), "ShowCase")
+		funcion3 = new Funcion(fecha.plusDays(5).plusHours(2), "Multiplex Belgrano")
+		funcion4 = new Funcion(fecha.plusDays(4).plusHours(4), "Hoyts Abasto")
+		funcion5 = new Funcion(fecha.plusDays(1).plusHours(8), "Cinemark")
+		funcion6 = new Funcion(fecha.plusDays(2).plusHours(2), "Village Recoleta")
+		funcion7 = new Funcion(fecha.plusDays(6).plusHours(3), "Atlas")
+		funcion8 = new Funcion(fecha.plusDays(7).plusHours(6), "Multicenter")
+		funcion9 = new Funcion(fecha.plusDays(8).plusHours(1), "Gaumont")
 
-		matrix.funciones.addAll(funcion1, funcion2, funcion3)
-		pulpFiction.funciones.addAll(funcion4, funcion5, funcion6)
+		matrix.funciones.addAll(funcion1, funcion2, funcion3, funcion5, funcion6)
+		pulpFiction.funciones.addAll(funcion4, funcion5, funcion6, funcion8, funcion9)
 		duroDeMatar.funciones.addAll(funcion7, funcion8, funcion9)
-		nueveReinas.funciones.addAll(funcion1, funcion2, funcion3)
+		nueveReinas.funciones.addAll(funcion1, funcion2, funcion3, funcion7, funcion8)
 		elDiaDeLaMarmota.funciones.addAll(funcion4, funcion5, funcion6)
-		redSocial.funciones.addAll(funcion7, funcion8, funcion9)
-		warGames.funciones.addAll(funcion1, funcion2, funcion3)
-		losBañeros4.funciones.addAll(funcion4, funcion5, funcion6)
+		redSocial.funciones.addAll(funcion7, funcion8, funcion9, funcion2, funcion4)
+		warGames.funciones.addAll(funcion1, funcion2, funcion3, funcion5, funcion6, funcion8, funcion9)
+		losBañeros4.funciones.addAll(funcion4, funcion5, funcion6, funcion8, funcion9)
 		volverAlFuturo.funciones.addAll(funcion7, funcion8, funcion9)
+		volverAlFuturoI.funciones.addAll(funcion7, funcion8, funcion9, funcion5, funcion6)
+		volverAlFuturoII.funciones.addAll(funcion7, funcion8, funcion9, funcion4, funcion2)
+		volverAlFuturoIII.funciones.addAll(funcion7, funcion8, funcion9, funcion6, funcion3)
 	}
 
 }
