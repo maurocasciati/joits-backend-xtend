@@ -1,6 +1,7 @@
 package repositorios
 
 import domain.Usuario
+import org.uqbar.commons.model.exceptions.UserException
 
 class RepoUsuario extends Repositorio<Usuario> {
 
@@ -12,6 +13,19 @@ class RepoUsuario extends Repositorio<Usuario> {
 	override create(Usuario object) {
 //		object.validar // -> si tiene errores de validación, no puede sumar objecto al repo.
 		super.create(object)
+	}
+
+	def getUsuario(String username, String password) {
+		val Usuario usuario = pool.findFirst[object|object.username.contentEquals(username)]
+
+		if (usuario === null) {
+			throw new UserException("Nombre de usuario inexistente")
+		}
+
+		if (!usuario.contrasenia.contentEquals(password)) {
+			throw new UserException("Contraseña incorrecta")
+		}
+		usuario
 	}
 
 	override updateRecord(Usuario object) {
