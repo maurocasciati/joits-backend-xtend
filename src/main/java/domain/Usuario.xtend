@@ -14,6 +14,6 @@ class Usuario extends Entidad {
 	BigDecimal saldo
 	String contrasenia
 	List<Entrada> entradas
+	List<Contenido> historial
 	
-	def historial() {}
 }
