@@ -10,16 +10,11 @@ class Funcion {
 	LocalDateTime fechaHora
 	String nombreSala
 	Contenido contenido
-	Entrada entrada
-
-	new() {
-	}
 
 	new(LocalDateTime _fechaHora, String _nombreSala, Contenido _contenido) {
 		fechaHora = _fechaHora
 		nombreSala = _nombreSala
 		contenido = _contenido
-		entrada = new Entrada(this)
 	}
 
 	def Double precio() {
