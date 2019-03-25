@@ -122,10 +122,10 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		cacho = new Usuario => [
 			nombre = "Cacho"
 			apellido = "Gomez"
-			username = "cachito27"
+			username = "c"
 			edad = 45
 			saldo = new BigDecimal(2020)
-			contrasenia = "bocateamo"
+			contrasenia = "c"
 			historial = #[matrix, duroDeMatar]
 		]
 
@@ -140,6 +140,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		]
 
 		aniston.listaDeAmigos = #[deNiro, scorsese, messi]
+		cacho.listaDeAmigos = #[deNiro, scorsese, messi, aniston]
 		repoUsuarios.create(aniston)
 		repoUsuarios.create(cacho)
 		repoUsuarios.create(deNiro)
