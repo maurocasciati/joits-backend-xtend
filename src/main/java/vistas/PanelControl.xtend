@@ -18,6 +18,8 @@ import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.commons.model.IModel
 import domain.Usuario
 import org.uqbar.arena.widgets.List
+import org.uqbar.arena.bindings.ObservableProperty
+import domain.Contenido
 
 class PanelControl extends Window<PanelControlViewModel> {
 
@@ -79,7 +81,10 @@ class PanelControl extends Window<PanelControlViewModel> {
 			new Label(it).text = "Pelis vistas"
 
 			new List(it) => [
-				items <=> "amigoSeleccionado.historial"
+				width = 220             
+                height = 220
+                val peli = bindItems(new ObservableProperty("amigoSeleccionado.historial"))
+    			peli.adaptWith(typeof(Contenido), "titulo")
 			]
 		]
 
