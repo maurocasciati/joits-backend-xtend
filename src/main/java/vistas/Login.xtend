@@ -35,7 +35,7 @@ class Login extends Dialog<LoginViewModel> {
 			]
 			new Button(it) => [
 				caption = "Cancelar"
-				onClick([|cancel])
+				onClick([|close])
 				width = 110
 			]
 		]

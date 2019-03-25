@@ -154,7 +154,7 @@ class FinalizarCompra extends Dialog<FinalizarCompraViewModel> {
 	}
 
 	def volverAtras() {
-		this.cancel
+		close
 	}
 
 	def comprar() {
