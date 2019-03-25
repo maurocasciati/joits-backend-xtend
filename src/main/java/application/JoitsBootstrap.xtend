@@ -14,6 +14,7 @@ import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
 import repositorios.RepoContenido
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
+import domain.Entrada
 
 class JoitsBootstrap extends CollectionBasedBootstrap {
 
@@ -67,6 +68,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			puntaje = 7.9
 			genero = "Ciencia Ficción"
 			anioRecopilacion = 2012
+			nivelClasico = 200
 			peliculas = new ArrayList<Pelicula>
 			peliculas.addAll(volverAlFuturoI, volverAlFuturoII, volverAlFuturoIII)
 		]
@@ -161,11 +163,13 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		agregarFuncionesRandom(volverAlFuturoIII, 11)
 		agregarFuncionesRandom(volverAlFuturo, 4)
 
+		deNiro.carrito.addAll(new Entrada(matrix.funciones.get(0)), new Entrada(duroDeMatar.funciones.get(2)))
+
 	}
 
 	def agregarFuncionesRandom(Contenido contenido, int cantidad) {
 
-		var fecha = LocalDateTime.of(2019, Month.APRIL, 29, 18, 30, 40);
+		var fecha = LocalDateTime.of(2019, Month.APRIL, 29, 18, 00, 40);
 		var i = 0
 		var String[] cines = #["Hoyts Unicenter", "ShowCase", "Hoyts Dot", "ShowCase", "Cinemark Caballito",
 			"Bama Cine Arte", "Multiplex Belgrano", "Cine Lorca", "Cinemark Palermo", "Hoyts Abasto",
