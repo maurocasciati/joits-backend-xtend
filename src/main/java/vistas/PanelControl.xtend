@@ -18,6 +18,7 @@ import org.uqbar.arena.widgets.List
 import org.uqbar.arena.bindings.ObservableProperty
 import domain.Contenido
 import org.uqbar.arena.widgets.GroupPanel
+import org.uqbar.commons.model.utils.ObservableUtils
 
 class PanelControl extends Window<PanelControlViewModel> {
 
@@ -39,12 +40,15 @@ class PanelControl extends Window<PanelControlViewModel> {
 			]
 			new Panel(it) => [
 				layout = new VerticalLayout
-				agregarLineaValor("Saldo", "usuarioLogueado.saldo")
+				agregarLineaValor("Saldo", "saldoUsuario")
 				agregarLineaCuadroTexto("Cargar Saldo", "saldoParaCargar")
 
 				new Button(it) => [
 					caption = "Cargar"
-					onClick[modelObject.cargarSaldo]
+					onClick[
+						modelObject.cargarSaldo
+						ObservableUtils.firePropertyChanged(this.modelObject, "saldoUsuario")
+					]
 				]
 			]
 		]

@@ -45,4 +45,8 @@ class Usuario extends Entidad {
 		var double[] precios = getCarrito.map[entrada|entrada.precio]
 		Arrays.stream(precios).sum();
 	}
+	
+	def cargarSaldo(Double monto){
+		saldo = saldo + new BigDecimal(monto)
+	}
 }

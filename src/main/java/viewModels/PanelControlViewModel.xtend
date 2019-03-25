@@ -8,19 +8,22 @@ import org.uqbar.commons.model.annotations.Observable
 @Accessors
 class PanelControlViewModel {
 	Usuario usuarioLogueado
-	Integer saldoParaCargar = 0
+	Double saldoParaCargar = 0.0
 	Usuario amigoSeleccionado
-	
-	def nombreApellidoUsuario(){
+
+	def nombreApellidoUsuario() {
 		return usuarioLogueado.nombre + " " + usuarioLogueado.apellido
 	}
-	
+
 	def buscarAmigos() {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
-	
+
 	def cargarSaldo() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		usuarioLogueado.cargarSaldo(saldoParaCargar)
 	}
 	
+	def getSaldoUsuario() {
+		usuarioLogueado.saldo
+	}
 }
