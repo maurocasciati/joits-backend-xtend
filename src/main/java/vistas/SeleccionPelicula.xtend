@@ -18,11 +18,13 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.commons.model.utils.ObservableUtils
 import domain.Funcion
 import org.uqbar.arena.bindings.NotNullObservable
+import domain.Usuario
 
 class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 
-	new(WindowOwner parent) {
+	new(WindowOwner parent, Usuario usuarioLogueado) {
 		super(parent, new SeleccionPeliculaViewModel)
+		modelObject.usuarioLogueado = usuarioLogueado
 	}
 
 	override addActions(Panel mainPanel) {
@@ -68,7 +70,7 @@ class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 	def agregarBarraUsuario(Panel panel) {
 		new Panel(panel) => [
 			layout = new HorizontalLayout
-			agregarLineaValor("Usuario logueado:", "usuarioLogueado")
+			agregarLineaValor("Usuario logueado:", "usuarioLogueado.username")
 			// TODO: Alinear fecha a la derecha
 			agregarLineaValor("Fecha: ", "fechaHoy")
 		]

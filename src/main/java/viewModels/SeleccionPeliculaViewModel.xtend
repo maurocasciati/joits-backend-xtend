@@ -9,12 +9,13 @@ import repositorios.RepoLocator
 import domain.Funcion
 import java.util.ArrayList
 import org.uqbar.commons.model.annotations.Dependencies
+import domain.Usuario
 
 @Accessors
 @Observable
 class SeleccionPeliculaViewModel {
 
-	String usuarioLogueado = "Mauro Casciati"
+	Usuario usuarioLogueado
 	LocalDate fechaHoy = LocalDate.now
 
 	List<Contenido> peliculas = RepoLocator.getRepoContenido.pool
