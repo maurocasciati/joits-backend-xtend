@@ -89,7 +89,7 @@ class Login extends Dialog<LoginViewModel> {
 	}
 
 	def void irASeleccionarPelicula(Usuario usuarioLogueado) {
-		new SeleccionPelicula(this) => [
+		new SeleccionPelicula(this, usuarioLogueado) => [
 			open
 		]
 	}
