@@ -23,8 +23,9 @@ import domain.Contenido
 
 class PanelControl extends Window<PanelControlViewModel> {
 
-	new(WindowOwner owner) {
+	new(WindowOwner owner, Usuario usuarioLogueado) {
 		super(owner, new PanelControlViewModel)
+		modelObject.usuarioLogueado = usuarioLogueado
 	}
 
 	override createContents(Panel mainPanel) {
@@ -38,12 +39,12 @@ class PanelControl extends Window<PanelControlViewModel> {
 			new Label(it) => [value <=> "nombreApellidoUsuario"]
 			new Label(it).text = "Edad"
 			new TextBox(it) => [
-				value <=> "usuario.edad"
+				value <=> "usuarioLogueado.edad"
 			]
 		]
 
 		new Table<Usuario>(izquierda, Usuario) => [
-			bindItemsToProperty("usuario.listaDeAmigos")
+			bindItemsToProperty("usuarioLogueado.listaDeAmigos")
 			value <=> "amigoSeleccionado"
 			numberVisibleRows = 3
 			new Column<Usuario>(it) => [
@@ -67,7 +68,7 @@ class PanelControl extends Window<PanelControlViewModel> {
 
 			new Label(it).text = "Saldo"
 			new Label(it) => [
-				value <=> "usuario.saldo"
+				value <=> "usuarioLogueado.saldo"
 			]
 			new Label(it).text = "Cargar Saldo"
 

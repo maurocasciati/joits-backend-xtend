@@ -60,7 +60,7 @@ class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 				new Button(it) => [
 					caption = "Panel de control"
 					onClick[
-						new PanelControl(this).open
+						new PanelControl(this,modelObject.usuarioLogueado).open
 					]
 				]
 			]
