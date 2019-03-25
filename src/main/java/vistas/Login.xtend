@@ -1,16 +1,18 @@
 package vistas
 
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.widgets.GroupPanel
+import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 import viewModels.LoginViewModel
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.widgets.Label
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.PasswordField
+import org.uqbar.arena.widgets.Button
 import domain.Usuario
 
 class Login extends Dialog<LoginViewModel> {
@@ -21,70 +23,72 @@ class Login extends Dialog<LoginViewModel> {
 
 	override addActions(Panel actionsPanel) {
 
-		crearLabel(actionsPanel, "", 0, 30)
-
-		new Button(actionsPanel) => [
-			caption = "Aceptar"
-			width = 100
-			onClick([|modelObject.aceptar(this)])
-			enabled <=> "completoCampos"
-			setAsDefault
+		new GroupPanel(actionsPanel) => [
+			title = ""
+			layout = new HorizontalLayout
+			new Button(it) => [
+				caption = "Aceptar"
+				onClick([|modelObject.aceptar(this)])
+				enabled <=> "completoCampos"
+				setAsDefault
+				width = 110
+			]
+			new Button(it) => [
+				caption = "Cancelar"
+				onClick([|cancel])
+				width = 110
+			]
 		]
-
-		crearLabel(actionsPanel, "", 0, 10)
-
-		new Button(actionsPanel) => [
-			caption = "Cancelar"
-			width = 100
-			onClick([|cancel])
-		]
-		crearLabel(actionsPanel, "", 0, 30)
 	}
 
 	override createFormPanel(Panel mainPanel) {
 		this.title = "Joits - Login"
 
-		crearLabel(mainPanel, "", 20, 100)
-		val panelUsuario = new Panel(mainPanel)
-		val panelPassword = new Panel(mainPanel)
-
-		panelUsuario.layout = new HorizontalLayout
-		panelPassword.layout = new HorizontalLayout
-
-		crearLabel(panelUsuario, "Usuario", 40, 90)
-		crearTextBox(panelUsuario, "username", 150)
-		crearLabel(panelPassword, "Password", 20, 90)
-		crearPasswordField(panelPassword, "password", 150)
-		crearLabel(mainPanel, "", 30, 100)
-	}
-
-	def crearLabel(Panel panel, String texto, int _height, int _width) {
-		new Label(panel) => [
-			text = texto
-			height = _height
-			width = _width
+		new Panel(mainPanel) => [
+			layout = new VerticalLayout
+			new GroupPanel(it) => [
+				title = ""
+				agregarLineaTextbox("Usuario", "username")
+				agregarLineaPassword("Password", "password")
+			]
 		]
 	}
 
-	def crearLabelConBinding(Panel panel, String valor, int _height, int _width) {
-		new Label(panel) => [
+	def void agregarLineaTextbox(Panel panel, String nombre, String valor) {
+		var valorPanel = new Panel(panel)
+		valorPanel.layout = new HorizontalLayout
+		new Label(valorPanel) => [
+			text = nombre
+			alignCenter
+			width = 80
+		]
+		new TextBox(valorPanel) => [
 			value <=> valor
-			height = _height
-			width = _width
+			width = 120
 		]
 	}
 
-	def crearTextBox(Panel panel, String valor, int _width) {
-		new TextBox(panel) => [
+	def void agregarLineaPassword(Panel panel, String nombre, String valor) {
+		var valorPanel = new Panel(panel)
+		valorPanel.layout = new HorizontalLayout
+		new Label(valorPanel) => [
+			text = nombre
+			alignCenter
+			width = 80
+		]
+		new PasswordField(valorPanel) => [
 			value <=> valor
-			width = _width
+			width = 120
 		]
 	}
 
-	def crearPasswordField(Panel panel, String valor, int _width) {
-		new PasswordField(panel) => [
-			value <=> valor
-			width = _width
+	def agregarCampoUsuario(Panel panel) {
+		var valorPanel = new Panel(panel)
+		valorPanel.layout = new HorizontalLayout
+		new TextBox(valorPanel) => [
+			value <=> "valorDeBusqueda"
+			width = 400
+			alignLeft
 		]
 	}
 

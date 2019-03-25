@@ -29,6 +29,5 @@ class LoginViewModel {
 	@Dependencies("username", "password")
 	def getCompletoCampos() {
 		!username.nullOrEmpty && !password.nullOrEmpty
-
 	}
 }
