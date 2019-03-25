@@ -4,14 +4,15 @@ import java.time.LocalDateTime
 
 class Entrada {
 
-	Contenido contenido
 	Funcion funcion
 	LocalDateTime fechaCompra
 
-	def Double precio() {
-		contenido.precio + funcion.precio
+	new(Funcion _funcion) {
+		funcion = _funcion
 	}
-	
-	
+
+	def Double precio() {
+		funcion.precio
+	}
 
 }
