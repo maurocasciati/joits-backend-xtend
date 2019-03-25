@@ -1,7 +1,11 @@
 package domain
 
 import java.time.LocalDateTime
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Observable
 
+@Accessors
+@Observable
 class Entrada {
 
 	Funcion funcion
@@ -11,7 +15,7 @@ class Entrada {
 		funcion = _funcion
 	}
 
-	def Double precio() {
+	def Double getPrecio() {
 		funcion.precio
 	}
 
