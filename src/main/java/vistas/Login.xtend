@@ -28,6 +28,7 @@ class Login extends Dialog<LoginViewModel> {
 			width = 100
 			onClick([|modelObject.aceptar(this)])
 			enabled <=> "completoCampos"
+			setAsDefault
 		]
 
 		crearLabel(actionsPanel, "", 0, 10)
@@ -36,7 +37,6 @@ class Login extends Dialog<LoginViewModel> {
 			caption = "Cancelar"
 			width = 100
 			onClick([|cancel])
-			setAsDefault
 		]
 		crearLabel(actionsPanel, "", 0, 30)
 	}
@@ -89,7 +89,7 @@ class Login extends Dialog<LoginViewModel> {
 	}
 
 	def void irASeleccionarPelicula(Usuario usuarioLogueado) {
-		new SeleccionPelicula(this, usuarioLogueado) => [
+		new SeleccionPelicula(this) => [
 			open
 		]
 	}
