@@ -2,6 +2,7 @@ package repositorios
 
 import domain.Usuario
 import org.uqbar.commons.model.exceptions.UserException
+import java.util.List
 
 class RepoUsuario extends Repositorio<Usuario> {
 
@@ -49,6 +50,10 @@ class RepoUsuario extends Repositorio<Usuario> {
 			instance = new RepoUsuario
 		}
 		instance
+	}
+	
+	def List<Usuario> busqueda(String valorBuscado) {
+		pool.filter[usuario|usuario.coincideEnBusqueda(valorBuscado)].toList
 	}
 
 }
