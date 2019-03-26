@@ -7,6 +7,7 @@ import repositorios.Entidad
 import java.util.ArrayList
 import org.uqbar.commons.model.exceptions.UserException
 import java.util.Arrays
+import org.apache.commons.lang.StringUtils
 
 @Accessors
 class Usuario extends Entidad {
@@ -48,5 +49,25 @@ class Usuario extends Entidad {
 	
 	def cargarSaldo(Double monto){
 		saldo = saldo + new BigDecimal(monto)
+	}
+	
+	def Boolean coincideEnBusqueda(String valorBuscado) {
+		if(valorBuscado === null){
+			throw new UserException("No se ingresó ningún valor de búsqueda")
+		}
+		else{
+			coincideNombre(valorBuscado) || coincideApellido(valorBuscado) || coincideUsername(valorBuscado)
+		}
+	}
+	def Boolean coincideNombre(String valorBuscado) {
+		StringUtils.containsIgnoreCase(this.nombre, valorBuscado)
+	}
+
+	def Boolean coincideApellido(String valorBuscado) {
+		StringUtils.containsIgnoreCase(this.apellido, valorBuscado)
+	}
+
+	def Boolean coincideUsername(String valorBuscado) {
+		StringUtils.containsIgnoreCase(this.username, valorBuscado)
 	}
 }
