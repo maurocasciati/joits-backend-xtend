@@ -1,6 +1,5 @@
 package vistas
 
-import org.uqbar.arena.windows.Window
 import viewModels.PanelControlViewModel
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
@@ -19,15 +18,16 @@ import org.uqbar.arena.bindings.ObservableProperty
 import domain.Contenido
 import org.uqbar.arena.widgets.GroupPanel
 import org.uqbar.commons.model.utils.ObservableUtils
+import org.uqbar.arena.aop.windows.TransactionalDialog
 
-class PanelControl extends Window<PanelControlViewModel> {
+class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 
 	new(WindowOwner owner, Usuario usuarioLogueado) {
 		super(owner, new PanelControlViewModel)
 		modelObject.usuarioLogueado = usuarioLogueado
 	}
 
-	override createContents(Panel mainPanel) {
+	override createFormPanel(Panel mainPanel) {
 		mainPanel.layout = new VerticalLayout
 		new GroupPanel(mainPanel) => [
 			layout = new HorizontalLayout
@@ -123,5 +123,6 @@ class PanelControl extends Window<PanelControlViewModel> {
 			alignLeft
 		]
 	}
+	
 
 }
