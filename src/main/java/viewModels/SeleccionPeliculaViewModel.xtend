@@ -10,6 +10,7 @@ import domain.Funcion
 import java.util.ArrayList
 import org.uqbar.commons.model.annotations.Dependencies
 import domain.Usuario
+import domain.Entrada
 
 @Accessors
 @Observable
@@ -19,7 +20,6 @@ class SeleccionPeliculaViewModel {
 	LocalDate fechaHoy = LocalDate.now
 
 	List<Contenido> peliculas = RepoLocator.getRepoContenido.pool
-	List<Funcion> carrito = new ArrayList()
 	Contenido peliculaSeleccionada
 	Funcion funcionSeleccionada
 
@@ -56,12 +56,11 @@ class SeleccionPeliculaViewModel {
 	}
 
 	def agregarAlCarrito() {
-		carrito.add(funcionSeleccionada)
+		usuarioLogueado.carrito.add(new Entrada(funcionSeleccionada))
 	}
 
-	@Dependencies("carrito")
 	def getCantidadItemsCarrito() {
-		carrito.size
+		usuarioLogueado.carrito.size
 	}
 
 }

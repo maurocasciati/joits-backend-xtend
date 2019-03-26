@@ -19,6 +19,7 @@ import org.uqbar.commons.model.utils.ObservableUtils
 import domain.Funcion
 import org.uqbar.arena.bindings.NotNullObservable
 import domain.Usuario
+import org.uqbar.arena.layout.ColumnLayout
 
 class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 
@@ -40,39 +41,21 @@ class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 				agregarPanelPeliculas()
 				agregarPanelFunciones()
 			]
-			new Button(it) => [
-				caption = "Agregar entrada al carrito"
-				bindEnabled(new NotNullObservable("funcionSeleccionada"))
-				onClick[
-					this.modelObject.agregarAlCarrito()
-				]
-			]
-			new Panel(it) => [
-				layout = new HorizontalLayout
-				agregarLineaValor("Items en carrito: ", "cantidadItemsCarrito")
-				new Button(it) => [
-					caption = "Finalizar la compra"
-					onClick[
-						//TODO: Agregar msj error cuando el carrito esta vacio, y bindear con vista finalizarCompra
-					]
-				]
-				// TODO: Alinear boton a la derecha
-				new Button(it) => [
-					caption = "Panel de control"
-					onClick[
-						new PanelControl(this,modelObject.usuarioLogueado).open
-					]
-				]
-			]
 		]
 	}
 
 	def agregarBarraUsuario(Panel panel) {
 		new Panel(panel) => [
-			layout = new HorizontalLayout
+			layout = new ColumnLayout(3)
 			agregarLineaValor("Usuario logueado:", "usuarioLogueado.username")
-			// TODO: Alinear fecha a la derecha
 			agregarLineaValor("Fecha: ", "fechaHoy")
+			new Button(it) => [
+				width = 290
+				caption = "Panel de control"
+				onClick[
+					new PanelControl(this, modelObject.usuarioLogueado).open
+				]
+			]
 		]
 	}
 
@@ -154,7 +137,26 @@ class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 			layout = new VerticalLayout
 			title = "Funciones:"
 			agregarTablaFunciones()
-			agregarLineaValor("Importe de la entrada seleccionada: ", "funcionSeleccionada.precio")
+			new Panel(it) => [
+				layout = new ColumnLayout(2)
+				agregarLineaValor("Importe de la entrada: ", "funcionSeleccionada.precio")
+				new Button(it) => [
+					caption = "Agregar al carrito"
+					bindEnabled(new NotNullObservable("funcionSeleccionada"))
+					onClick[
+						this.modelObject.agregarAlCarrito()
+						ObservableUtils.firePropertyChanged(this.modelObject, "cantidadItemsCarrito")
+					]
+				]
+			]
+			agregarLineaValor("Items en carrito: ", "cantidadItemsCarrito")
+			new Button(it) => [
+				caption = "Finalizar la compra"
+				bindEnabled(new NotNullObservable("usuarioLogueado.carrito"))
+				onClick[
+					new FinalizarCompra(this, modelObject.usuarioLogueado).open
+				]
+			]
 		]
 
 	}
@@ -163,7 +165,7 @@ class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 		new Table<Funcion>(panel, typeof(Funcion)) => [
 			items <=> "funciones"
 			value <=> "funcionSeleccionada"
-			numberVisibleRows = 13
+			numberVisibleRows = 10
 			new Column(it) => [
 				title = "Fecha"
 				bindContentsToProperty("fecha")
