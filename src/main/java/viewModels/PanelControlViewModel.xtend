@@ -2,9 +2,9 @@ package viewModels
 
 import domain.Usuario
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Observable
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
-@Observable
+@TransactionalAndObservable
 @Accessors
 class PanelControlViewModel {
 	Usuario usuarioLogueado
