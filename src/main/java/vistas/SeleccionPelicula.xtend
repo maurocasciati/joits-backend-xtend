@@ -78,7 +78,7 @@ class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 			new GroupPanel(it) => [
 				layout = new VerticalLayout
 				title = "Buscador de Películas:"
-				agregarBuscador()
+				agregarBuscador("Buscador: ","valorDeBusqueda","resultadoBusqueda")
 				agregarTabla("resultadoBusqueda", 6)
 			]
 			new GroupPanel(it) => [
@@ -90,17 +90,21 @@ class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 
 	}
 
-	def agregarBuscador(Panel panel) {
+	def agregarBuscador(Panel panel, String nombre, String valorBuscado, String listaResultado) {
 		var valorPanel = new Panel(panel)
 		valorPanel.layout = new HorizontalLayout
+		new Label(valorPanel) => [
+			text = nombre
+			alignLeft
+		]
 		new TextBox(valorPanel) => [
-			value <=> "valorDeBusqueda"
-			width = 400
+			value <=> valorBuscado
+			width=200
 			alignLeft
 		]
 		new Button(valorPanel) => [
 			caption = "Buscar"
-			onClick[ObservableUtils.firePropertyChanged(this.modelObject, "resultadoBusqueda")]
+			onClick[ObservableUtils.firePropertyChanged(this.modelObject, listaResultado)]
 		]
 	}
 
