@@ -15,7 +15,7 @@ class Usuario extends Entidad {
 	String apellido
 	String username
 	Integer edad
-	List<Usuario> listaDeAmigos
+	List<Usuario> listaDeAmigos = new ArrayList<Usuario>
 	BigDecimal saldo
 	String contrasenia
 	List<Entrada> entradas
@@ -62,4 +62,9 @@ class Usuario extends Entidad {
 	def Boolean coincide(String valorUsuario, String valorBuscado) {
 		StringUtils.containsIgnoreCase(valorUsuario, valorBuscado)
 	}
+	
+	def agregarAmigo(Usuario usuario){
+		if(!listaDeAmigos.contains(usuario)) listaDeAmigos.add(usuario)
+	}
+	
 }

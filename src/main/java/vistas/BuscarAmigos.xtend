@@ -16,6 +16,7 @@ import org.uqbar.commons.model.utils.ObservableUtils
 import viewModels.BuscarAmigosViewModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.bindings.NotNullObservable
 
 class BuscarAmigos extends TransactionalDialog<BuscarAmigosViewModel> {
 
@@ -23,23 +24,44 @@ class BuscarAmigos extends TransactionalDialog<BuscarAmigosViewModel> {
 		super(owner, new BuscarAmigosViewModel)
 		modelObject.usuarioLogueado = usuarioLogueado
 	}
+	
+	override addActions(Panel actionsPanel) {
+	}
 
 	override createFormPanel(Panel mainPanel) {
 		mainPanel.layout = new VerticalLayout
 		new GroupPanel(mainPanel) => [
 			layout = new VerticalLayout
 			title = "Buscar Persona"
-			agregarBuscador("Buscar usuario: ","valorBuscado","resultados")
+			agregarBuscador("Buscar usuario: ", "valorBuscado", "resultados")
 			new Panel(it) => [
-				width = 180
+				width = 200
 				agregarTablaUsuarios("resultados", "usuarioSeleccionado", 8)
 			]
 		]
 		new GroupPanel(mainPanel) => [
 			title = "Amigos sugeridos"
 			new Panel(it) => [
-				width = 180
+				width = 200
 				agregarTablaUsuarios("listadoSugeridos", "usuarioSeleccionado", 3)
+			]
+		]
+		new Panel(mainPanel) => [
+			layout = new HorizontalLayout
+			new Button(it) => [
+				caption = "Agregar a amigos"
+				bindEnabled(new NotNullObservable("usuarioSeleccionado"))
+				onClick[
+					modelObject.agregarAmigo
+				]
+				width = 100
+			]
+			new Button(it) => [
+				caption = "Volver"
+				onClick[
+					close
+				]
+				width = 100
 			]
 		]
 	}
