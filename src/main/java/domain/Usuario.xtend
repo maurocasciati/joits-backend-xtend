@@ -46,28 +46,20 @@ class Usuario extends Entidad {
 		var double[] precios = getCarrito.map[entrada|entrada.precio]
 		Arrays.stream(precios).sum();
 	}
-	
-	def cargarSaldo(Double monto){
+
+	def cargarSaldo(Double monto) {
 		saldo = saldo + new BigDecimal(monto)
 	}
-	
+
 	def Boolean coincideEnBusqueda(String valorBuscado) {
-		if(valorBuscado === null){
+		if (valorBuscado === null) {
 			throw new UserException("No se ingresó ningún valor de búsqueda")
+		} else {
+			coincide(nombre, valorBuscado) || coincide(apellido, valorBuscado) || coincide(username, valorBuscado)
 		}
-		else{
-			coincideNombre(valorBuscado) || coincideApellido(valorBuscado) || coincideUsername(valorBuscado)
-		}
-	}
-	def Boolean coincideNombre(String valorBuscado) {
-		StringUtils.containsIgnoreCase(this.nombre, valorBuscado)
 	}
 
-	def Boolean coincideApellido(String valorBuscado) {
-		StringUtils.containsIgnoreCase(this.apellido, valorBuscado)
-	}
-
-	def Boolean coincideUsername(String valorBuscado) {
-		StringUtils.containsIgnoreCase(this.username, valorBuscado)
+	def Boolean coincide(String valorUsuario, String valorBuscado) {
+		StringUtils.containsIgnoreCase(valorUsuario, valorBuscado)
 	}
 }
