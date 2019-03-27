@@ -15,10 +15,6 @@ class PanelControlViewModel {
 		return usuarioLogueado.nombre + " " + usuarioLogueado.apellido
 	}
 
-	def buscarAmigos() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-
 	def cargarSaldo() {
 		usuarioLogueado.cargarSaldo(saldoParaCargar)
 	}

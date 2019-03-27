@@ -75,7 +75,7 @@ class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 				]
 				new Button(it) => [
 					caption = "Buscar Amigos"
-					onClick[modelObject.buscarAmigos]
+					onClick[new BuscarAmigos(this, modelObject.usuarioLogueado).open]
 				]
 			]
 			new Panel(it) => [
