@@ -155,6 +155,7 @@ class SeleccionPelicula extends SimpleWindow<SeleccionPeliculaViewModel> {
 				bindEnabled(new NotNullObservable("usuarioLogueado.carrito"))
 				onClick[
 					new FinalizarCompra(this, modelObject.usuarioLogueado).open
+					ObservableUtils.firePropertyChanged(modelObject, "cantidadItemsCarrito")
 				]
 			]
 		]
