@@ -11,18 +11,26 @@ import java.util.ArrayList
 @Accessors
 class BuscarAmigosViewModel {
 	Usuario usuarioLogueado
-	Usuario amigoSeleccionado
+	Usuario usuarioSeleccionado
 	String valorBuscado = ""
-	List<Usuario> listado = RepoLocator.repoUsuario.pool
+	List<Usuario> listadoUsuarios = RepoLocator.repoUsuario.pool
 	
 	def void resetLista(){
-		listado = new ArrayList()
-		listado = RepoLocator.repoUsuario.pool
+		listadoUsuarios = new ArrayList()
+		listadoUsuarios = RepoLocator.repoUsuario.pool
 	}
 
 	def buscarAmigos() {
 		resetLista
-		listado = RepoLocator.repoUsuario.busqueda(valorBuscado)
+		listadoUsuarios = RepoLocator.repoUsuario.busqueda(valorBuscado)
+	}
+	
+	def List<Usuario> getResultados(){
+		listadoUsuarios.filter[usuario|usuario.coincideEnBusqueda(valorBuscado)].toList
+	}
+	
+	def List<Usuario> getListadoSugeridos(){
+		listadoUsuarios
 	}
 	
 
