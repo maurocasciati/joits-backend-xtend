@@ -58,21 +58,7 @@ class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 			title = "Amigos:"
 			new Panel(it) => [
 				width = 180
-				new Table<Usuario>(it, Usuario) => [
-					items <=> "usuarioLogueado.listaDeAmigos"
-					value <=> "amigoSeleccionado"
-					numberVisibleRows = 8
-					new Column<Usuario>(it) => [
-						title = "Nombre"
-						fixedSize = 90
-						bindContentsToProperty("nombre")
-					]
-					new Column<Usuario>(it) => [
-						title = "Apellido"
-						fixedSize = 90
-						bindContentsToProperty("apellido")
-					]
-				]
+				agregarTablaUsuarios("usuarioLogueado.listaDeAmigos","amigoSeleccionado",8)
 				new Button(it) => [
 					caption = "Buscar Amigos"
 					onClick[new BuscarAmigos(this, modelObject.usuarioLogueado).open]
@@ -124,5 +110,22 @@ class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 		]
 	}
 	
+	def agregarTablaUsuarios(Panel panel, String listado, String valorSeleccionado, Integer filas) {
+		new Table<Usuario>(panel, typeof(Usuario)) => [
+			items <=> listado
+			value <=> valorSeleccionado
+			numberVisibleRows = filas
+			new Column(it) => [
+				title = "Nombre"
+				bindContentsToProperty("nombre")
+				fixedSize = 100
+			]
+			new Column(it) => [
+				title = "Apellido"
+				bindContentsToProperty("apellido")
+				fixedSize = 100
+			]
+		]
+	}
 
 }
