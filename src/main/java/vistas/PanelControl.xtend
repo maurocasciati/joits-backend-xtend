@@ -46,6 +46,7 @@ class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 
 				new Button(it) => [
 					caption = "Cargar"
+					enabled <=> "pusoSaldo"
 					onClick[
 						modelObject.cargarSaldo
 						ObservableUtils.firePropertyChanged(this.modelObject, "saldoUsuario")
