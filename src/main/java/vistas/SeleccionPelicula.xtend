@@ -97,7 +97,7 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 					bindEnabled(new NotNullObservable("funcionSeleccionada"))
 					onClick[
 						this.modelObject.agregarAlCarrito()
-						actualizarVista(modelObject, "cantidadItemsCarrito")
+						actualizarVista("cantidadItemsCarrito")
 					]
 				]
 			]
@@ -107,7 +107,7 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 				bindEnabled(new NotNullObservable("usuarioLogueado.carrito"))
 				onClick[
 					new FinalizarCompra(this, modelObject.usuarioLogueado).open
-					actualizarVista(modelObject, "cantidadItemsCarrito")
+					actualizarVista("cantidadItemsCarrito")
 				]
 			]
 		]

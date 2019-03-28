@@ -48,8 +48,8 @@ class BuscarAmigos extends Ventana<BuscarAmigosViewModel> {
 				bindEnabled(new NotNullObservable("usuarioSeleccionado"))
 				onClick[
 					modelObject.agregarAmigo
-					actualizarVista(modelObject, "resultados")
-					actualizarVista(modelObject, "listadoSugeridos")
+					actualizarVista("resultados")
+					actualizarVista("listadoSugeridos")
 				]
 				width = 100
 			]

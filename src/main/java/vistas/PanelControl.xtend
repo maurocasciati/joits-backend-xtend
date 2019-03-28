@@ -48,7 +48,7 @@ class PanelControl extends Ventana<PanelControlViewModel> {
 					enabled <=> "pusoSaldo"
 					onClick[
 						modelObject.cargarSaldo
-						actualizarVista(modelObject, "saldoUsuario")
+						actualizarVista("saldoUsuario")
 					]
 				]
 			]
@@ -64,7 +64,7 @@ class PanelControl extends Ventana<PanelControlViewModel> {
 					caption = "Buscar Amigos"
 					onClick[
 						new BuscarAmigos(this, modelObject.usuarioLogueado).open
-						actualizarVista(modelObject, "listaDeAmigos")
+						actualizarVista("listaDeAmigos")
 					]
 				]
 			]

@@ -109,12 +109,12 @@ class FinalizarCompra extends Ventana<FinalizarCompraViewModel> {
 
 	def eliminarItem() {
 		modelObject.eliminarItem
-		actualizarVista(modelObject, "carrito")
+		actualizarVista("carrito")
 	}
 
 	def vaciarCarrito() {
 		modelObject.limpiarCarrito
-		actualizarVista(modelObject, "carrito")
+		actualizarVista("carrito")
 	}
 
 	def volverAtras() {
