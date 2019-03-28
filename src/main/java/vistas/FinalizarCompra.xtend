@@ -104,7 +104,7 @@ class FinalizarCompra extends Ventana<FinalizarCompraViewModel> {
 		crearColumnaParaTabla(tabla, "Nombre", "funcion.contenido.titulo", 200)
 		crearColumnaParaTabla(tabla, "Rating", "funcion.contenido.puntaje", 50)
 		crearColumnaParaTabla(tabla, "Género", "funcion.contenido.genero", 100)
-		crearColumnaParaTabla(tabla, "Precio", "precio", 100)
+		crearColumnaParaTabla(tabla, "Precio", "precioString", 100)
 	}
 
 	def eliminarItem() {

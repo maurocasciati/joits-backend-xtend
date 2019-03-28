@@ -23,4 +23,8 @@ class Entrada {
 		fechaCompra = LocalDateTime.now
 	}
 
+	def getPrecioString() {
+		"$" + precio.toString
+	}
+
 }
