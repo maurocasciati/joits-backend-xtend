@@ -53,6 +53,8 @@ class BuscarAmigos extends TransactionalDialog<BuscarAmigosViewModel> {
 				bindEnabled(new NotNullObservable("usuarioSeleccionado"))
 				onClick[
 					modelObject.agregarAmigo
+					ObservableUtils.firePropertyChanged(this.modelObject, "resultados")
+					ObservableUtils.firePropertyChanged(this.modelObject, "listadoSugeridos")					
 				]
 				width = 100
 			]
