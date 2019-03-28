@@ -37,7 +37,7 @@ class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 			new Panel(it) => [
 				layout = new VerticalLayout
 				agregarLineaValor("Usuario", "nombreApellidoUsuario")
-				agregarLineaCuadroTexto("Edad", "usuarioLogueado.edad")
+				agregarLineaCampoNumerico("Edad", "usuarioLogueado.edad")
 			]
 			new Panel(it) => [
 				layout = new VerticalLayout
