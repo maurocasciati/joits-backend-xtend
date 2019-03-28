@@ -139,8 +139,8 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			historial = #[matrix, duroDeMatar, redSocial, elDiaDeLaMarmota]
 		]
 
-//		aniston.listaDeAmigos = #[deNiro, scorsese, messi]
-//		cacho.listaDeAmigos = #[deNiro, scorsese, messi, aniston]
+		aniston.listaDeAmigos.addAll(deNiro, scorsese, messi)
+		cacho.listaDeAmigos.addAll(deNiro, aniston)
 		repoUsuarios.create(aniston)
 		repoUsuarios.create(cacho)
 		repoUsuarios.create(deNiro)
