@@ -23,9 +23,8 @@ class PanelControl extends Ventana<PanelControlViewModel> {
 		super(owner, new PanelControlViewModel)
 		modelObject.usuarioLogueado = usuarioLogueado
 	}
-	
-	override addActions(Panel actionsPanel){
-		
+
+	override protected addActions(Panel actionsPanel) {
 	}
 
 	override createFormPanel(Panel mainPanel) {
@@ -77,8 +76,19 @@ class PanelControl extends Ventana<PanelControlViewModel> {
 				]
 				new List(it) => [
 					width = 180
-					height = 100
+					height = 130
 					bindItems(new ObservableProperty("amigoSeleccionado.historial"))
+				]
+				new Panel(it) => [
+					layout = new HorizontalLayout
+					new Button(it) => [
+						caption = "Aceptar"
+						onClick[accept]
+					]
+					new Button(it) => [
+						caption = "Volver"
+						onClick[cancel]
+					]
 				]
 			]
 		]
