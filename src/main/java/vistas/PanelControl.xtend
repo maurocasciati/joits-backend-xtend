@@ -19,6 +19,7 @@ import domain.Contenido
 import org.uqbar.arena.widgets.GroupPanel
 import org.uqbar.commons.model.utils.ObservableUtils
 import org.uqbar.arena.aop.windows.TransactionalDialog
+import org.uqbar.arena.widgets.NumericField
 
 class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 
@@ -41,7 +42,7 @@ class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 			new Panel(it) => [
 				layout = new VerticalLayout
 				agregarLineaValor("Saldo", "saldoUsuario")
-				agregarLineaCuadroTexto("Cargar Saldo", "saldoParaCargar")
+				agregarLineaCampoNumerico("Cargar Saldo", "saldoParaCargar")
 
 				new Button(it) => [
 					caption = "Cargar"
@@ -58,7 +59,7 @@ class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 			title = "Amigos:"
 			new Panel(it) => [
 				width = 180
-				agregarTablaUsuarios("usuarioLogueado.listaDeAmigos","amigoSeleccionado",8)
+				agregarTablaUsuarios("usuarioLogueado.listaDeAmigos", "amigoSeleccionado", 8)
 				new Button(it) => [
 					caption = "Buscar Amigos"
 					onClick[new BuscarAmigos(this, modelObject.usuarioLogueado).open]
@@ -109,7 +110,22 @@ class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 			alignLeft
 		]
 	}
-	
+
+	def void agregarLineaCampoNumerico(Panel panel, String nombre, String valor) {
+		var valorPanel = new Panel(panel)
+		valorPanel.layout = new HorizontalLayout
+		new Label(valorPanel) => [
+			text = nombre
+			width = 100
+			alignLeft
+		]
+		new NumericField(valorPanel) => [
+			value <=> valor
+			width = 50
+			alignLeft
+		]
+	}
+
 	def agregarTablaUsuarios(Panel panel, String listado, String valorSeleccionado, Integer filas) {
 		new Table<Usuario>(panel, typeof(Usuario)) => [
 			items <=> listado
