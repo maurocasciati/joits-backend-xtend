@@ -47,6 +47,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		crearContenido
 		crearUsuarios
 		crearFunciones
+		agregarEntradasAUsuarios
 	}
 
 	def crearContenido() {
@@ -96,7 +97,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 50
 			saldo = new BigDecimal(330)
 			contrasenia = "jen123"
-			historial = #[matrix, duroDeMatar]
 		]
 
 		deNiro = new Usuario => [
@@ -106,7 +106,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 75
 			saldo = new BigDecimal(964)
 			contrasenia = "roberto"
-			historial = #[redSocial, pulpFiction]
 		]
 
 		scorsese = new Usuario => [
@@ -116,7 +115,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 76
 			saldo = new BigDecimal(167)
 			contrasenia = "Ms2000"
-			historial = #[warGames, volverAlFuturo]
 		]
 
 		cacho = new Usuario => [
@@ -126,7 +124,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 45
 			saldo = new BigDecimal(2020)
 			contrasenia = "c"
-			historial = #[matrix, duroDeMatar]
 		]
 
 		messi = new Usuario => [
@@ -136,7 +133,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 31
 			saldo = new BigDecimal(1312)
 			contrasenia = "L10forever"
-			historial = #[matrix, duroDeMatar, redSocial, elDiaDeLaMarmota]
 		]
 
 		aniston.listaDeAmigos.addAll(deNiro, scorsese, messi)
@@ -187,5 +183,18 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 				new Funcion(fecha.plusDays(randomNum).plusHours(randomNum2), cines.get(index), contenido))
 			i++
 		}
+	}
+
+	def agregarEntradasAUsuarios() {
+		aniston.entradas.addAll(new Entrada(volverAlFuturoIII.funciones.get(0)), new Entrada(warGames.funciones.get(2)),
+			new Entrada(losBañeros4.funciones.get(2)))
+		deNiro.entradas.addAll(new Entrada(elDiaDeLaMarmota.funciones.get(0)), new Entrada(matrix.funciones.get(1)))
+		cacho.entradas.addAll(new Entrada(volverAlFuturoI.funciones.get(0)), new Entrada(redSocial.funciones.get(1)),
+			new Entrada(losBañeros4.funciones.get(2)))
+		messi.entradas.addAll(new Entrada(volverAlFuturoII.funciones.get(2)), new Entrada(duroDeMatar.funciones.get(1)),
+			new Entrada(warGames.funciones.get(1)), new Entrada(elDiaDeLaMarmota.funciones.get(1)))
+		scorsese.entradas.addAll(new Entrada(matrix.funciones.get(2)), new Entrada(duroDeMatar.funciones.get(0)),
+			new Entrada(losBañeros4.funciones.get(1)), new Entrada(pulpFiction.funciones.get(2)),
+			new Entrada(volverAlFuturo.funciones.get(0)), new Entrada(redSocial.funciones.get(1)))
 	}
 }

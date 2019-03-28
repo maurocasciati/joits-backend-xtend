@@ -78,8 +78,7 @@ class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 				new List(it) => [
 					width = 180
 					height = 100
-					val peli = bindItems(new ObservableProperty("amigoSeleccionado.historial"))
-					peli.adaptWith(typeof(Contenido), "titulo")
+					bindItems(new ObservableProperty("amigoSeleccionado.historial"))
 				]
 			]
 		]

@@ -18,9 +18,12 @@ class Usuario extends Entidad {
 	List<Usuario> listaDeAmigos = new ArrayList<Usuario>
 	BigDecimal saldo
 	String contrasenia
-	List<Entrada> entradas
-	List<Contenido> historial
+	List<Entrada> entradas = new ArrayList<Entrada>
 	List<Entrada> carrito = new ArrayList<Entrada>
+
+	def getHistorial() {
+		entradas.map[entrada|entrada.funcion.contenido.titulo].toSet
+	}
 
 	def limpiarCarrito() {
 		carrito.clear
@@ -62,9 +65,9 @@ class Usuario extends Entidad {
 	def Boolean coincide(String valorUsuario, String valorBuscado) {
 		StringUtils.containsIgnoreCase(valorUsuario, valorBuscado)
 	}
-	
-	def agregarAmigo(Usuario usuario){
+
+	def agregarAmigo(Usuario usuario) {
 		if(!listaDeAmigos.contains(usuario)) listaDeAmigos.add(usuario)
 	}
-	
+
 }
