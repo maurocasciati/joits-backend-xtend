@@ -25,7 +25,11 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	Usuario deNiro
 	Usuario cacho
 	Usuario messi
+	Usuario paulina
+	Usuario cora
 	Pelicula matrix
+	Pelicula matrix2
+	Pelicula matrix3
 	Pelicula pulpFiction
 	Pelicula elDiaDeLaMarmota
 	Pelicula nueveReinas
@@ -37,6 +41,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	Pelicula volverAlFuturoII
 	Pelicula volverAlFuturoIII
 	Saga volverAlFuturo
+	Saga sagaMatrix
 
 	new() {
 		repoContenido = RepoLocator.getRepoContenido
@@ -53,6 +58,8 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	def crearContenido() {
 
 		matrix = new Pelicula("The Matrix", 8.7, "Ciencia Ficción", 1999)
+		matrix2 = new Pelicula("The Matrix: Reloaded", 7.2, "Ciencia Ficción", 2003)
+		matrix3 = new Pelicula("The Matrix: Revolution", 6.7, "Ciencia Ficción", 2003)
 		pulpFiction = new Pelicula("Pulp Fiction", 8.9, "Drama", 1994)
 		elDiaDeLaMarmota = new Pelicula("El día de la marmota", 8.0, "Comedia", 1993)
 		nueveReinas = new Pelicula("Nueve Reinas", 7.9, "Drama", 2000)
@@ -73,8 +80,20 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			peliculas = new ArrayList<Pelicula>
 			peliculas.addAll(volverAlFuturoI, volverAlFuturoII, volverAlFuturoIII)
 		]
+		sagaMatrix = new Saga => [
+			titulo = "Saga Matrix"
+			puntaje = 7.5
+			genero = "Ciencia Ficción"
+			anioRecopilacion = 2007
+			nivelClasico = 120
+			peliculas = new ArrayList<Pelicula>
+			peliculas.addAll(matrix, matrix2, matrix3)
+		]
 
 		repoContenido.create(matrix)
+		repoContenido.create(matrix2)
+		repoContenido.create(matrix3)
+		repoContenido.create(sagaMatrix)
 		repoContenido.create(duroDeMatar)
 		repoContenido.create(nueveReinas)
 		repoContenido.create(elDiaDeLaMarmota)
@@ -134,19 +153,44 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			saldo = new BigDecimal(1312)
 			contrasenia = "L10forever"
 		]
+		
+		paulina = new Usuario => [
+			nombre = "Paulina"
+			apellido = "Paulina"
+			username = "pau"
+			edad = 28
+			saldo = new BigDecimal(150)
+			contrasenia = "pau"
+		]
+		
+		cora = new Usuario => [
+			nombre = "Coralina"
+			apellido = "Rodriguez"
+			username = "cora"
+			edad = 28
+			saldo = new BigDecimal(150)
+			contrasenia = "cora"
+		]
 
 		aniston.listaDeAmigos.addAll(deNiro, scorsese, messi)
 		cacho.listaDeAmigos.addAll(deNiro, aniston)
+		cora.listaDeAmigos.addAll(deNiro, aniston, paulina, messi)
+		paulina.listaDeAmigos.addAll(cora, scorsese, messi)
 		repoUsuarios.create(aniston)
 		repoUsuarios.create(cacho)
 		repoUsuarios.create(deNiro)
 		repoUsuarios.create(messi)
 		repoUsuarios.create(scorsese)
+		repoUsuarios.create(cora)
+		repoUsuarios.create(paulina)
 	}
 
 	def crearFunciones() {
 
 		agregarFuncionesRandom(matrix, 12)
+		agregarFuncionesRandom(matrix2, 8)
+		agregarFuncionesRandom(matrix3, 6)
+		agregarFuncionesRandom(sagaMatrix, 7)
 		agregarFuncionesRandom(pulpFiction, 6)
 		agregarFuncionesRandom(duroDeMatar, 9)
 		agregarFuncionesRandom(elDiaDeLaMarmota, 5)
