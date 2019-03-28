@@ -63,4 +63,14 @@ class SeleccionPeliculaViewModel {
 		usuarioLogueado.carrito.size
 	}
 
+	@Dependencies("funcionSeleccionada")
+	def getPrecioEntrada() {
+		if (funcionSeleccionada === null) {
+			""
+		} else {
+			"$" + funcionSeleccionada.precio.toString
+		}
+
+	}
+
 }

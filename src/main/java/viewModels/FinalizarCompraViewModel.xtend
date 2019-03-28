@@ -27,7 +27,7 @@ class FinalizarCompraViewModel {
 
 	@Dependencies("carrito")
 	def getTotal() {
-		usuarioLogueado.totalCarrito
+		"$" + usuarioLogueado.totalCarrito.toString
 	}
 
 	@Dependencies("itemSeleccionado")

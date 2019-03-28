@@ -91,7 +91,7 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 			agregarTablaFunciones()
 			new Panel(it) => [
 				layout = new ColumnLayout(2)
-				agregarLineaValor("Importe de la entrada: ", "funcionSeleccionada.precio")
+				agregarLineaValor("Importe de la entrada: ", "precioEntrada")
 				new Button(it) => [
 					caption = "Agregar al carrito"
 					bindEnabled(new NotNullObservable("funcionSeleccionada"))

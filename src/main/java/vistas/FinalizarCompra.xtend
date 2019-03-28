@@ -33,7 +33,7 @@ class FinalizarCompra extends Ventana<FinalizarCompraViewModel> {
 			]
 			new Panel(it) => [
 				layout = new HorizontalLayout
-				agregarLineaValor("Total: ", "total")
+				agregarLineaValor("Total:", "total")
 				new Button(it) => [
 					caption = "Eliminar Item"
 					enabled <=> "seleccionoItem"
