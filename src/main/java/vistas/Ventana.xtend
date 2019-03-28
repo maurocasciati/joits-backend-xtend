@@ -14,7 +14,7 @@ import org.uqbar.arena.aop.windows.TransactionalDialog
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
-abstract class Ventana<T> extends TransactionalDialog<T> {
+abstract class Ventana<T> extends SimpleWindow<T> {
 
 	new(WindowOwner owner, T object) {
 		super(owner, object)
