@@ -19,4 +19,8 @@ class Entrada {
 		funcion.precio
 	}
 
+	def asignarFechaCompra() {
+		fechaCompra = LocalDateTime.now
+	}
+
 }

@@ -1,13 +1,13 @@
 package domain
 
-import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.List
 import java.math.BigDecimal
-import repositorios.Entidad
 import java.util.ArrayList
-import org.uqbar.commons.model.exceptions.UserException
 import java.util.Arrays
+import java.util.List
 import org.apache.commons.lang.StringUtils
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.exceptions.UserException
+import repositorios.Entidad
 
 @Accessors
 class Usuario extends Entidad {
@@ -38,7 +38,13 @@ class Usuario extends Entidad {
 			throw new UserException("Saldo insuficiente")
 		}
 		saldo -= new BigDecimal(totalCarrito)
+		agregarEntradasCarrito
 		limpiarCarrito
+	}
+
+	def agregarEntradasCarrito() {
+		carrito.forEach[entrada|entrada.asignarFechaCompra]
+		carrito.forEach[entrada|entradas.add(entrada)]
 	}
 
 	def noLeAlcanzaSaldo() {
