@@ -11,13 +11,13 @@ class PanelControlViewModel {
 	Usuario usuarioLogueado
 	Double saldoParaCargar
 	Usuario amigoSeleccionado
-	Integer edadUsuario 
-	
-	def setUsuarioLogueado(Usuario usuario){
+	Integer edadUsuario
+
+	def setUsuarioLogueado(Usuario usuario) {
 		usuarioLogueado = usuario
 		edadUsuario = usuario.edad
 	}
-	
+
 	def nombreApellidoUsuario() {
 		return usuarioLogueado.nombre + " " + usuarioLogueado.apellido
 	}
@@ -27,7 +27,7 @@ class PanelControlViewModel {
 	}
 
 	def getSaldoUsuario() {
-		usuarioLogueado.saldo
+		"$" + usuarioLogueado.saldo.toString
 	}
 
 	def getListaDeAmigos() {
@@ -38,7 +38,7 @@ class PanelControlViewModel {
 	def getPusoSaldo() {
 		saldoParaCargar !== null && saldoParaCargar !== 0
 	}
-	
+
 	def cambiarEdadUsuario() {
 		usuarioLogueado.edad = edadUsuario
 	}
