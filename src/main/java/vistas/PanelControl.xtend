@@ -36,7 +36,7 @@ class PanelControl extends Ventana<PanelControlViewModel> {
 			new Panel(it) => [
 				layout = new VerticalLayout
 				agregarLineaValor("Usuario", "nombreApellidoUsuario")
-				agregarLineaCampoNumerico("Edad", "usuarioLogueado.edad")
+				agregarLineaCampoNumerico("Edad", "edadUsuario")
 			]
 			new Panel(it) => [
 				layout = new VerticalLayout
@@ -83,11 +83,14 @@ class PanelControl extends Ventana<PanelControlViewModel> {
 					layout = new HorizontalLayout
 					new Button(it) => [
 						caption = "Aceptar"
-						onClick[accept]
+						onClick[
+							modelObject.cambiarEdadUsuario
+							close
+						]
 					]
 					new Button(it) => [
 						caption = "Volver"
-						onClick[cancel]
+						onClick[close]
 					]
 				]
 			]
