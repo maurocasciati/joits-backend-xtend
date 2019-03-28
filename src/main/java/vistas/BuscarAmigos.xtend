@@ -1,30 +1,25 @@
 package vistas
 
 import domain.Usuario
-import org.uqbar.arena.aop.windows.TransactionalDialog
+import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.GroupPanel
-import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.commons.model.utils.ObservableUtils
 import viewModels.BuscarAmigosViewModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.bindings.NotNullObservable
 
-class BuscarAmigos extends TransactionalDialog<BuscarAmigosViewModel> {
+class BuscarAmigos extends Ventana<BuscarAmigosViewModel> {
 
 	new(WindowOwner owner, Usuario usuarioLogueado) {
 		super(owner, new BuscarAmigosViewModel)
 		modelObject.usuarioLogueado = usuarioLogueado
 	}
-	
+
 	override addActions(Panel actionsPanel) {
 	}
 
@@ -33,7 +28,7 @@ class BuscarAmigos extends TransactionalDialog<BuscarAmigosViewModel> {
 		new GroupPanel(mainPanel) => [
 			layout = new VerticalLayout
 			title = "Buscar Persona"
-			agregarBuscador("Buscar usuario: ", "valorBuscado", "resultados")
+			agregarBuscador("Buscar usuario: ", "valorBuscado", "resultados", 50)
 			new Panel(it) => [
 				width = 200
 				agregarTablaUsuarios("resultados", "usuarioSeleccionado", 8)
@@ -53,8 +48,8 @@ class BuscarAmigos extends TransactionalDialog<BuscarAmigosViewModel> {
 				bindEnabled(new NotNullObservable("usuarioSeleccionado"))
 				onClick[
 					modelObject.agregarAmigo
-					ObservableUtils.firePropertyChanged(this.modelObject, "resultados")
-					ObservableUtils.firePropertyChanged(this.modelObject, "listadoSugeridos")					
+					actualizarVista(modelObject, "resultados")
+					actualizarVista(modelObject, "listadoSugeridos")
 				]
 				width = 100
 			]
@@ -69,38 +64,13 @@ class BuscarAmigos extends TransactionalDialog<BuscarAmigosViewModel> {
 	}
 
 	def agregarTablaUsuarios(Panel panel, String listado, String valorSeleccionado, Integer filas) {
-		new Table<Usuario>(panel, typeof(Usuario)) => [
+		val tablaUsuarios = new Table<Usuario>(panel, typeof(Usuario)) => [
 			items <=> listado
 			value <=> valorSeleccionado
 			numberVisibleRows = filas
-			new Column(it) => [
-				title = "Nombre"
-				bindContentsToProperty("nombre")
-				fixedSize = 100
-			]
-			new Column(it) => [
-				title = "Apellido"
-				bindContentsToProperty("apellido")
-				fixedSize = 100
-			]
 		]
-	}
-
-	def agregarBuscador(Panel panel, String nombre, String valorBuscado, String listaResultado) {
-		var valorPanel = new Panel(panel)
-		valorPanel.layout = new HorizontalLayout
-		new Label(valorPanel) => [
-			text = nombre
-			alignLeft
-		]
-		new TextBox(valorPanel) => [
-			value <=> valorBuscado
-			alignLeft
-		]
-		new Button(valorPanel) => [
-			caption = "Buscar"
-			onClick[ObservableUtils.firePropertyChanged(this.modelObject, listaResultado)]
-		]
+		crearColumnaParaTabla(tablaUsuarios, "Nombre", "nombre", 100)
+		crearColumnaParaTabla(tablaUsuarios, "Apellido", "apellido", 100)
 	}
 
 }

@@ -29,18 +29,17 @@ class FinalizarCompraViewModel {
 	def getTotal() {
 		usuarioLogueado.totalCarrito
 	}
-	
+
 	@Dependencies("itemSeleccionado")
 	def getSeleccionoItem() {
 		itemSeleccionado !== null
 	}
-	
+
 	@Dependencies("carrito")
 	def getCarritoNoVacio() {
 		!carrito.isEmpty
 	}
-	
-	@Dependencies("carrito")
+
 	def finalizarCompra() {
 		usuarioLogueado.finalizarCompra
 	}

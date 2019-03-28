@@ -1,31 +1,31 @@
 package vistas
 
-import viewModels.PanelControlViewModel
-import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Panel
+import domain.Usuario
+import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.GroupPanel
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.List
+import org.uqbar.arena.widgets.NumericField
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.tables.Table
-import org.uqbar.arena.widgets.tables.Column
+import org.uqbar.arena.windows.WindowOwner
+import viewModels.PanelControlViewModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.layout.VerticalLayout
-import domain.Usuario
-import org.uqbar.arena.widgets.List
-import org.uqbar.arena.bindings.ObservableProperty
-import domain.Contenido
-import org.uqbar.arena.widgets.GroupPanel
-import org.uqbar.commons.model.utils.ObservableUtils
-import org.uqbar.arena.aop.windows.TransactionalDialog
-import org.uqbar.arena.widgets.NumericField
 
-class PanelControl extends TransactionalDialog<PanelControlViewModel> {
+class PanelControl extends Ventana<PanelControlViewModel> {
 
 	new(WindowOwner owner, Usuario usuarioLogueado) {
 		super(owner, new PanelControlViewModel)
 		modelObject.usuarioLogueado = usuarioLogueado
+	}
+	
+	override addActions(Panel actionsPanel){
+		
 	}
 
 	override createFormPanel(Panel mainPanel) {
@@ -49,7 +49,7 @@ class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 					enabled <=> "pusoSaldo"
 					onClick[
 						modelObject.cargarSaldo
-						ObservableUtils.firePropertyChanged(this.modelObject, "saldoUsuario")
+						actualizarVista(modelObject, "saldoUsuario")
 					]
 				]
 			]
@@ -65,7 +65,7 @@ class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 					caption = "Buscar Amigos"
 					onClick[
 						new BuscarAmigos(this, modelObject.usuarioLogueado).open
-						ObservableUtils.firePropertyChanged(this.modelObject, "listaDeAmigos")
+						actualizarVista(modelObject, "listaDeAmigos")
 					]
 				]
 			]
@@ -81,21 +81,6 @@ class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 					bindItems(new ObservableProperty("amigoSeleccionado.historial"))
 				]
 			]
-		]
-	}
-
-	def void agregarLineaValor(Panel panel, String nombre, String valor) {
-		var valorPanel = new Panel(panel)
-		valorPanel.layout = new HorizontalLayout
-		new Label(valorPanel) => [
-			text = nombre
-			width = 100
-			alignLeft
-		]
-		new Label(valorPanel) => [
-			value <=> valor
-			width = 120
-			alignLeft
 		]
 	}
 
@@ -130,21 +115,13 @@ class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 	}
 
 	def agregarTablaUsuarios(Panel panel, String listado, String valorSeleccionado, Integer filas) {
-		new Table<Usuario>(panel, typeof(Usuario)) => [
+		val tablaUsuarios = new Table<Usuario>(panel, typeof(Usuario)) => [
 			items <=> listado
 			value <=> valorSeleccionado
 			numberVisibleRows = filas
-			new Column(it) => [
-				title = "Nombre"
-				bindContentsToProperty("nombre")
-				fixedSize = 100
-			]
-			new Column(it) => [
-				title = "Apellido"
-				bindContentsToProperty("apellido")
-				fixedSize = 100
-			]
 		]
+		crearColumnaParaTabla(tablaUsuarios, "Nombre", "nombre", 100)
+		crearColumnaParaTabla(tablaUsuarios, "Apellido", "apellido", 100)
 	}
 
 }

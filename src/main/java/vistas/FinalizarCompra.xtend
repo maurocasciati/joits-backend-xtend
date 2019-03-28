@@ -8,16 +8,13 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.GroupPanel
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
-import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.commons.model.utils.ObservableUtils
 import viewModels.FinalizarCompraViewModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
-class FinalizarCompra extends Dialog<FinalizarCompraViewModel> {
+class FinalizarCompra extends Ventana<FinalizarCompraViewModel> {
 
 	new(WindowOwner parent, Usuario usuarioLogueado) {
 		super(parent, new FinalizarCompraViewModel)
@@ -86,19 +83,6 @@ class FinalizarCompra extends Dialog<FinalizarCompraViewModel> {
 		]
 	}
 
-	def void agregarLineaValor(Panel panel, String nombre, String valor) {
-		var valorPanel = new Panel(panel)
-		valorPanel.layout = new HorizontalLayout
-		new Label(valorPanel) => [
-			text = nombre
-			alignLeft
-		]
-		new Label(valorPanel) => [
-			value <=> valor
-			alignLeft
-		]
-	}
-
 	def agregarPanelCarrito(Panel panel) {
 		new Panel(panel) => [
 			layout = new VerticalLayout
@@ -111,46 +95,26 @@ class FinalizarCompra extends Dialog<FinalizarCompraViewModel> {
 	}
 
 	def agregarTabla(Panel panel, String listado, Integer filas) {
-		new Table<Entrada>(panel, typeof(Entrada)) => [
+		val tabla = new Table<Entrada>(panel, typeof(Entrada)) => [
 			items <=> listado
 			value <=> "itemSeleccionado"
 			numberVisibleRows = filas
-			new Column(it) => [
-				title = "Nombre"
-				bindContentsToProperty("funcion.contenido.titulo")
-				fixedSize = 200
-			]
-			new Column(it) => [
-				title = "Rating"
-				bindContentsToProperty("funcion.contenido.puntaje")
-				fixedSize = 50
-			]
-			new Column(it) => [
-				title = "Género"
-				bindContentsToProperty("funcion.contenido.genero")
-				fixedSize = 100
-			]
-			new Column(it) => [
-				title = "Precio"
-				bindContentsToProperty("precio")
-				fixedSize = 100
-			]
 		]
 
+		crearColumnaParaTabla(tabla, "Nombre", "funcion.contenido.titulo", 200)
+		crearColumnaParaTabla(tabla, "Rating", "funcion.contenido.puntaje", 50)
+		crearColumnaParaTabla(tabla, "Género", "funcion.contenido.genero", 100)
+		crearColumnaParaTabla(tabla, "Precio", "precio", 100)
 	}
 
 	def eliminarItem() {
 		modelObject.eliminarItem
-		actualizarVista("carrito")
+		actualizarVista(modelObject, "carrito")
 	}
 
 	def vaciarCarrito() {
 		modelObject.limpiarCarrito
-		actualizarVista("carrito")
-	}
-
-	def actualizarVista(String propiedad) {
-		ObservableUtils.firePropertyChanged(this.modelObject, propiedad)
+		actualizarVista(modelObject, "carrito")
 	}
 
 	def volverAtras() {
