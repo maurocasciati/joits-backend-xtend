@@ -22,4 +22,8 @@ class PanelControlViewModel {
 	def getSaldoUsuario() {
 		usuarioLogueado.saldo
 	}
+	
+	def getListaDeAmigos(){
+		usuarioLogueado.listaDeAmigos
+	}
 }

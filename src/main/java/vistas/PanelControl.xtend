@@ -59,10 +59,13 @@ class PanelControl extends TransactionalDialog<PanelControlViewModel> {
 			title = "Amigos:"
 			new Panel(it) => [
 				width = 180
-				agregarTablaUsuarios("usuarioLogueado.listaDeAmigos", "amigoSeleccionado", 8)
+				agregarTablaUsuarios("listaDeAmigos", "amigoSeleccionado", 8)
 				new Button(it) => [
 					caption = "Buscar Amigos"
-					onClick[new BuscarAmigos(this, modelObject.usuarioLogueado).open]
+					onClick[
+						new BuscarAmigos(this, modelObject.usuarioLogueado).open
+						ObservableUtils.firePropertyChanged(this.modelObject, "listaDeAmigos")
+					]
 				]
 			]
 			new Panel(it) => [
