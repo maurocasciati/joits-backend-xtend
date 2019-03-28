@@ -153,7 +153,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			saldo = new BigDecimal(1312)
 			contrasenia = "L10forever"
 		]
-		
+
 		paulina = new Usuario => [
 			nombre = "Paulina"
 			apellido = "Paulina"
@@ -162,7 +162,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			saldo = new BigDecimal(150)
 			contrasenia = "pau"
 		]
-		
+
 		cora = new Usuario => [
 			nombre = "Coralina"
 			apellido = "Rodriguez"
@@ -210,7 +210,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 
 	def agregarFuncionesRandom(Contenido contenido, int cantidad) {
 
-		var fecha = LocalDateTime.of(2019, Month.APRIL, 29, 18, 00, 40);
+		var fecha = LocalDateTime.of(2019, Month.APRIL, 29, 18, 00, 00);
 		var i = 0
 		var String[] cines = #["Hoyts Unicenter", "ShowCase", "Hoyts Dot", "ShowCase", "Cinemark Caballito",
 			"Bama Cine Arte", "Multiplex Belgrano", "Cine Lorca", "Cinemark Palermo", "Hoyts Abasto",
@@ -218,13 +218,17 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			"Village Recoleta", "Showcase", "Village Cines Caballito", "Atlas", "Sala Leopoldo Lugones",
 			"Hoyts Unicenter", "Multicenter", "Complejo Alejandro Dini", "Cine Viotti", "Lo de Casciati", "Helios",
 			"Cine Plaza", "Cinemark Solei"]
+		var minutos = #[0, 10, 15, 20, 25, 30, 35, 40, 45,  50]
 
 		while (i < cantidad) {
 			var int index = ThreadLocalRandom.current().nextInt(0, cines.size);
-			var int randomNum = ThreadLocalRandom.current().nextInt(-10, 10 + 1);
-			var int randomNum2 = ThreadLocalRandom.current().nextInt(-10, 10 + 1);
+			var int diasRandom = ThreadLocalRandom.current().nextInt(-10, 10 + 1);
+			var int horasRandom = ThreadLocalRandom.current().nextInt(-10, 10 + 1);
+			var int indexMinutos = ThreadLocalRandom.current().nextInt(0, minutos.size);
+
 			contenido.funciones.add(
-				new Funcion(fecha.plusDays(randomNum).plusHours(randomNum2), cines.get(index), contenido))
+				new Funcion(fecha.plusDays(diasRandom).plusHours(horasRandom).plusMinutes(minutos.get(indexMinutos)),
+					cines.get(index), contenido))
 			i++
 		}
 	}
