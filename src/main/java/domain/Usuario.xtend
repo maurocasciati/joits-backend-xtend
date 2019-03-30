@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.exceptions.UserException
 import repositorios.Entidad
+import com.fasterxml.jackson.annotation.JsonIgnore
 
 @Accessors
 class Usuario extends Entidad {
@@ -15,7 +16,7 @@ class Usuario extends Entidad {
 	String apellido
 	String username
 	Integer edad
-	List<Usuario> listaDeAmigos = new ArrayList<Usuario>
+	@JsonIgnore List<Usuario> listaDeAmigos = new ArrayList<Usuario>
 	BigDecimal saldo
 	String contrasenia
 	List<Entrada> entradas = new ArrayList<Entrada>
@@ -74,6 +75,10 @@ class Usuario extends Entidad {
 
 	def agregarAmigo(Usuario usuario) {
 		if(!listaDeAmigos.contains(usuario)) listaDeAmigos.add(usuario)
+	}
+	
+	def void eliminarAmigo(Usuario amigo){
+		listaDeAmigos.remove(amigo)
 	}
 
 }
