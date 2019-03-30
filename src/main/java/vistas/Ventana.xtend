@@ -10,7 +10,6 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.commons.model.utils.ObservableUtils
-import org.uqbar.arena.aop.windows.TransactionalDialog
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
