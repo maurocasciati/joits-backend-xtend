@@ -14,7 +14,7 @@ abstract class Contenido extends Entidad {
 	String titulo
 	Double puntaje
 	String genero // accion, comedia, drama, ciencia ficcion	
-	@JsonIgnore List<Funcion> funciones = new ArrayList<Funcion>
+	List<Funcion> funciones = new ArrayList<Funcion>
 
 	def Double precio()
 

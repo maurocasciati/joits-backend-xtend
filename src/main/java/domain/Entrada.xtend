@@ -1,5 +1,6 @@
 package domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.time.LocalDateTime
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
@@ -23,6 +24,7 @@ class Entrada {
 		fechaCompra = LocalDateTime.now
 	}
 
+	@JsonIgnore
 	def getPrecioString() {
 		"$" + precio.toString
 	}
