@@ -8,6 +8,7 @@ import org.uqbar.xtrest.api.annotation.Body
 import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.api.Result
 import domain.Usuario
+import org.uqbar.xtrest.api.annotation.Post
 
 @Controller
 class UsuariosApiRest {
@@ -54,6 +55,17 @@ class UsuariosApiRest {
 
 			RepoLocator.repoUsuario.updateRecord(actualizado)
 			ok('{ "status" : "OK" }');
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
+	}
+	
+	@Post("/login")
+	def Result login(@Body String body) {
+		try {
+			val user = body.getPropertyValue("user")
+			val pass = body.getPropertyValue("pass")
+			ok(RepoLocator.repoUsuario.getUsuario(user,pass).toJson);
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
