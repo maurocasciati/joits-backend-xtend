@@ -65,7 +65,7 @@ class UsuariosApiRest {
 		try {
 			val user = body.getPropertyValue("user")
 			val pass = body.getPropertyValue("pass")
-			ok(RepoLocator.repoUsuario.getUsuario(user,pass).toJson);
+			ok(RepoLocator.repoUsuario.getUsuario(user,pass).id.toJson);
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
