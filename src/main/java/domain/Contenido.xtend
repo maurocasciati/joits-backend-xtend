@@ -1,11 +1,10 @@
 package domain
 
-import repositorios.Entidad
+import java.util.ArrayList
+import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
-import java.util.List
-import java.util.ArrayList
-import com.fasterxml.jackson.annotation.JsonIgnore
+import repositorios.Entidad
 
 @Accessors
 @Observable
