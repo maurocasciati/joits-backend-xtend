@@ -1,13 +1,10 @@
 package application
 
+import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.annotation.Controller
 import org.uqbar.xtrest.api.annotation.Get
-import repositorios.RepoLocator
 import org.uqbar.xtrest.json.JSONUtils
-import org.uqbar.xtrest.api.annotation.Body
-import org.uqbar.xtrest.api.annotation.Put
-import org.uqbar.xtrest.api.Result
-import domain.Usuario
+import repositorios.RepoLocator
 
 @Controller
 class ContenidoApiRest {
