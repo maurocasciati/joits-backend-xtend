@@ -15,11 +15,13 @@ import repositorios.RepoContenido
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
 import domain.Entrada
+import repositorios.RepoEntrada
 
 class JoitsBootstrap extends CollectionBasedBootstrap {
 
 	RepoContenido repoContenido
 	RepoUsuario repoUsuarios
+	RepoEntrada repoEntradas
 	Usuario aniston
 	Usuario scorsese
 	Usuario deNiro
@@ -46,6 +48,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	new() {
 		repoContenido = RepoLocator.getRepoContenido
 		repoUsuarios = RepoLocator.getRepoUsuario
+		repoEntradas = RepoLocator.getRepoEntrada
 	}
 
 	override run() {
@@ -218,7 +221,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			"Village Recoleta", "Showcase", "Village Cines Caballito", "Atlas", "Sala Leopoldo Lugones",
 			"Hoyts Unicenter", "Multicenter", "Complejo Alejandro Dini", "Cine Viotti", "Lo de Casciati", "Helios",
 			"Cine Plaza", "Cinemark Solei"]
-		var minutos = #[0, 10, 15, 20, 25, 30, 35, 40, 45,  50]
+		var minutos = #[0, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
 		while (i < cantidad) {
 			var int index = ThreadLocalRandom.current().nextInt(0, cines.size);
@@ -234,15 +237,54 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	}
 
 	def agregarEntradasAUsuarios() {
-		aniston.entradas.addAll(new Entrada(volverAlFuturoIII.funciones.get(0)), new Entrada(warGames.funciones.get(2)),
-			new Entrada(losBañeros4.funciones.get(2)))
-		deNiro.entradas.addAll(new Entrada(elDiaDeLaMarmota.funciones.get(0)), new Entrada(matrix.funciones.get(1)))
-		cacho.entradas.addAll(new Entrada(volverAlFuturoI.funciones.get(0)), new Entrada(redSocial.funciones.get(1)),
-			new Entrada(losBañeros4.funciones.get(2)))
-		messi.entradas.addAll(new Entrada(volverAlFuturoII.funciones.get(2)), new Entrada(duroDeMatar.funciones.get(1)),
-			new Entrada(warGames.funciones.get(1)), new Entrada(elDiaDeLaMarmota.funciones.get(1)))
-		scorsese.entradas.addAll(new Entrada(matrix.funciones.get(2)), new Entrada(duroDeMatar.funciones.get(0)),
-			new Entrada(losBañeros4.funciones.get(1)), new Entrada(pulpFiction.funciones.get(2)),
-			new Entrada(volverAlFuturo.funciones.get(0)), new Entrada(redSocial.funciones.get(1)))
+		var entrada = new Entrada(volverAlFuturoIII.funciones.get(0))
+		var entrada2 = new Entrada(warGames.funciones.get(2))
+		var entrada3 = new Entrada(losBañeros4.funciones.get(2))
+		var entrada4 = new Entrada(elDiaDeLaMarmota.funciones.get(0))
+		var entrada5 = new Entrada(matrix.funciones.get(1))
+		var entrada6 = new Entrada(volverAlFuturoI.funciones.get(0))
+		var entrada7 = new Entrada(redSocial.funciones.get(1))
+		var entrada8 = new Entrada(losBañeros4.funciones.get(2))
+		var entrada9 = new Entrada(volverAlFuturoII.funciones.get(2))
+		var entrada10 = new Entrada(duroDeMatar.funciones.get(1))
+		var entrada11 = new Entrada(warGames.funciones.get(1))
+		var entrada12 = new Entrada(elDiaDeLaMarmota.funciones.get(1))
+		var entrada13 = new Entrada(duroDeMatar.funciones.get(0))
+		var entrada14 = new Entrada(volverAlFuturoII.funciones.get(2))
+		var entrada15 = new Entrada(pulpFiction.funciones.get(2))
+		var entrada16 = new Entrada(volverAlFuturo.funciones.get(0))
+		var entrada17 = new Entrada(redSocial.funciones.get(1))
+
+		repoEntradas.create(entrada)
+		repoEntradas.create(entrada2)
+		repoEntradas.create(entrada3)
+		repoEntradas.create(entrada4)
+		repoEntradas.create(entrada5)
+		repoEntradas.create(entrada6)
+		repoEntradas.create(entrada7)
+		repoEntradas.create(entrada8)
+		repoEntradas.create(entrada9)
+		repoEntradas.create(entrada10)
+		repoEntradas.create(entrada11)
+		repoEntradas.create(entrada12)
+		repoEntradas.create(entrada13)
+		repoEntradas.create(entrada14)
+		repoEntradas.create(entrada15)
+		repoEntradas.create(entrada16)
+		repoEntradas.create(entrada17)
+
+		aniston.entradas.addAll(entrada, entrada2, entrada3)
+		deNiro.entradas.addAll(entrada4, entrada5)
+		cacho.entradas.addAll(entrada6, entrada7)
+		cacho.carrito.addAll( entrada8)
+		messi.entradas.addAll(entrada9, entrada10, entrada11, entrada12)
+
+		scorsese.entradas.addAll(
+			entrada13,
+			entrada14,
+			entrada15,
+			entrada16,
+			entrada17
+		)
 	}
 }

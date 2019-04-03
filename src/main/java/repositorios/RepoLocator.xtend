@@ -11,8 +11,13 @@ class RepoLocator {
 		RepoUsuario.getInstance
 	}
 
+	def static getRepoEntrada() {
+		RepoEntrada.getInstance
+	}
+
 	def static resetAll() {
 		getRepoContenido.pool = new ArrayList
 		getRepoUsuario.pool = new ArrayList
+		getRepoEntrada.pool = new ArrayList
 	}
 }
