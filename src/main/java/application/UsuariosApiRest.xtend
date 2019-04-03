@@ -9,6 +9,7 @@ import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.api.Result
 import domain.Usuario
 import org.uqbar.xtrest.api.annotation.Post
+import repositorios.RepoEntrada
 
 @Controller
 class UsuariosApiRest {
@@ -59,13 +60,46 @@ class UsuariosApiRest {
 			badRequest(e.message)
 		}
 	}
-	
+
 	@Post("/login")
 	def Result login(@Body String body) {
 		try {
 			val user = body.getPropertyValue("user")
 			val pass = body.getPropertyValue("pass")
-			ok(RepoLocator.repoUsuario.getUsuario(user,pass).id.toJson);
+			ok(RepoLocator.repoUsuario.getUsuario(user, pass).id.toJson);
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
+	}
+
+	@Get("/usuario/carrito/:id")
+	def getCarritoUsuario() {
+		val idUsuario = Integer.parseInt(id)
+		val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
+		return ok(usuario.carrito.toJson)
+	}
+
+	@Put("/usuario/finalizar-compra/:id")
+	def Result finalizarCompra() {
+		try {
+			val idUsuario = Integer.parseInt(id)
+			val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
+			usuario.finalizarCompra()
+			ok('{ "status" : "OK" }');
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
+	}
+
+	@Put("/usuario/eliminar-item-carrito/:id")
+	def Result eliminarItemCarrito(@Body String body) {
+		try {
+			val idUsuario = Integer.parseInt(id)
+			val idEntrada = Integer.parseInt(body.getPropertyValue("idEntrada"))
+			val entrada = RepoLocator.repoEntrada.searchById(idEntrada)
+			val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
+			usuario.eliminarItem(entrada)
+			ok('{ "status" : "OK" }');
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
