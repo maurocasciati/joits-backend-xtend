@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import java.time.LocalDateTime
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
+import repositorios.Entidad
 
 @Accessors
 @Observable
-class Entrada {
+class Entrada extends Entidad {
 
 	Funcion funcion
 	LocalDateTime fechaCompra
