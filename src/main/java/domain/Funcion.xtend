@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter
 class Funcion {
 	@JsonIgnore LocalDateTime fechaHora
 	String nombreSala
-	@JsonIgnore Contenido contenido
+	Contenido contenido
 
 	new(LocalDateTime _fechaHora, String _nombreSala, Contenido _contenido) {
 		fechaHora = _fechaHora
