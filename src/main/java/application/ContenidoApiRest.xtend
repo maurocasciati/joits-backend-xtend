@@ -15,6 +15,11 @@ class ContenidoApiRest {
 	def Result getContenidoEnCartelera() {
 		return ok(RepoLocator.repoContenido.pool.toList.toJson)
 	}
+	
+	@Get("/recomendaciones")
+	def Result getContenidoRecomendado() {
+		return ok(RepoLocator.repoContenido.pool.toList.subList(4, 7).toJson)
+	}
 
 	@Get("/funciones/:id")
 	def Result getFuncionesByIdContenido() {
