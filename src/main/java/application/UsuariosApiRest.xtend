@@ -91,6 +91,18 @@ class UsuariosApiRest {
 		}
 	}
 
+	@Put("/usuario/limpiar-carrito/:id")
+	def Result limpiarCarrito() {
+		try {
+			val idUsuario = Integer.parseInt(id)
+			val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
+			usuario.limpiarCarrito()
+			ok('{ "status" : "OK" }');
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
+	}
+
 	@Put("/usuario/eliminar-item-carrito/:id")
 	def Result eliminarItemCarrito(@Body String body) {
 		try {
