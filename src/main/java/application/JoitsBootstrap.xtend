@@ -254,6 +254,8 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		var entrada15 = new Entrada(pulpFiction.funciones.get(2))
 		var entrada16 = new Entrada(volverAlFuturo.funciones.get(0))
 		var entrada17 = new Entrada(redSocial.funciones.get(1))
+		val entrada18 = new Entrada(volverAlFuturoI.funciones.get(1))
+		val entrada19 = new Entrada(pulpFiction.funciones.get(0))
 
 		repoEntradas.create(entrada)
 		repoEntradas.create(entrada2)
@@ -275,8 +277,8 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
 		deNiro.entradas.addAll(entrada4, entrada5)
-		cacho.entradas.addAll(entrada6, entrada7)
-		cacho.carrito.addAll( entrada8)
+		cacho.entradas.addAll(entrada6, entrada7, entrada19)
+		cacho.carrito.addAll(entrada8, entrada18, entrada19)
 		messi.entradas.addAll(entrada9, entrada10, entrada11, entrada12)
 
 		scorsese.entradas.addAll(
