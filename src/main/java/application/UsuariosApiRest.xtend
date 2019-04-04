@@ -74,9 +74,13 @@ class UsuariosApiRest {
 
 	@Get("/usuario/carrito/:id")
 	def getCarritoUsuario() {
-		val idUsuario = Integer.parseInt(id)
-		val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
-		return ok(usuario.carrito.toJson)
+		try {
+			val idUsuario = Integer.parseInt(id)
+			val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
+			return ok(usuario.carrito.toJson)
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
 	}
 
 	@Put("/usuario/finalizar-compra/:id")
