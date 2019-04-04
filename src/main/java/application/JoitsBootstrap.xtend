@@ -65,8 +65,11 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		matrix3 = new Pelicula("The Matrix: Revolution", 6.7, "Ciencia Ficción", 2003)
 		pulpFiction = new Pelicula("Pulp Fiction", 8.9, "Drama", 1994)
 		elDiaDeLaMarmota = new Pelicula("El día de la marmota", 8.0, "Comedia", 1993)
+		elDiaDeLaMarmota.imdbID = "tt0107048"
 		nueveReinas = new Pelicula("Nueve Reinas", 7.9, "Drama", 2000)
+		nueveReinas.imdbID = "tt0247586"
 		duroDeMatar = new Pelicula("Duro de matar", 8.2, "Acción", 1988)
+		duroDeMatar.imdbID = "tt0095016"
 		redSocial = new Pelicula("Red Social", 7.7, "Drama", 2010)
 		warGames = new Pelicula("War Games", 8.7, "Ciencia Ficción", 1983)
 		losBañeros4 = new Pelicula("Los Bañeros 4: Los Rompeolas", 1.4, "Comedia", 2014)

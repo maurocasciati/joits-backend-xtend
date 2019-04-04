@@ -15,6 +15,7 @@ abstract class Contenido extends Entidad {
 	Double puntaje
 	String genero // accion, comedia, drama, ciencia ficcion	
 	@JsonIgnore List<Funcion> funciones = new ArrayList<Funcion>
+	String imdbID
 
 	def Double precio()
 
