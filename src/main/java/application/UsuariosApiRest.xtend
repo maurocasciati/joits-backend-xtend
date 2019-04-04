@@ -120,5 +120,18 @@ class UsuariosApiRest {
 			badRequest(e.message)
 		}
 	}
+	
+	@Put("/usuario/:id/cargar-saldo/")
+	def Result cargarSaldo(@Body String body) {
+		try {
+			val idUsuario = Integer.parseInt(id)
+			val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
+			val saldoACargar = Double.parseDouble(body.getPropertyValue("saldoACargar"))
+			usuario.cargarSaldo(saldoACargar)
+			ok('{ "status" : "OK" }');
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
+	}
 
 }
