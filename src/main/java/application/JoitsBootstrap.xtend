@@ -274,6 +274,8 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		repoEntradas.create(entrada15)
 		repoEntradas.create(entrada16)
 		repoEntradas.create(entrada17)
+		repoEntradas.create(entrada18)
+		repoEntradas.create(entrada19)
 
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
 		deNiro.entradas.addAll(entrada4, entrada5)
