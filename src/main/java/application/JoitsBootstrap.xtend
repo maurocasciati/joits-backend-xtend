@@ -209,9 +209,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		agregarFuncionesRandom(volverAlFuturoII, 7)
 		agregarFuncionesRandom(volverAlFuturoIII, 11)
 		agregarFuncionesRandom(volverAlFuturo, 4)
-
-		deNiro.carrito.addAll(new Entrada(matrix.funciones.get(0)), new Entrada(duroDeMatar.funciones.get(2)))
-
 	}
 
 	def agregarFuncionesRandom(Contenido contenido, int cantidad) {
@@ -240,25 +237,25 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	}
 
 	def agregarEntradasAUsuarios() {
-		var entrada = new Entrada(volverAlFuturoIII.funciones.get(0))
-		var entrada2 = new Entrada(warGames.funciones.get(2))
-		var entrada3 = new Entrada(losBañeros4.funciones.get(2))
-		var entrada4 = new Entrada(elDiaDeLaMarmota.funciones.get(0))
-		var entrada5 = new Entrada(matrix.funciones.get(1))
-		var entrada6 = new Entrada(volverAlFuturoI.funciones.get(0))
-		var entrada7 = new Entrada(redSocial.funciones.get(1))
-		var entrada8 = new Entrada(losBañeros4.funciones.get(2))
-		var entrada9 = new Entrada(volverAlFuturoII.funciones.get(2))
-		var entrada10 = new Entrada(duroDeMatar.funciones.get(1))
-		var entrada11 = new Entrada(warGames.funciones.get(1))
-		var entrada12 = new Entrada(elDiaDeLaMarmota.funciones.get(1))
-		var entrada13 = new Entrada(duroDeMatar.funciones.get(0))
-		var entrada14 = new Entrada(volverAlFuturoII.funciones.get(2))
-		var entrada15 = new Entrada(pulpFiction.funciones.get(2))
-		var entrada16 = new Entrada(volverAlFuturo.funciones.get(0))
-		var entrada17 = new Entrada(redSocial.funciones.get(1))
-		val entrada18 = new Entrada(volverAlFuturoI.funciones.get(1))
-		val entrada19 = new Entrada(pulpFiction.funciones.get(0))
+		var entrada = new Entrada(volverAlFuturoIII, volverAlFuturoIII.funciones.get(0))
+		var entrada2 = new Entrada(warGames, warGames.funciones.get(2))
+		var entrada3 = new Entrada(losBañeros4, losBañeros4.funciones.get(2))
+		var entrada4 = new Entrada(elDiaDeLaMarmota, elDiaDeLaMarmota.funciones.get(0))
+		var entrada5 = new Entrada(matrix, matrix.funciones.get(1))
+		var entrada6 = new Entrada(volverAlFuturoI, volverAlFuturoI.funciones.get(0))
+		var entrada7 = new Entrada(redSocial, redSocial.funciones.get(1))
+		var entrada8 = new Entrada(losBañeros4, losBañeros4.funciones.get(2))
+		var entrada9 = new Entrada(volverAlFuturoII, volverAlFuturoII.funciones.get(2))
+		var entrada10 = new Entrada(duroDeMatar, duroDeMatar.funciones.get(1))
+		var entrada11 = new Entrada(warGames, warGames.funciones.get(1))
+		var entrada12 = new Entrada(elDiaDeLaMarmota, elDiaDeLaMarmota.funciones.get(1))
+		var entrada13 = new Entrada(duroDeMatar, duroDeMatar.funciones.get(0))
+		var entrada14 = new Entrada(volverAlFuturoII, volverAlFuturoII.funciones.get(2))
+		var entrada15 = new Entrada(pulpFiction, pulpFiction.funciones.get(2))
+		var entrada16 = new Entrada(volverAlFuturo, volverAlFuturo.funciones.get(0))
+		var entrada17 = new Entrada(redSocial, redSocial.funciones.get(1))
+		val entrada18 = new Entrada(volverAlFuturoI, volverAlFuturoI.funciones.get(1))
+		val entrada19 = new Entrada(pulpFiction, pulpFiction.funciones.get(0))
 
 		repoEntradas.create(entrada)
 		repoEntradas.create(entrada2)
@@ -285,13 +282,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		cacho.entradas.addAll(entrada6, entrada7, entrada19)
 		cacho.carrito.addAll(entrada8, entrada18, entrada19)
 		messi.entradas.addAll(entrada9, entrada10, entrada11, entrada12)
-
-		scorsese.entradas.addAll(
-			entrada13,
-			entrada14,
-			entrada15,
-			entrada16,
-			entrada17
-		)
+		scorsese.entradas.addAll(entrada13, entrada14, entrada15, entrada16, entrada17)
 	}
 }

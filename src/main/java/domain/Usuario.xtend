@@ -23,7 +23,7 @@ class Usuario extends Entidad {
 	List<Entrada> carrito = new ArrayList<Entrada>
 
 	def getHistorial() {
-		entradas.map[entrada|entrada.funcion.contenido.titulo].toSet
+		entradas.map[entrada|entrada.contenido.titulo].toSet
 	}
 
 	def limpiarCarrito() {
@@ -76,8 +76,8 @@ class Usuario extends Entidad {
 	def agregarAmigo(Usuario usuario) {
 		if(!listaDeAmigos.contains(usuario)) listaDeAmigos.add(usuario)
 	}
-	
-	def void eliminarAmigo(Usuario amigo){
+
+	def void eliminarAmigo(Usuario amigo) {
 		listaDeAmigos.remove(amigo)
 	}
 

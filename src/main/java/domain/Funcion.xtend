@@ -12,12 +12,10 @@ import java.time.format.DateTimeFormatter
 class Funcion {
 	@JsonIgnore LocalDateTime fechaHora
 	String nombreSala
-	Contenido contenido
 
 	new(LocalDateTime _fechaHora, String _nombreSala, Contenido _contenido) {
 		fechaHora = _fechaHora
 		nombreSala = _nombreSala
-		contenido = _contenido
 	}
 
 	@JsonProperty("fechaHora")
@@ -35,10 +33,6 @@ class Funcion {
 	}
 
 	def Double precio() {
-		contenido.precio + precioFecha
-	}
-
-	def Double precioFecha() {
 		if(esFinDeSemana) 120.0 else if(esMiercoles) 50.0 else 80.0
 	}
 

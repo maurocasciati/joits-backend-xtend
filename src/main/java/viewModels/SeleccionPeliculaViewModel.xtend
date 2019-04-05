@@ -56,7 +56,7 @@ class SeleccionPeliculaViewModel {
 	}
 
 	def agregarAlCarrito() {
-		usuarioLogueado.carrito.add(new Entrada(funcionSeleccionada))
+		usuarioLogueado.carrito.add(new Entrada(peliculaSeleccionada, funcionSeleccionada))
 	}
 
 	def getCantidadItemsCarrito() {

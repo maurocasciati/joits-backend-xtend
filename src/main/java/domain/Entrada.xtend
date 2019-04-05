@@ -10,15 +10,20 @@ import repositorios.Entidad
 @Observable
 class Entrada extends Entidad {
 
+	Contenido contenido
 	Funcion funcion
 	LocalDateTime fechaCompra
 
-	new(Funcion _funcion) {
+	new(Contenido _contenido, Funcion _funcion) {
+		contenido = _contenido
 		funcion = _funcion
 	}
 
+	new() {
+	}
+
 	def Double getPrecio() {
-		funcion.precio
+		contenido.precio + funcion.precio
 	}
 
 	def asignarFechaCompra() {
