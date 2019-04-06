@@ -230,7 +230,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			var int indexMinutos = ThreadLocalRandom.current().nextInt(0, minutos.size);
 
 			contenido.funciones.add(
-				new Funcion(fecha.plusDays(diasRandom).plusHours(horasRandom).plusMinutes(minutos.get(indexMinutos)),
+				new Funcion(i,fecha.plusDays(diasRandom).plusHours(horasRandom).plusMinutes(minutos.get(indexMinutos)),
 					cines.get(index), contenido))
 			i++
 		}
