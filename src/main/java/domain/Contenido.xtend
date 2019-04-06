@@ -5,7 +5,6 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import repositorios.Entidad
-import com.fasterxml.jackson.annotation.JsonIgnore
 
 @Accessors
 @Observable
@@ -20,4 +19,9 @@ abstract class Contenido extends Entidad {
 	def Double precio()
 
 	def Integer getAnio()
+
+	def searchFuncionById(Integer id) {
+		funciones.findFirst[funcion|funcion.id == id]
+	}
+
 }
