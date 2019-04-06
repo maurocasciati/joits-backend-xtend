@@ -47,6 +47,10 @@ class Usuario extends Entidad {
 		carrito.forEach[entrada|entrada.asignarFechaCompra]
 		carrito.forEach[entrada|entradas.add(entrada)]
 	}
+	
+	def agregarAlCarrito(Contenido contenido, Funcion funcion){
+		carrito.add(new Entrada(contenido, funcion))
+	}
 
 	def noLeAlcanzaSaldo() {
 		totalCarrito > saldo.doubleValue
