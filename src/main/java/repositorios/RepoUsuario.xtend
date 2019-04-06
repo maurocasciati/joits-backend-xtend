@@ -20,12 +20,9 @@ class RepoUsuario extends Repositorio<Usuario> {
 		val Usuario usuario = pool.findFirst[object|object.username.contentEquals(username)]
 
 		if (usuario === null) {
-			throw new UserException("Nombre de usuario inexistente")
+			throw new UserException("Nombre de usuario y/o contraseña incorrectos")
 		}
 
-		if (!usuario.contrasenia.contentEquals(password)) {
-			throw new UserException("Contraseña incorrecta")
-		}
 		usuario
 	}
 
@@ -51,7 +48,7 @@ class RepoUsuario extends Repositorio<Usuario> {
 		}
 		instance
 	}
-	
+
 	def List<Usuario> busqueda(String valorBuscado) {
 		pool.filter[usuario|usuario.coincideEnBusqueda(valorBuscado)].toList
 	}
