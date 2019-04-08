@@ -1,5 +1,6 @@
 package application
 
+import domain.Entrada
 import domain.Usuario
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.annotation.Body
@@ -119,24 +120,27 @@ class UsuariosApiRest {
 			badRequest(e.message)
 		}
 	}
-	
+
 	@Put("/usuario/agregar-item-carrito/:id")
 	def Result agregarItemCarrito(@Body String body) {
 		try {
 			val idUsuario = Integer.parseInt(id)
 			val idContenido = Integer.parseInt(body.getPropertyValue("idContenido"))
 			val idFuncion = Integer.parseInt(body.getPropertyValue("idFuncion"))
-			
+
 			val contenido = RepoLocator.repoContenido.searchById(idContenido)
 			val funcion = contenido.searchFuncionById(idFuncion)
 			val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
-			usuario.agregarAlCarrito(contenido,funcion)
+			val entrada = new Entrada(contenido, funcion)
+			RepoLocator.repoEntrada.create(entrada)
+			usuario.agregarAlCarrito(entrada)
+
 			ok('{ "status" : "OK" }');
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
 	}
-	
+
 	@Put("/usuario/:id/cargar-saldo/")
 	def Result cargarSaldo(@Body String body) {
 		try {

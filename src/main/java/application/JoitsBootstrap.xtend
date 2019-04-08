@@ -279,7 +279,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
 		deNiro.entradas.addAll(entrada4, entrada5)
-		cacho.entradas.addAll(entrada6, entrada7, entrada19)
+		cacho.entradas.addAll(entrada6, entrada7)
 		cacho.carrito.addAll(entrada8, entrada18, entrada19)
 		messi.entradas.addAll(entrada9, entrada10, entrada11, entrada12)
 		scorsese.entradas.addAll(entrada13, entrada14, entrada15, entrada16, entrada17)
