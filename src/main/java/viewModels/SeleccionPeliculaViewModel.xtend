@@ -52,7 +52,6 @@ class SeleccionPeliculaViewModel {
 		} else {
 			new ArrayList()
 		}
-
 	}
 
 	def agregarAlCarrito() {
