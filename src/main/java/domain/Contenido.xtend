@@ -15,6 +15,7 @@ abstract class Contenido extends Entidad {
 	String genero // accion, comedia, drama, ciencia ficcion	
 	List<Funcion> funciones = new ArrayList<Funcion>
 	String imdbID
+	String trailerURL
 
 	def Double precio()
 

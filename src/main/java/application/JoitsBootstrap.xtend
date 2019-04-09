@@ -61,21 +61,34 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	def crearContenido() {
 
 		matrix = new Pelicula("The Matrix", 8.7, "Ciencia Ficción", 1999)
+		matrix.trailerURL = "https://www.youtube.com/watch?v=BRuDS0wcnW8"
 		matrix2 = new Pelicula("The Matrix: Reloaded", 7.2, "Ciencia Ficción", 2003)
+		matrix2.trailerURL = "https://www.youtube.com/watch?v=kYzz0FSgpSU"
 		matrix3 = new Pelicula("The Matrix: Revolution", 6.7, "Ciencia Ficción", 2003)
+		matrix3.trailerURL = "https://www.youtube.com/watch?v=hMbexEPAOQI"
 		pulpFiction = new Pelicula("Pulp Fiction", 8.9, "Drama", 1994)
+		pulpFiction.trailerURL = "https://www.youtube.com/watch?v=DkgTIjkVrY8"
 		elDiaDeLaMarmota = new Pelicula("El día de la marmota", 8.0, "Comedia", 1993)
 		elDiaDeLaMarmota.imdbID = "tt0107048"
+		elDiaDeLaMarmota.trailerURL = "https://www.youtube.com/watch?v=GncQtURdcE4"
 		nueveReinas = new Pelicula("Nueve Reinas", 7.9, "Drama", 2000)
 		nueveReinas.imdbID = "tt0247586"
+		nueveReinas.trailerURL = "https://www.youtube.com/watch?v=Awu9WonTVB0"
 		duroDeMatar = new Pelicula("Duro de matar", 8.2, "Acción", 1988)
 		duroDeMatar.imdbID = "tt0095016"
+		duroDeMatar.trailerURL = "https://www.youtube.com/watch?v=2TQ-pOvI6Xo"
 		redSocial = new Pelicula("Red Social", 7.7, "Drama", 2010)
+		redSocial.trailerURL = "https://www.youtube.com/watch?v=TQAGdBecBuk"
 		warGames = new Pelicula("War Games", 8.7, "Ciencia Ficción", 1983)
+		warGames.trailerURL = "https://www.youtube.com/watch?v=hbqMuvnx5MU"
 		losBañeros4 = new Pelicula("Los Bañeros 4: Los Rompeolas", 1.4, "Comedia", 2014)
+		losBañeros4.trailerURL = "https://www.youtube.com/watch?v=qyvyF_APR6A"
 		volverAlFuturoI = new Pelicula("Volver al futuro I", 8.5, "Ciencia Ficción", 1985)
+		volverAlFuturoI.trailerURL = "https://www.youtube.com/watch?v=suUZWVnmgqc"
 		volverAlFuturoII = new Pelicula("Volver al futuro II", 7.8, "Ciencia Ficción", 1989)
+		volverAlFuturoII.trailerURL = "https://www.youtube.com/watch?v=Bmr2fgaoSxs"
 		volverAlFuturoIII = new Pelicula("Volver al futuro III", 7.4, "Ciencia Ficción", 1990)
+		volverAlFuturoIII.trailerURL = "https://www.youtube.com/watch?v=W5TvFkM1Uyg"
 
 		volverAlFuturo = new Saga => [
 			titulo = "Saga Volver al futuro"
@@ -85,6 +98,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			nivelClasico = 200
 			peliculas = new ArrayList<Pelicula>
 			peliculas.addAll(volverAlFuturoI, volverAlFuturoII, volverAlFuturoIII)
+			trailerURL = "https://www.youtube.com/watch?v=gGeEbDTNzos"
 		]
 		sagaMatrix = new Saga => [
 			titulo = "Saga Matrix"
@@ -94,6 +108,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			nivelClasico = 120
 			peliculas = new ArrayList<Pelicula>
 			peliculas.addAll(matrix, matrix2, matrix3)
+			trailerURL = "https://www.youtube.com/watch?v=ZOxRqas9vWk"
 		]
 
 		repoContenido.create(matrix)
@@ -230,7 +245,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			var int indexMinutos = ThreadLocalRandom.current().nextInt(0, minutos.size);
 
 			contenido.funciones.add(
-				new Funcion(i,fecha.plusDays(diasRandom).plusHours(horasRandom).plusMinutes(minutos.get(indexMinutos)),
+				new Funcion(i, fecha.plusDays(diasRandom).plusHours(horasRandom).plusMinutes(minutos.get(indexMinutos)),
 					cines.get(index), contenido))
 			i++
 		}
