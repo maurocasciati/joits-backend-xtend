@@ -101,9 +101,9 @@ class FinalizarCompra extends Ventana<FinalizarCompraViewModel> {
 			numberVisibleRows = filas
 		]
 
-		crearColumnaParaTabla(tabla, "Nombre", "funcion.contenido.titulo", 200)
-		crearColumnaParaTabla(tabla, "Rating", "funcion.contenido.puntaje", 50)
-		crearColumnaParaTabla(tabla, "Género", "funcion.contenido.genero", 100)
+		crearColumnaParaTabla(tabla, "Nombre", "contenido.titulo", 200)
+		crearColumnaParaTabla(tabla, "Rating", "contenido.puntaje", 50)
+		crearColumnaParaTabla(tabla, "Género", "contenido.genero", 100)
 		crearColumnaParaTabla(tabla, "Precio", "precioString", 100)
 	}
 
