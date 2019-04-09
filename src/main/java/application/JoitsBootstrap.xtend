@@ -98,7 +98,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			nivelClasico = 200
 			peliculas = new ArrayList<Pelicula>
 			peliculas.addAll(volverAlFuturoI, volverAlFuturoII, volverAlFuturoIII)
-			trailerURL = "https://www.youtube.com/watch?v=gGeEbDTNzos"
+			trailerURL = "https://www.youtube.com/watch?v=Ktx1uv-F8EU"
 		]
 		sagaMatrix = new Saga => [
 			titulo = "Saga Matrix"
