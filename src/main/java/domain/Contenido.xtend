@@ -2,13 +2,17 @@ package domain
 
 import java.util.ArrayList
 import java.util.List
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
-import repositorios.Entidad
 
 @Accessors
 @Observable
-abstract class Contenido extends Entidad {
+abstract class Contenido{
+	@Id
+	@GeneratedValue
+	Long id
 
 	String titulo
 	Double puntaje
@@ -21,7 +25,7 @@ abstract class Contenido extends Entidad {
 
 	def Integer getAnio()
 
-	def searchFuncionById(Integer id) {
+	def searchFuncionById(Long id) {
 		funciones.findFirst[funcion|funcion.id == id]
 	}
 

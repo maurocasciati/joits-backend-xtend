@@ -1,26 +1,34 @@
 package domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.math.BigDecimal
 import java.util.ArrayList
 import java.util.Arrays
 import java.util.List
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 import org.apache.commons.lang.StringUtils
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.exceptions.UserException
-import repositorios.Entidad
-import com.fasterxml.jackson.annotation.JsonIgnore
 
+@Entity
 @Accessors
-class Usuario extends Entidad {
+class Usuario{
+	@Id
+	@GeneratedValue
+	Long id
+	
+	
 	String nombre
 	String apellido
 	String username
 	Integer edad
-	@JsonIgnore List<Usuario> listaDeAmigos = new ArrayList<Usuario>
+	@JsonIgnore transient List<Usuario> listaDeAmigos = new ArrayList<Usuario>
 	BigDecimal saldo
 	String contrasenia
-	List<Entrada> entradas = new ArrayList<Entrada>
-	List<Entrada> carrito = new ArrayList<Entrada>
+	transient List<Entrada> entradas = new ArrayList<Entrada>
+	transient List<Entrada> carrito = new ArrayList<Entrada>
 
 	def getHistorial() {
 		entradas.map[entrada|entrada.contenido.titulo].toSet

@@ -2,14 +2,17 @@ package domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.time.LocalDateTime
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
-import repositorios.Entidad
 
 @Accessors
 @Observable
-class Entrada extends Entidad {
-
+class Entrada {
+	@Id
+	@GeneratedValue
+	Long id
 	Contenido contenido
 	Funcion funcion
 	LocalDateTime fechaCompra

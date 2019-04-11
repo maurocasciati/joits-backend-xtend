@@ -14,10 +14,10 @@ class BuscarAmigosViewModel {
 	String valorBuscado = ""
 	
 	def List<Usuario> getListadoUsuarios(){
-		RepoLocator.repoUsuario.pool.filter[usuario|
-			!usuarioLogueado.listaDeAmigos.contains(usuario) &&
-			!usuario.equals(usuarioLogueado)
-		].toList
+//		RepoLocator.repoUsuario.pool.filter[usuario|
+//			!usuarioLogueado.listaDeAmigos.contains(usuario) &&
+//			!usuario.equals(usuarioLogueado)
+//		].toList
 	}
 	
 	def List<Usuario> getResultados(){

@@ -9,16 +9,6 @@ class RepoEntrada extends Repositorio<Entrada> {
 	private new() {
 	}
 
-	override create(Entrada object) {
-//		object.validar // -> si tiene errores de validación, no puede sumar objecto al repo.
-		super.create(object)
-	}
-
-	override updateRecord(Entrada object) {
-		var objetoEncontrado = searchById(object.id)
-//		object.validar
-		updateFieldByField(objetoEncontrado, object)
-	}
 
 	protected def void updateFieldByField(Entrada encontrado, Entrada nuevoDato) {
 //		encontrado.titulo = nuevoDato.titulo
@@ -32,6 +22,10 @@ class RepoEntrada extends Repositorio<Entrada> {
 			instance = new RepoEntrada
 		}
 		instance
+	}
+	
+	override getEntityType() {
+		typeof(Entrada)
 	}
 
 }

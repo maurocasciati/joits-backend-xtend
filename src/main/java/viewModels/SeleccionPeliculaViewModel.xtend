@@ -19,7 +19,7 @@ class SeleccionPeliculaViewModel {
 	Usuario usuarioLogueado
 	LocalDate fechaHoy = LocalDate.now
 
-	List<Contenido> peliculas = RepoLocator.getRepoContenido.pool
+	List<Contenido> peliculas = RepoLocator.getRepoContenido.allInstances as List<Contenido>
 	Contenido peliculaSeleccionada
 	Funcion funcionSeleccionada
 
@@ -56,7 +56,7 @@ class SeleccionPeliculaViewModel {
 
 	def agregarAlCarrito() {
 		val entrada = new Entrada(peliculaSeleccionada, funcionSeleccionada)
-		RepoLocator.repoEntrada.create(entrada)
+//		RepoLocator.repoEntrada.create(entrada)
 		usuarioLogueado.agregarAlCarrito(entrada)
 	}
 

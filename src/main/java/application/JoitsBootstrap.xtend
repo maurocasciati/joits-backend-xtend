@@ -1,6 +1,7 @@
 package application
 
 import domain.Contenido
+import domain.Entrada
 import domain.Funcion
 import domain.Pelicula
 import domain.Saga
@@ -12,10 +13,9 @@ import java.util.ArrayList
 import java.util.concurrent.ThreadLocalRandom
 import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
 import repositorios.RepoContenido
+import repositorios.RepoEntrada
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
-import domain.Entrada
-import repositorios.RepoEntrada
 
 class JoitsBootstrap extends CollectionBasedBootstrap {
 
@@ -111,21 +111,21 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			trailerURL = "https://www.youtube.com/watch?v=ZOxRqas9vWk"
 		]
 
-		repoContenido.create(matrix)
-		repoContenido.create(matrix2)
-		repoContenido.create(matrix3)
-		repoContenido.create(sagaMatrix)
-		repoContenido.create(duroDeMatar)
-		repoContenido.create(nueveReinas)
-		repoContenido.create(elDiaDeLaMarmota)
-		repoContenido.create(pulpFiction)
-		repoContenido.create(redSocial)
-		repoContenido.create(volverAlFuturo)
-		repoContenido.create(volverAlFuturoI)
-		repoContenido.create(volverAlFuturoII)
-		repoContenido.create(volverAlFuturoIII)
-		repoContenido.create(warGames)
-		repoContenido.create(losBañeros4)
+//		repoContenido.create(matrix)
+//		repoContenido.create(matrix2)
+//		repoContenido.create(matrix3)
+//		repoContenido.create(sagaMatrix)
+//		repoContenido.create(duroDeMatar)
+//		repoContenido.create(nueveReinas)
+//		repoContenido.create(elDiaDeLaMarmota)
+//		repoContenido.create(pulpFiction)
+//		repoContenido.create(redSocial)
+//		repoContenido.create(volverAlFuturo)
+//		repoContenido.create(volverAlFuturoI)
+//		repoContenido.create(volverAlFuturoII)
+//		repoContenido.create(volverAlFuturoIII)
+//		repoContenido.create(warGames)
+//		repoContenido.create(losBañeros4)
 	}
 
 	def crearUsuarios() {
@@ -229,7 +229,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	def agregarFuncionesRandom(Contenido contenido, int cantidad) {
 
 		var fecha = LocalDateTime.of(2019, Month.APRIL, 29, 18, 00, 00);
-		var i = 0
+		var i = new Long(0)
 		var String[] cines = #["Hoyts Unicenter", "ShowCase", "Hoyts Dot", "ShowCase", "Cinemark Caballito",
 			"Bama Cine Arte", "Multiplex Belgrano", "Cine Lorca", "Cinemark Palermo", "Hoyts Abasto",
 			"Village Cines Recoleta", "Atlas Flores", "Cinemark", "Cine Teatro Ocean", "Arte Multiplex",
@@ -272,25 +272,25 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		val entrada18 = new Entrada(volverAlFuturoI, volverAlFuturoI.funciones.get(1))
 		val entrada19 = new Entrada(pulpFiction, pulpFiction.funciones.get(0))
 
-		repoEntradas.create(entrada)
-		repoEntradas.create(entrada2)
-		repoEntradas.create(entrada3)
-		repoEntradas.create(entrada4)
-		repoEntradas.create(entrada5)
-		repoEntradas.create(entrada6)
-		repoEntradas.create(entrada7)
-		repoEntradas.create(entrada8)
-		repoEntradas.create(entrada9)
-		repoEntradas.create(entrada10)
-		repoEntradas.create(entrada11)
-		repoEntradas.create(entrada12)
-		repoEntradas.create(entrada13)
-		repoEntradas.create(entrada14)
-		repoEntradas.create(entrada15)
-		repoEntradas.create(entrada16)
-		repoEntradas.create(entrada17)
-		repoEntradas.create(entrada18)
-		repoEntradas.create(entrada19)
+//		repoEntradas.create(entrada)
+//		repoEntradas.create(entrada2)
+//		repoEntradas.create(entrada3)
+//		repoEntradas.create(entrada4)
+//		repoEntradas.create(entrada5)
+//		repoEntradas.create(entrada6)
+//		repoEntradas.create(entrada7)
+//		repoEntradas.create(entrada8)
+//		repoEntradas.create(entrada9)
+//		repoEntradas.create(entrada10)
+//		repoEntradas.create(entrada11)
+//		repoEntradas.create(entrada12)
+//		repoEntradas.create(entrada13)
+//		repoEntradas.create(entrada14)
+//		repoEntradas.create(entrada15)
+//		repoEntradas.create(entrada16)
+//		repoEntradas.create(entrada17)
+//		repoEntradas.create(entrada18)
+//		repoEntradas.create(entrada19)
 
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
 		deNiro.entradas.addAll(entrada4, entrada5)

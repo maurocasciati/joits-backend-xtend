@@ -21,9 +21,9 @@ class LoginViewModel {
 	}
 
 	def aceptar(Login pantallaLogin) {
-		val Usuario usuario = repoUsuario.getUsuario(username, password)
+//		val Usuario usuario = repoUsuario.getUsuario(username, password)
 		pantallaLogin.accept
-		pantallaLogin.irASeleccionarPelicula(usuario)
+//		pantallaLogin.irASeleccionarPelicula(usuario)
 	}
 
 	@Dependencies("username", "password")

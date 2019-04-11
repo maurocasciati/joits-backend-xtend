@@ -1,8 +1,9 @@
 package repositorios
 
 import domain.Usuario
-import org.uqbar.commons.model.exceptions.UserException
-import java.util.List
+import javax.persistence.EntityManagerFactory
+import javax.persistence.Persistence
+import javax.persistence.PersistenceException
 
 class RepoUsuario extends Repositorio<Usuario> {
 
@@ -11,46 +12,52 @@ class RepoUsuario extends Repositorio<Usuario> {
 	private new() {
 	}
 
-	override create(Usuario object) {
-//		object.validar // -> si tiene errores de validación, no puede sumar objecto al repo.
-		super.create(object)
-	}
-
-	def getUsuario(String username, String password) {
-		val Usuario usuario = pool.findFirst[object|object.username.contentEquals(username)]
-
-		if (usuario === null) {
-			throw new UserException("Nombre de usuario y/o contraseña incorrectos")
-		}
-
-		usuario
-	}
-
-	override updateRecord(Usuario object) {
-		var objetoEncontrado = searchById(object.id)
-//		object.validar
-		updateFieldByField(objetoEncontrado, object)
-	}
-
-	protected def void updateFieldByField(Usuario encontrado, Usuario nuevoDato) {
-		encontrado.nombre = nuevoDato.nombre
-		encontrado.apellido = nuevoDato.apellido
-		encontrado.edad = nuevoDato.edad
-		encontrado.listaDeAmigos = nuevoDato.listaDeAmigos
-		encontrado.saldo = nuevoDato.saldo
-		encontrado.contrasenia = nuevoDato.contrasenia
-		encontrado.entradas = nuevoDato.entradas
-	}
-
 	def static getInstance() {
 		if (instance === null) {
 			instance = new RepoUsuario
 		}
 		instance
 	}
-
-	def List<Usuario> busqueda(String valorBuscado) {
-		pool.filter[usuario|usuario.coincideEnBusqueda(valorBuscado)].toList
+	
+	override getEntityType() {
+		typeof(Usuario)
 	}
+
+	static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("joits")
+
+	def getEntityManager() {
+		entityManagerFactory.createEntityManager
+	}
+
+	override allInstances() {
+		val entityManager = this.entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery(entityType)
+			val from = query.from(entityType)
+			query.select(from)
+			entityManager.createQuery(query).resultList
+		} finally {
+			entityManager?.close
+		}
+	}
+	
+	override create(Usuario usuario) {
+		val entityManager = this.entityManager
+		try {
+			entityManager => [
+				transaction.begin
+				persist(usuario)
+				transaction.commit
+			]
+		} catch (PersistenceException e) {
+			e.printStackTrace
+			entityManager.transaction.rollback
+			throw new RuntimeException("Ocurrió un error, la operación no puede completarse", e)
+		} finally {
+			entityManager.close
+		}
+	}
+	
 
 }
