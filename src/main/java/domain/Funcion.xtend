@@ -8,18 +8,22 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
+import javax.persistence.Entity
+import javax.persistence.Column
 
 @Accessors
 @Observable
-class Funcion{
+@Entity
+class Funcion {
 	@Id
 	@GeneratedValue
 	Long id
-	
-	@JsonIgnore LocalDateTime fechaHora
+
+	@JsonIgnore @Column LocalDateTime fechaHora
+	@Column(length=150)
 	String nombreSala
 
-	new(Long _id,LocalDateTime _fechaHora, String _nombreSala, Contenido _contenido) {
+	new(Long _id, LocalDateTime _fechaHora, String _nombreSala, Contenido _contenido) {
 		id = _id
 		fechaHora = _fechaHora
 		nombreSala = _nombreSala

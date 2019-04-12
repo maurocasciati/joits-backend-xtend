@@ -111,21 +111,21 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			trailerURL = "https://www.youtube.com/watch?v=ZOxRqas9vWk"
 		]
 
-//		repoContenido.create(matrix)
-//		repoContenido.create(matrix2)
-//		repoContenido.create(matrix3)
-//		repoContenido.create(sagaMatrix)
-//		repoContenido.create(duroDeMatar)
-//		repoContenido.create(nueveReinas)
-//		repoContenido.create(elDiaDeLaMarmota)
-//		repoContenido.create(pulpFiction)
-//		repoContenido.create(redSocial)
-//		repoContenido.create(volverAlFuturo)
-//		repoContenido.create(volverAlFuturoI)
-//		repoContenido.create(volverAlFuturoII)
-//		repoContenido.create(volverAlFuturoIII)
-//		repoContenido.create(warGames)
-//		repoContenido.create(losBañeros4)
+		repoContenido.create(matrix)
+		repoContenido.create(matrix2)
+		repoContenido.create(matrix3)
+		repoContenido.create(sagaMatrix)
+		repoContenido.create(duroDeMatar)
+		repoContenido.create(nueveReinas)
+		repoContenido.create(elDiaDeLaMarmota)
+		repoContenido.create(pulpFiction)
+		repoContenido.create(redSocial)
+		repoContenido.create(volverAlFuturo)
+		repoContenido.create(volverAlFuturoI)
+		repoContenido.create(volverAlFuturoII)
+		repoContenido.create(volverAlFuturoIII)
+		repoContenido.create(warGames)
+		repoContenido.create(losBañeros4)
 	}
 
 	def crearUsuarios() {
