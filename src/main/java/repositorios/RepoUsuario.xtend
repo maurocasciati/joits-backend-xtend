@@ -4,6 +4,9 @@ import domain.Usuario
 import javax.persistence.EntityManagerFactory
 import javax.persistence.Persistence
 import javax.persistence.PersistenceException
+import javax.persistence.criteria.CriteriaBuilder
+import javax.persistence.criteria.CriteriaQuery
+import javax.persistence.criteria.Root
 
 class RepoUsuario extends Repositorio<Usuario> {
 
@@ -18,46 +21,16 @@ class RepoUsuario extends Repositorio<Usuario> {
 		}
 		instance
 	}
-	
+
 	override getEntityType() {
 		typeof(Usuario)
 	}
 
-	static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("joits")
-
-	def getEntityManager() {
-		entityManagerFactory.createEntityManager
-	}
-
-	override allInstances() {
-		val entityManager = this.entityManager
-		try {
-			val criteria = entityManager.criteriaBuilder
-			val query = criteria.createQuery(entityType)
-			val from = query.from(entityType)
-			query.select(from)
-			entityManager.createQuery(query).resultList
-		} finally {
-			entityManager?.close
+	override generateWhere(CriteriaBuilder criteria, CriteriaQuery<Usuario> query, Root<Usuario> camposUsuario,
+		Usuario usuario) {
+		if (usuario.username !== null) {
+			query.where(criteria.equal(camposUsuario.get("username"), usuario.username))
 		}
 	}
-	
-	override create(Usuario usuario) {
-		val entityManager = this.entityManager
-		try {
-			entityManager => [
-				transaction.begin
-				persist(usuario)
-				transaction.commit
-			]
-		} catch (PersistenceException e) {
-			e.printStackTrace
-			entityManager.transaction.rollback
-			throw new RuntimeException("Ocurrió un error, la operación no puede completarse", e)
-		} finally {
-			entityManager.close
-		}
-	}
-	
 
 }
