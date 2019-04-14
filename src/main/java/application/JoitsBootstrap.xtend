@@ -192,11 +192,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			saldo = new BigDecimal(150)
 			contrasenia = "cora"
 		]
-
-		aniston.listaDeAmigos.addAll(deNiro, scorsese, messi)
-		cacho.listaDeAmigos.addAll(deNiro, aniston)
-		cora.listaDeAmigos.addAll(deNiro, aniston, paulina, messi)
-		paulina.listaDeAmigos.addAll(cora, scorsese, messi)
+		
 		repoUsuarios.create(aniston)
 		repoUsuarios.create(cacho)
 		repoUsuarios.create(deNiro)
@@ -204,6 +200,16 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		repoUsuarios.create(scorsese)
 		repoUsuarios.create(cora)
 		repoUsuarios.create(paulina)
+
+		aniston.listaDeAmigos.addAll(deNiro, scorsese, messi)
+		cacho.listaDeAmigos.addAll(deNiro, aniston)
+		cora.listaDeAmigos.addAll(deNiro, aniston, paulina, messi)
+		paulina.listaDeAmigos.addAll(cora, scorsese, messi)
+		
+		repoUsuarios.update(aniston)
+		repoUsuarios.update(cacho)
+		repoUsuarios.update(cora)
+		repoUsuarios.update(paulina)
 	}
 
 	def crearFunciones() {
