@@ -58,7 +58,7 @@ class JoitsBootstrap implements Bootstrap {
 		crearContenido
 		crearUsuarios
 		crearFunciones
-//		agregarEntradasAUsuarios
+		agregarEntradasAUsuarios
 	}
 
 	def crearContenido() {
