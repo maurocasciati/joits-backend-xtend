@@ -123,10 +123,10 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		repoContenido.create(elDiaDeLaMarmota)
 		repoContenido.create(pulpFiction)
 		repoContenido.create(redSocial)
-		repoContenido.create(volverAlFuturo)
 		repoContenido.create(volverAlFuturoI)
 		repoContenido.create(volverAlFuturoII)
 		repoContenido.create(volverAlFuturoIII)
+		repoContenido.create(volverAlFuturo)
 		repoContenido.create(warGames)
 		repoContenido.create(losBañeros4)
 	}
