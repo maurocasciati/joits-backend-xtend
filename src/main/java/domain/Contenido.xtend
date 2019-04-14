@@ -29,22 +29,25 @@ abstract class Contenido {
 
 	@Column(length=150)
 	String titulo
-	
+
 	@Column
 	Double puntaje
-	
+
 	@Column(length=100)
 	String genero // accion, comedia, drama, ciencia ficcion	
-	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name = "id_contenido")
+	@JoinColumn(name="id_contenido")
 	List<Funcion> funciones = new ArrayList<Funcion>
-	
+
 	@Column(length=60)
 	String imdbID
-	
+
 	@Column(length=150)
 	String trailerURL
+
+	@OneToMany()
+	@JoinColumn(name="id_saga")
+	List<Pelicula> peliculas
 
 	def Double precio()
 

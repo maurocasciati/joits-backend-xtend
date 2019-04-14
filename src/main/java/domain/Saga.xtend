@@ -1,11 +1,8 @@
 package domain
 
-import java.util.List
 import javax.persistence.Column
 import javax.persistence.DiscriminatorValue
 import javax.persistence.Entity
-import javax.persistence.JoinColumn
-import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 
@@ -18,11 +15,7 @@ class Saga extends Contenido {
 	val Double PRECIO_POR_PELICULA = 10.0
 	@Column
 	Integer anioRecopilacion
-	
-	@OneToMany
-	@JoinColumn(name = "id_saga")
-	List<Pelicula> peliculas
-	
+
 	@Column
 	Integer nivelClasico
 
