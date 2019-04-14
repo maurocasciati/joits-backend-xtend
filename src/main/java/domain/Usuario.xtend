@@ -5,9 +5,13 @@ import java.math.BigDecimal
 import java.util.ArrayList
 import java.util.Arrays
 import java.util.List
+import javax.persistence.CascadeType
+import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.ManyToMany
 import org.apache.commons.lang.StringUtils
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.exceptions.UserException
@@ -21,14 +25,28 @@ class Usuario{
 	@GeneratedValue
 	Long id
 	
-	
+	@Column(length=50)
 	String nombre
+	
+	@Column(length=50)
 	String apellido
+	
+	@Column(length=50)
 	String username
+	
+	@Column
 	Integer edad
-	@JsonIgnore transient List<Usuario> listaDeAmigos = new ArrayList<Usuario>
+
+	@JsonIgnore
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	List<Usuario> listaDeAmigos = new ArrayList<Usuario>
+	
+	@Column
 	BigDecimal saldo
+	
+	@Column(length=50)
 	String contrasenia
+
 	transient List<Entrada> entradas = new ArrayList<Entrada>
 	transient List<Entrada> carrito = new ArrayList<Entrada>
 
