@@ -16,7 +16,7 @@ class PanelControlViewModel {
 
 	def setUsuarioLogueado(Usuario usuario) {
 		usuarioLogueado = RepoLocator.repoUsuario.searchById(usuario.id)
-		edadUsuario = usuario.edad
+		edadUsuario = usuarioLogueado.edad
 	}
 
 	def nombreApellidoUsuario() {
@@ -25,6 +25,7 @@ class PanelControlViewModel {
 
 	def cargarSaldo() {
 		usuarioLogueado.cargarSaldo(saldoParaCargar)
+		RepoLocator.repoUsuario.update(usuarioLogueado)
 	}
 
 	def getSaldoUsuario() {
@@ -42,5 +43,6 @@ class PanelControlViewModel {
 
 	def cambiarEdadUsuario() {
 		usuarioLogueado.edad = edadUsuario
+		RepoLocator.repoUsuario.update(usuarioLogueado)
 	}
 }
