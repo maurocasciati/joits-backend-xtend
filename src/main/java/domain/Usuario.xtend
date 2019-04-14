@@ -11,50 +11,51 @@ import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.JoinColumn
 import javax.persistence.ManyToMany
 import javax.persistence.OneToMany
 import org.apache.commons.lang.StringUtils
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
-import javax.persistence.JoinColumn
+import java.util.Objects
 
 @Entity
 @Accessors
 @Observable
-class Usuario{
+class Usuario {
 	@Id
 	@GeneratedValue
 	Long id
-	
+
 	@Column(length=50)
 	String nombre
-	
+
 	@Column(length=50)
 	String apellido
-	
+
 	@Column(length=50)
 	String username
-	
+
 	@Column
 	Integer edad
 
 	@JsonIgnore
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	Set<Usuario> listaDeAmigos = new HashSet<Usuario>
-	
+
 	@Column
 	BigDecimal saldo
-	
+
 	@Column(length=50)
 	String contrasenia
 
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name = "id_usuario")
+	@JoinColumn(name="id_usuario")
 	Set<Entrada> entradas = new HashSet<Entrada>
-	
+
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name = "id_usuario")
+	@JoinColumn(name="id_usuario")
 	Set<Entrada> carrito = new HashSet<Entrada>
 
 	def getHistorial() {
@@ -118,6 +119,17 @@ class Usuario{
 
 	def void eliminarAmigo(Usuario amigo) {
 		listaDeAmigos.remove(amigo)
+	}
+
+	override equals(Object other) {
+		if (other instanceof Usuario) {
+			return (other as Usuario).id == id
+		}
+		false
+	}
+
+	override hashCode() {
+		Objects.hash(id, nombre, apellido)
 	}
 
 }
