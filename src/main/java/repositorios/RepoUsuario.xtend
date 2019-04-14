@@ -5,6 +5,7 @@ import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Root
 import org.uqbar.commons.model.exceptions.UserException
+import javax.persistence.criteria.JoinType
 
 class RepoUsuario extends Repositorio<Usuario> {
 
@@ -62,8 +63,8 @@ class RepoUsuario extends Repositorio<Usuario> {
 			val criteria = entityManager.criteriaBuilder
 			val query = criteria.createQuery
 			val camposUsuario = query.from(entityType)
-			val camposAmigos = camposUsuario.fetch("listaDeAmigos")
-			camposAmigos.fetch("entradas")
+			val camposAmigos = camposUsuario.fetch("listaDeAmigos", JoinType.LEFT)
+			camposAmigos.fetch("entradas", JoinType.LEFT)
 			query.select(camposUsuario)
 			query.where(criteria.equal(camposUsuario.get("id"), id))
 			val result = entityManager.createQuery(query).resultList
