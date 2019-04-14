@@ -19,12 +19,15 @@ class Saga extends Contenido {
 	@Column
 	Integer nivelClasico
 
+	@Column
+	Integer cantidadDePeliculas
+
 	override precio() {
 		return this.precioPorPeliculas + nivelClasico
 	}
 
 	def precioPorPeliculas() {
-		return peliculas.size * PRECIO_POR_PELICULA
+		return cantidadDePeliculas * PRECIO_POR_PELICULA
 	}
 
 	override getAnio() {

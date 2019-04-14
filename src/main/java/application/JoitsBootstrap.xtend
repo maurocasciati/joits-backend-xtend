@@ -102,6 +102,7 @@ class JoitsBootstrap implements Bootstrap {
 			peliculas = new ArrayList<Pelicula>
 			peliculas.addAll(volverAlFuturoI, volverAlFuturoII, volverAlFuturoIII)
 			trailerURL = "https://www.youtube.com/watch?v=Ktx1uv-F8EU"
+			cantidadDePeliculas = peliculas.length
 		]
 		sagaMatrix = new Saga => [
 			titulo = "Saga Matrix"
@@ -112,6 +113,7 @@ class JoitsBootstrap implements Bootstrap {
 			peliculas = new ArrayList<Pelicula>
 			peliculas.addAll(matrix, matrix2, matrix3)
 			trailerURL = "https://www.youtube.com/watch?v=ZOxRqas9vWk"
+			cantidadDePeliculas = peliculas.length
 		]
 
 		repoContenido.create(matrix)
@@ -195,7 +197,7 @@ class JoitsBootstrap implements Bootstrap {
 			saldo = new BigDecimal(150)
 			contrasenia = "cora"
 		]
-		
+
 		repoUsuarios.create(aniston)
 		repoUsuarios.create(cacho)
 		repoUsuarios.create(deNiro)
@@ -208,7 +210,7 @@ class JoitsBootstrap implements Bootstrap {
 		cacho.listaDeAmigos.addAll(deNiro, aniston)
 		cora.listaDeAmigos.addAll(deNiro, aniston, paulina, messi)
 		paulina.listaDeAmigos.addAll(cora, scorsese, messi)
-		
+
 		repoUsuarios.update(aniston)
 		repoUsuarios.update(cacho)
 		repoUsuarios.update(cora)
@@ -303,23 +305,23 @@ class JoitsBootstrap implements Bootstrap {
 		repoEntradas.create(entrada17)
 		repoEntradas.create(entrada18)
 		repoEntradas.create(entrada19)
-		
+
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
 		deNiro.entradas.addAll(entrada4, entrada5)
 		cacho.entradas.addAll(entrada6, entrada7)
 		cacho.carrito.addAll(entrada8, entrada18, entrada19)
 		messi.entradas.addAll(entrada9, entrada10, entrada11, entrada12)
 		scorsese.entradas.addAll(entrada13, entrada14, entrada15, entrada16, entrada17)
-		
+
 		repoUsuarios.update(aniston)
 		repoUsuarios.update(deNiro)
 		repoUsuarios.update(cacho)
 		repoUsuarios.update(messi)
 		repoUsuarios.update(scorsese)
 	}
-	
+
 	override isPending() {
 		RepoLocator.repoUsuario.searchByExample(new Usuario).isEmpty
 	}
-	
+
 }
