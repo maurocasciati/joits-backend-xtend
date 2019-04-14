@@ -11,14 +11,14 @@ import java.time.LocalDateTime
 import java.time.Month
 import java.util.ArrayList
 import java.util.concurrent.ThreadLocalRandom
-import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
 import repositorios.RepoContenido
 import repositorios.RepoEntrada
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
 import repositorios.RepoFuncion
+import org.uqbar.arena.bootstrap.Bootstrap
 
-class JoitsBootstrap extends CollectionBasedBootstrap {
+class JoitsBootstrap implements Bootstrap {
 
 	RepoContenido repoContenido
 	RepoUsuario repoUsuarios
@@ -58,7 +58,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		crearContenido
 		crearUsuarios
 		crearFunciones
-		agregarEntradasAUsuarios
+//		agregarEntradasAUsuarios
 	}
 
 	def crearContenido() {
@@ -317,4 +317,9 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		repoUsuarios.update(messi)
 		repoUsuarios.update(scorsese)
 	}
+	
+	override isPending() {
+		RepoLocator.repoUsuario.searchByExample(new Usuario).isEmpty
+	}
+	
 }
