@@ -4,6 +4,7 @@ import domain.Contenido
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Root
+import javax.persistence.criteria.JoinType
 
 class RepoContenido extends Repositorio<Contenido> {
 
@@ -36,7 +37,7 @@ class RepoContenido extends Repositorio<Contenido> {
 			val criteria = entityManager.criteriaBuilder
 			val query = criteria.createQuery
 			val camposContenido = query.from(entityType)
-			camposContenido.fetch("funciones")
+			camposContenido.fetch("funciones", JoinType.LEFT)
 			query.select(camposContenido)
 			query.where(criteria.equal(camposContenido.get("id"), id))
 			val result = entityManager.createQuery(query).resultList
