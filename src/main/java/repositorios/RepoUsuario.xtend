@@ -46,5 +46,27 @@ class RepoUsuario extends Repositorio<Usuario> {
 		return candidato
 	}
 	
+	def Usuario searchById(Long id) {
+		val entityManager = entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery
+			val camposUsuario = query.from(entityType)
+			camposUsuario.fetch("listaDeAmigos")
+			query.select(camposUsuario)
+			query.where(criteria.equal(camposUsuario.get("id"), id))
+			val result = entityManager.createQuery(query).resultList
+
+			if (result.isEmpty) {
+				null
+			} else {
+				result.head as Usuario
+			}
+			
+		} finally {
+			entityManager.close
+		}
+	}
+	
 
 }

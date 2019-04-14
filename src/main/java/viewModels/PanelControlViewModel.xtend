@@ -4,6 +4,7 @@ import domain.Usuario
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
+import repositorios.RepoLocator
 
 @Observable
 @Accessors
@@ -14,7 +15,7 @@ class PanelControlViewModel {
 	Integer edadUsuario
 
 	def setUsuarioLogueado(Usuario usuario) {
-		usuarioLogueado = usuario
+		usuarioLogueado = RepoLocator.repoUsuario.searchById(usuario.id)
 		edadUsuario = usuario.edad
 	}
 
