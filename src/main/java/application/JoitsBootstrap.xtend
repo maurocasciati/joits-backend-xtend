@@ -16,12 +16,14 @@ import repositorios.RepoContenido
 import repositorios.RepoEntrada
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
+import repositorios.RepoFuncion
 
 class JoitsBootstrap extends CollectionBasedBootstrap {
 
 	RepoContenido repoContenido
 	RepoUsuario repoUsuarios
 	RepoEntrada repoEntradas
+	RepoFuncion repoFunciones
 	Usuario aniston
 	Usuario scorsese
 	Usuario deNiro
@@ -49,6 +51,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		repoContenido = RepoLocator.getRepoContenido
 		repoUsuarios = RepoLocator.getRepoUsuario
 		repoEntradas = RepoLocator.getRepoEntrada
+		repoFunciones = RepoLocator.getRepoFuncion
 	}
 
 	override run() {
@@ -244,9 +247,12 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			var int horasRandom = ThreadLocalRandom.current().nextInt(-10, 10 + 1);
 			var int indexMinutos = ThreadLocalRandom.current().nextInt(0, minutos.size);
 
-			contenido.funciones.add(
-				new Funcion(i, fecha.plusDays(diasRandom).plusHours(horasRandom).plusMinutes(minutos.get(indexMinutos)),
-					cines.get(index), contenido))
+			var funcion = new Funcion(
+				fecha.plusDays(diasRandom).plusHours(horasRandom).plusMinutes(minutos.get(indexMinutos)),
+				cines.get(index))
+			repoFunciones.create(funcion)
+			contenido.funciones.add(funcion)
+			repoContenido.update(contenido)
 			i++
 		}
 	}
@@ -291,7 +297,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 //		repoEntradas.create(entrada17)
 //		repoEntradas.create(entrada18)
 //		repoEntradas.create(entrada19)
-
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
 		deNiro.entradas.addAll(entrada4, entrada5)
 		cacho.entradas.addAll(entrada6, entrada7)

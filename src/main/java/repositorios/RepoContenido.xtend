@@ -30,4 +30,26 @@ class RepoContenido extends Repositorio<Contenido> {
 		}
 	}
 
+	def Contenido searchById(Long id) {
+		val entityManager = entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery
+			val camposContenido = query.from(entityType)
+			camposContenido.fetch("funciones")
+			query.select(camposContenido)
+			query.where(criteria.equal(camposContenido.get("id"), id))
+			val result = entityManager.createQuery(query).resultList
+
+			if (result.isEmpty) {
+				null
+			} else {
+				result.head as Contenido
+			}
+			
+		} finally {
+			entityManager.close
+		}
+	}
+
 }

@@ -21,7 +21,8 @@ class SeleccionPeliculaViewModel {
 
 	List<Contenido> peliculas = RepoLocator.getRepoContenido.allInstances as List<Contenido>
 	Contenido peliculaSeleccionada
-	Funcion funcionSeleccionada
+	Funcion funcionSeleccionada 
+	Contenido peliculaFromDB
 
 	String valorDeBusqueda = null
 
@@ -45,10 +46,11 @@ class SeleccionPeliculaViewModel {
 		getResultadoBusqueda.subList(4, 7)
 	}
 
-	@Dependencies("peliculaSeleccionada")
+	@Dependencies("peliculaSeleccionada") // USO peliculaFromDB PARA EVITAR LLAMAR AL SETTER DE PELICULASELECCIONADA Y CAER EN LOOP
 	def getFunciones() {
 		if (peliculaSeleccionada !== null) {
-			peliculaSeleccionada.funciones.toList
+			peliculaFromDB = RepoLocator.repoContenido.searchById(peliculaSeleccionada.id)
+			peliculaFromDB.funciones.toList
 		} else {
 			new ArrayList()
 		}
@@ -73,5 +75,5 @@ class SeleccionPeliculaViewModel {
 		}
 
 	}
-
+	
 }

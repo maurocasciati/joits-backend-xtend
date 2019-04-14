@@ -2,19 +2,20 @@ package domain
 
 import java.util.ArrayList
 import java.util.List
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Observable
+import javax.persistence.CascadeType
 import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Inheritance
-import javax.persistence.InheritanceType
 import javax.persistence.DiscriminatorColumn
 import javax.persistence.DiscriminatorType
-import javax.persistence.OneToMany
+import javax.persistence.Entity
 import javax.persistence.FetchType
-import javax.persistence.CascadeType
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.Inheritance
+import javax.persistence.InheritanceType
+import javax.persistence.OneToMany
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Observable
+import javax.persistence.JoinColumn
 
 @Observable
 @Entity
@@ -28,14 +29,20 @@ abstract class Contenido {
 
 	@Column(length=150)
 	String titulo
+	
 	@Column
 	Double puntaje
+	
 	@Column(length=100)
 	String genero // accion, comedia, drama, ciencia ficcion	
+	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name = "id_contenido")
 	List<Funcion> funciones = new ArrayList<Funcion>
+	
 	@Column(length=60)
 	String imdbID
+	
 	@Column(length=150)
 	String trailerURL
 

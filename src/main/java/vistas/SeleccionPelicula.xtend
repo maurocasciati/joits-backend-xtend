@@ -15,6 +15,7 @@ import org.uqbar.arena.windows.WindowOwner
 import viewModels.SeleccionPeliculaViewModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import domain.Contenido
 
 class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 
@@ -73,7 +74,7 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 	}
 
 	def agregarTabla(Panel panel, String listado, Integer filas) {
-		val tabla = new Table<Pelicula>(panel, typeof(Pelicula)) => [
+		val tabla = new Table<Contenido>(panel, typeof(Contenido)) => [
 			items <=> listado
 			value <=> "peliculaSeleccionada"
 			numberVisibleRows = filas
@@ -116,7 +117,7 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 
 	def agregarTablaFunciones(Panel panel) {
 		val tablaFunciones = new Table<Funcion>(panel, typeof(Funcion)) => [
-			items <=> "funciones"
+			items <=> "peliculaFromDB.funciones"
 			value <=> "funcionSeleccionada"
 			numberVisibleRows = 10
 		]

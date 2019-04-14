@@ -14,5 +14,9 @@ class RepoLocator {
 	def static getRepoEntrada() {
 		RepoEntrada.getInstance
 	}
+	
+	def static getRepoFuncion() {
+		RepoFuncion.getInstance
+	}
 
 }

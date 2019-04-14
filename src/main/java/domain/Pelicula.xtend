@@ -34,5 +34,5 @@ class Pelicula extends Contenido {
 	override getAnio() {
 		anioRodaje
 	}
-
+	
 }

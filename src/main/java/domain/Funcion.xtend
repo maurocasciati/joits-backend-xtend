@@ -19,12 +19,16 @@ class Funcion {
 	@GeneratedValue
 	Long id
 
-	@JsonIgnore @Column LocalDateTime fechaHora
+	@JsonIgnore
+	@Column
+	LocalDateTime fechaHora
+
 	@Column(length=150)
 	String nombreSala
+	
+	new(){}
 
-	new(Long _id, LocalDateTime _fechaHora, String _nombreSala, Contenido _contenido) {
-		id = _id
+	new(LocalDateTime _fechaHora, String _nombreSala) {
 		fechaHora = _fechaHora
 		nombreSala = _nombreSala
 	}
