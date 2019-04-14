@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Root
+import org.uqbar.commons.model.exceptions.UserException
 
 class RepoUsuario extends Repositorio<Usuario> {
 
@@ -32,5 +33,18 @@ class RepoUsuario extends Repositorio<Usuario> {
 			query.where(criteria.equal(camposUsuario.get("username"), usuario.username))
 		}
 	}
+	
+	def login(String _username, String password){
+		val Usuario prototype = new Usuario =>[
+			username = _username
+			contrasenia = password
+		]
+		val Usuario candidato = this.searchByExample(prototype).head
+		if(prototype.contrasenia != candidato.contrasenia){
+			throw new UserException("Credenciales incorrectas")
+		}
+		return candidato
+	}
+	
 
 }

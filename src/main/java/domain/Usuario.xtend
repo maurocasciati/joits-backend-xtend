@@ -11,9 +11,11 @@ import javax.persistence.Id
 import org.apache.commons.lang.StringUtils
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.exceptions.UserException
+import org.uqbar.commons.model.annotations.Observable
 
 @Entity
 @Accessors
+@Observable
 class Usuario{
 	@Id
 	@GeneratedValue
