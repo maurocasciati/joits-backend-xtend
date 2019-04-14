@@ -107,7 +107,8 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 				caption = "Finalizar la compra"
 				bindEnabled(new NotNullObservable("usuarioLogueado.carrito"))
 				onClick[
-					new FinalizarCompra(this, modelObject.usuarioLogueado).open
+					new FinalizarCompra(this, modelObject.usuarioLogueado.id).open
+					modelObject.traerUsuarioLogueado
 					actualizarVista("cantidadItemsCarrito")
 				]
 			]

@@ -14,8 +14,8 @@ class FinalizarCompraViewModel {
 	Usuario usuarioLogueado
 	Entrada itemSeleccionado
 
-	def setUsuarioLogueado(Usuario usuario) {
-		usuarioLogueado = RepoLocator.repoUsuario.traerUsuarioConCarrito(usuario.id)
+	new(Long idLogueado) {
+		usuarioLogueado = RepoLocator.repoUsuario.traerUsuarioConCarrito(idLogueado)
 	}
 
 	def getCarrito() {
