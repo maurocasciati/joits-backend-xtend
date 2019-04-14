@@ -31,7 +31,7 @@ class RepoUsuario extends Repositorio<Usuario> {
 			query.where(criteria.equal(camposUsuario.get("username"), usuario.username))
 		}
 	}
-	
+
 	def login(String _username, String password) {
 		val entityManager = this.entityManager
 		try {
@@ -51,12 +51,12 @@ class RepoUsuario extends Repositorio<Usuario> {
 				}
 				usuario
 			}
-			
+
 		} finally {
 			entityManager.close
 		}
 	}
-	
+
 	def Usuario searchById(Long id) {
 		val entityManager = entityManager
 		try {
@@ -69,6 +69,30 @@ class RepoUsuario extends Repositorio<Usuario> {
 			query.where(criteria.equal(camposUsuario.get("id"), id))
 			val result = entityManager.createQuery(query).resultList
 
+			if (result.isEmpty) {
+				null
+			} else {
+				result.head as Usuario
+			}
+
+		} finally {
+			entityManager.close
+		}
+	}
+
+	def Usuario traerUsuarioConCarrito(Long id) {
+		val entityManager = this.entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery
+			val camposUsuario = query.from(entityType)
+			val camposCarrito = camposUsuario.fetch("carrito", JoinType.LEFT)
+			val camposContenido = camposCarrito.fetch("contenido", JoinType.LEFT)
+			camposCarrito.fetch("funcion", JoinType.LEFT)
+			camposContenido.fetch("peliculas", JoinType.LEFT)
+			query.select(camposUsuario)
+			query.where(criteria.equal(camposUsuario.get("id"), id))
+			val result = entityManager.createQuery(query).resultList
 			if (result.isEmpty) {
 				null
 			} else {
