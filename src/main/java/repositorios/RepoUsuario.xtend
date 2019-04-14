@@ -38,7 +38,7 @@ class RepoUsuario extends Repositorio<Usuario> {
 			val criteria = entityManager.criteriaBuilder
 			val query = criteria.createQuery
 			val camposUsuario = query.from(entityType)
-			camposUsuario.fetch("carrito")
+			camposUsuario.fetch("carrito", JoinType.LEFT)
 			query.select(camposUsuario)
 			query.where(criteria.equal(camposUsuario.get("username"), _username))
 			val result = entityManager.createQuery(query).resultList
@@ -87,9 +87,32 @@ class RepoUsuario extends Repositorio<Usuario> {
 			val query = criteria.createQuery
 			val camposUsuario = query.from(entityType)
 			val camposCarrito = camposUsuario.fetch("carrito", JoinType.LEFT)
-			val camposContenido = camposCarrito.fetch("contenido", JoinType.LEFT)
+			val camposContenidoCarrito = camposCarrito.fetch("contenido", JoinType.LEFT)
 			camposCarrito.fetch("funcion", JoinType.LEFT)
-			camposContenido.fetch("peliculas", JoinType.LEFT)
+			camposContenidoCarrito.fetch("peliculas", JoinType.LEFT)
+			val camposEntradas = camposUsuario.fetch("entradas", JoinType.LEFT)
+			camposEntradas.fetch("contenido")
+			query.select(camposUsuario)
+			query.where(criteria.equal(camposUsuario.get("id"), id))
+			val result = entityManager.createQuery(query).resultList
+			if (result.isEmpty) {
+				null
+			} else {
+				result.head as Usuario
+			}
+
+		} finally {
+			entityManager.close
+		}
+	}
+
+	def traerUsuarioLogueado(Long id) {
+		val entityManager = this.entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery
+			val camposUsuario = query.from(entityType)
+			camposUsuario.fetch("carrito", JoinType.LEFT)
 			query.select(camposUsuario)
 			query.where(criteria.equal(camposUsuario.get("id"), id))
 			val result = entityManager.createQuery(query).resultList
