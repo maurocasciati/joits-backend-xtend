@@ -55,7 +55,7 @@ class Usuario {
 	Set<Entrada> entradas = new HashSet<Entrada>
 
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="id_usuario")
+	@JoinColumn(name = "id_usuario_carrito")
 	Set<Entrada> carrito = new HashSet<Entrada>
 
 	def getHistorial() {

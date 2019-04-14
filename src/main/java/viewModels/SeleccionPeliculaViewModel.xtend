@@ -58,8 +58,9 @@ class SeleccionPeliculaViewModel {
 
 	def agregarAlCarrito() {
 		val entrada = new Entrada(peliculaSeleccionada, funcionSeleccionada)
-//		RepoLocator.repoEntrada.create(entrada)
+		RepoLocator.repoEntrada.create(entrada)
 		usuarioLogueado.agregarAlCarrito(entrada)
+		RepoLocator.repoUsuario.update(usuarioLogueado)
 	}
 
 	def getCantidadItemsCarrito() {
