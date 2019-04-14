@@ -31,9 +31,6 @@ class BuscarAmigosViewModel {
 	def agregarAmigo() {
 		usuarioLogueado.agregarAmigo(usuarioSeleccionado)
 //		usuarioSeleccionado.agregarAmigo(usuarioLogueado)
-		RepoLocator.repoUsuario.update(usuarioLogueado)
-//		RepoLocator.repoUsuario.update(usuarioSeleccionado)
-
 	}
 
 }

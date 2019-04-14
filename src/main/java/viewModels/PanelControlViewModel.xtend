@@ -25,7 +25,7 @@ class PanelControlViewModel {
 
 	def cargarSaldo() {
 		usuarioLogueado.cargarSaldo(saldoParaCargar)
-		RepoLocator.repoUsuario.update(usuarioLogueado)
+//		RepoLocator.repoUsuario.update(usuarioLogueado) // esto lo hace al aceptar la vista. Si se cancela, no persiste la carga de saldo
 	}
 
 	def getSaldoUsuario() {
@@ -41,8 +41,9 @@ class PanelControlViewModel {
 		saldoParaCargar !== null && saldoParaCargar !== 0
 	}
 
-	def cambiarEdadUsuario() {
+	def actualizar() {
 		usuarioLogueado.edad = edadUsuario
 		RepoLocator.repoUsuario.update(usuarioLogueado)
 	}
+
 }

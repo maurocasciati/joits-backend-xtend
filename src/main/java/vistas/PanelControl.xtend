@@ -84,7 +84,7 @@ class PanelControl extends Ventana<PanelControlViewModel> {
 					new Button(it) => [
 						caption = "Aceptar"
 						onClick[
-							modelObject.cambiarEdadUsuario
+							modelObject.actualizar
 							close
 						]
 					]
