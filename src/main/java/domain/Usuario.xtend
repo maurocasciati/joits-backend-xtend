@@ -2,9 +2,9 @@ package domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.math.BigDecimal
-import java.util.ArrayList
 import java.util.Arrays
-import java.util.List
+import java.util.HashSet
+import java.util.Set
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -12,10 +12,12 @@ import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.ManyToMany
+import javax.persistence.OneToMany
 import org.apache.commons.lang.StringUtils
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.exceptions.UserException
 import org.uqbar.commons.model.annotations.Observable
+import org.uqbar.commons.model.exceptions.UserException
+import javax.persistence.JoinColumn
 
 @Entity
 @Accessors
@@ -39,7 +41,7 @@ class Usuario{
 
 	@JsonIgnore
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	List<Usuario> listaDeAmigos = new ArrayList<Usuario>
+	Set<Usuario> listaDeAmigos = new HashSet<Usuario>
 	
 	@Column
 	BigDecimal saldo
@@ -47,8 +49,13 @@ class Usuario{
 	@Column(length=50)
 	String contrasenia
 
-	transient List<Entrada> entradas = new ArrayList<Entrada>
-	transient List<Entrada> carrito = new ArrayList<Entrada>
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name = "id_usuario")
+	Set<Entrada> entradas = new HashSet<Entrada>
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name = "id_usuario")
+	Set<Entrada> carrito = new HashSet<Entrada>
 
 	def getHistorial() {
 		entradas.map[entrada|entrada.contenido.titulo].toSet
