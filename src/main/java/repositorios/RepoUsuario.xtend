@@ -1,9 +1,6 @@
 package repositorios
 
 import domain.Usuario
-import javax.persistence.EntityManagerFactory
-import javax.persistence.Persistence
-import javax.persistence.PersistenceException
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Root
@@ -33,19 +30,32 @@ class RepoUsuario extends Repositorio<Usuario> {
 			query.where(criteria.equal(camposUsuario.get("username"), usuario.username))
 		}
 	}
-
+	
 	def login(String _username, String password) {
-		val Usuario prototype = new Usuario => [
-			username = _username
-			contrasenia = password
-		]
-		val Usuario candidato = this.searchByExample(prototype).head
-		if (prototype.contrasenia != candidato.contrasenia) {
-			throw new UserException("Credenciales incorrectas")
+		val entityManager = this.entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery
+			val camposUsuario = query.from(entityType)
+			camposUsuario.fetch("carrito")
+			query.select(camposUsuario)
+			query.where(criteria.equal(camposUsuario.get("username"), _username))
+			val result = entityManager.createQuery(query).resultList
+			val usuario = result.head as Usuario
+			if (result.isEmpty) {
+				null
+			} else {
+				if (usuario.contrasenia != password) {
+					throw new UserException("Credenciales incorrectas")
+				}
+				usuario
+			}
+			
+		} finally {
+			entityManager.close
 		}
-		return candidato
 	}
-
+	
 	def Usuario searchById(Long id) {
 		val entityManager = entityManager
 		try {
