@@ -1,16 +1,16 @@
 package viewModels
 
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Observable
-import java.time.LocalDate
-import java.util.List
 import domain.Contenido
-import repositorios.RepoLocator
-import domain.Funcion
-import java.util.ArrayList
-import org.uqbar.commons.model.annotations.Dependencies
-import domain.Usuario
 import domain.Entrada
+import domain.Funcion
+import domain.Usuario
+import java.time.LocalDate
+import java.util.ArrayList
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Dependencies
+import org.uqbar.commons.model.annotations.Observable
+import repositorios.RepoLocator
 
 @Accessors
 @Observable
@@ -21,7 +21,7 @@ class SeleccionPeliculaViewModel {
 
 	List<Contenido> peliculas = RepoLocator.getRepoContenido.allInstances as List<Contenido>
 	Contenido peliculaSeleccionada
-	Funcion funcionSeleccionada 
+	Funcion funcionSeleccionada
 	Contenido peliculaFromDB
 
 	String valorDeBusqueda = null
@@ -72,9 +72,13 @@ class SeleccionPeliculaViewModel {
 		if (funcionSeleccionada === null) {
 			""
 		} else {
-			"$" + funcionSeleccionada.precio.toString
+			"$" + (funcionSeleccionada.precio + peliculaSeleccionada.precio).toString
 		}
 
 	}
-	
+
+	def traerUsuarioLogueado() {
+		usuarioLogueado = RepoLocator.repoUsuario.traerUsuarioLogueado(usuarioLogueado.id)
+	}
+
 }
