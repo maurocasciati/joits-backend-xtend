@@ -1,11 +1,10 @@
 package viewModels
 
 import domain.Usuario
-import java.util.List
+import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import repositorios.RepoLocator
-import java.util.Set
 
 @TransactionalAndObservable
 @Accessors
@@ -30,6 +29,8 @@ class BuscarAmigosViewModel {
 
 	def agregarAmigo() {
 		usuarioLogueado.agregarAmigo(usuarioSeleccionado)
+		RepoLocator.repoUsuario.update(usuarioLogueado)
+		usuarioLogueado = RepoLocator.repoUsuario.searchById(usuarioLogueado.id)
 //		usuarioSeleccionado.agregarAmigo(usuarioLogueado)
 	}
 
