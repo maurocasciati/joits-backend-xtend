@@ -36,5 +36,26 @@ class RepoEntrada extends Repositorio<Entrada> {
 //			query.where(criteria.equal(camposEntrada.get("descripcion"), zona.descripcion))
 //		}
 	}
+	
+	def Entrada searchById(Long id) {
+		val entityManager = entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery
+			val camposEntrada = query.from(entityType)
+			query.select(camposEntrada)
+			query.where(criteria.equal(camposEntrada.get("id"), id))
+			val result = entityManager.createQuery(query).resultList
+
+			if (result.isEmpty) {
+				null
+			} else {
+				result.head as Entrada
+			}
+
+		} finally {
+			entityManager.close
+		}
+	}
 
 }
