@@ -49,7 +49,7 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 				width = 290
 				caption = "Panel de control"
 				onClick[
-					new PanelControl(this, modelObject.usuarioLogueado).open
+					new PanelControl(this, modelObject.usuarioLogueado.id).open
 				]
 			]
 		]

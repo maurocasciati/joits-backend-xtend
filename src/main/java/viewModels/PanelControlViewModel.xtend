@@ -14,8 +14,8 @@ class PanelControlViewModel {
 	Usuario amigoSeleccionado
 	Integer edadUsuario
 
-	def setUsuarioLogueado(Usuario usuario) {
-		usuarioLogueado = RepoLocator.repoUsuario.searchById(usuario.id)
+	new(Long idLogueado) {
+		usuarioLogueado = RepoLocator.repoUsuario.searchById(idLogueado)
 		edadUsuario = usuarioLogueado.edad
 	}
 
@@ -25,7 +25,8 @@ class PanelControlViewModel {
 
 	def cargarSaldo() {
 		usuarioLogueado.cargarSaldo(saldoParaCargar)
-//		RepoLocator.repoUsuario.update(usuarioLogueado) // esto lo hace al aceptar la vista. Si se cancela, no persiste la carga de saldo
+		RepoLocator.repoUsuario.update(usuarioLogueado)
+//		traerUsuarioLogueado
 	}
 
 	def getSaldoUsuario() {
@@ -44,6 +45,10 @@ class PanelControlViewModel {
 	def actualizar() {
 		usuarioLogueado.edad = edadUsuario
 		RepoLocator.repoUsuario.update(usuarioLogueado)
+	}
+
+	def traerUsuarioLogueado() {
+		usuarioLogueado = RepoLocator.repoUsuario.searchById(usuarioLogueado.id)
 	}
 
 }

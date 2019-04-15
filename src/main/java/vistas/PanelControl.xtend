@@ -19,9 +19,8 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
 class PanelControl extends Ventana<PanelControlViewModel> {
 
-	new(WindowOwner owner, Usuario usuarioLogueado) {
-		super(owner, new PanelControlViewModel)
-		modelObject.usuarioLogueado = usuarioLogueado
+	new(WindowOwner owner, Long idUsuarioLogueado) {
+		super(owner, new PanelControlViewModel(idUsuarioLogueado))
 	}
 
 	override protected addActions(Panel actionsPanel) {
@@ -64,6 +63,7 @@ class PanelControl extends Ventana<PanelControlViewModel> {
 					caption = "Buscar Amigos"
 					onClick[
 						new BuscarAmigos(this, modelObject.usuarioLogueado).open
+						modelObject.traerUsuarioLogueado
 						actualizarVista("listaDeAmigos")
 					]
 				]
