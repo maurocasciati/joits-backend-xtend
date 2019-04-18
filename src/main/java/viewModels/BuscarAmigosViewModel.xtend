@@ -29,9 +29,11 @@ class BuscarAmigosViewModel {
 
 	def agregarAmigo() {
 		usuarioLogueado.agregarAmigo(usuarioSeleccionado)
+	}
+	
+	def aceptar(){
 		RepoLocator.repoUsuario.update(usuarioLogueado)
-		usuarioLogueado = RepoLocator.repoUsuario.searchById(usuarioLogueado.id)
-//		usuarioSeleccionado.agregarAmigo(usuarioLogueado)
+//		usuarioLogueado = RepoLocator.repoUsuario.searchById(usuarioLogueado.id)		
 	}
 
 }

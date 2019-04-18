@@ -33,16 +33,6 @@ class BuscarAmigos extends Ventana<BuscarAmigosViewModel> {
 				width = 200
 				agregarTablaUsuarios("resultados", "usuarioSeleccionado", 8)
 			]
-		]
-		new GroupPanel(mainPanel) => [
-			title = "Amigos sugeridos"
-			new Panel(it) => [
-				width = 200
-				agregarTablaUsuarios("listadoSugeridos", "usuarioSeleccionado", 3)
-			]
-		]
-		new Panel(mainPanel) => [
-			layout = new HorizontalLayout
 			new Button(it) => [
 				caption = "Agregar a amigos"
 				bindEnabled(new NotNullObservable("usuarioSeleccionado"))
@@ -53,8 +43,27 @@ class BuscarAmigos extends Ventana<BuscarAmigosViewModel> {
 				]
 				width = 100
 			]
+		]
+		new GroupPanel(mainPanel) => [
+			title = "Amigos sugeridos"
+			new Panel(it) => [
+				width = 200
+				agregarTablaUsuarios("listadoSugeridos", "usuarioSeleccionado", 3)
+			]
+		]
+		new Panel(mainPanel) => [
+			layout = new HorizontalLayout
+
 			new Button(it) => [
-				caption = "Volver"
+				caption = "Aceptar"
+				onClick[
+					modelObject.aceptar
+					close
+				]
+				width = 100
+			]
+			new Button(it) => [
+				caption = "Cancelar"
 				onClick[
 					close
 				]
