@@ -1,13 +1,12 @@
 package repositorios
 
 import domain.Usuario
+import java.util.HashSet
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
+import javax.persistence.criteria.JoinType
 import javax.persistence.criteria.Root
 import org.uqbar.commons.model.exceptions.UserException
-import javax.persistence.criteria.JoinType
-import java.util.HashSet
-import javax.persistence.PersistenceException
 
 class RepoUsuario extends Repositorio<Usuario> {
 
@@ -34,6 +33,13 @@ class RepoUsuario extends Repositorio<Usuario> {
 		}
 	}
 
+	override generateWhereId(CriteriaBuilder criteria, CriteriaQuery<Usuario> query, Root<Usuario> camposUsuario,
+		Long id) {
+		if (id !== null) {
+			query.where(criteria.equal(camposUsuario.get("id"), id))
+		}
+	}
+
 	def login(String _username, String password) {
 		val entityManager = this.entityManager
 		try {
@@ -52,75 +58,6 @@ class RepoUsuario extends Repositorio<Usuario> {
 					throw new UserException("Credenciales incorrectas")
 				}
 				usuario
-			}
-
-		} finally {
-			entityManager.close
-		}
-	}
-
-	def Usuario searchById(Long id) {
-		val entityManager = entityManager
-		try {
-			val criteria = entityManager.criteriaBuilder
-			val query = criteria.createQuery
-			val camposUsuario = query.from(entityType)
-			val camposAmigos = camposUsuario.fetch("listaDeAmigos", JoinType.LEFT)
-			val camposEntradas = camposAmigos.fetch("entradas", JoinType.LEFT)
-			camposEntradas.fetch("contenido", JoinType.LEFT)
-			query.select(camposUsuario)
-			query.where(criteria.equal(camposUsuario.get("id"), id))
-			val result = entityManager.createQuery(query).resultList
-
-			if (result.isEmpty) {
-				null
-			} else {
-				result.head as Usuario
-			}
-
-		} finally {
-			entityManager.close
-		}
-	}
-
-	def Usuario traerUsuarioConCarrito(Long id) {
-		val entityManager = this.entityManager
-		try {
-			val criteria = entityManager.criteriaBuilder
-			val query = criteria.createQuery
-			val camposUsuario = query.from(entityType)
-			val camposCarrito = camposUsuario.fetch("carrito", JoinType.LEFT)
-			camposCarrito.fetch("contenido", JoinType.LEFT)
-			camposCarrito.fetch("funcion", JoinType.LEFT)
-			camposUsuario.fetch("entradas", JoinType.LEFT)
-			query.select(camposUsuario)
-			query.where(criteria.equal(camposUsuario.get("id"), id))
-			val result = entityManager.createQuery(query).resultList
-			if (result.isEmpty) {
-				null
-			} else {
-				result.head as Usuario
-			}
-
-		} finally {
-			entityManager.close
-		}
-	}
-
-	def traerUsuarioLogueado(Long id) {
-		val entityManager = this.entityManager
-		try {
-			val criteria = entityManager.criteriaBuilder
-			val query = criteria.createQuery
-			val camposUsuario = query.from(entityType)
-			camposUsuario.fetch("carrito", JoinType.LEFT)
-			query.select(camposUsuario)
-			query.where(criteria.equal(camposUsuario.get("id"), id))
-			val result = entityManager.createQuery(query).resultList
-			if (result.isEmpty) {
-				null
-			} else {
-				result.head as Usuario
 			}
 
 		} finally {

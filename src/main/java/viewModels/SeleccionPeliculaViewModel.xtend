@@ -10,6 +10,8 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
+import repositorios.FetchContenidoConFunciones
+import repositorios.FetchUsuarioConCarrito
 import repositorios.RepoLocator
 
 @Accessors
@@ -18,12 +20,10 @@ class SeleccionPeliculaViewModel {
 
 	Usuario usuarioLogueado
 	LocalDate fechaHoy = LocalDate.now
-
 	List<Contenido> peliculas = RepoLocator.repoContenido.allInstances as List<Contenido>
 	Contenido peliculaSeleccionada
 	Funcion funcionSeleccionada
 	Contenido peliculaFromDB
-
 	String valorDeBusqueda = null
 
 	def getResultadoBusqueda() {
@@ -49,7 +49,8 @@ class SeleccionPeliculaViewModel {
 	@Dependencies("peliculaSeleccionada") // USO peliculaFromDB PARA EVITAR LLAMAR AL SETTER DE PELICULASELECCIONADA Y CAER EN LOOP
 	def getFunciones() {
 		if (peliculaSeleccionada !== null) {
-			peliculaFromDB = RepoLocator.repoContenido.searchById(peliculaSeleccionada.id)
+			peliculaFromDB = RepoLocator.repoContenido.searchById(peliculaSeleccionada.id,
+				new FetchContenidoConFunciones)
 			peliculaFromDB.funciones.toList
 		} else {
 			new ArrayList()
@@ -78,7 +79,7 @@ class SeleccionPeliculaViewModel {
 	}
 
 	def traerUsuarioLogueado() {
-		usuarioLogueado = RepoLocator.repoUsuario.traerUsuarioLogueado(usuarioLogueado.id)
+		usuarioLogueado = RepoLocator.repoUsuario.searchById(usuarioLogueado.id, new FetchUsuarioConCarrito)
 	}
 
 }

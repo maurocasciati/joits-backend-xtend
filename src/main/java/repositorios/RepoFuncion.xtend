@@ -22,6 +22,13 @@ class RepoFuncion extends Repositorio<Funcion> {
 		typeof(Funcion)
 	}
 
+	override generateWhereId(CriteriaBuilder criteria, CriteriaQuery<Funcion> query, Root<Funcion> camposFuncion,
+		Long id) {
+		if (id !== null) {
+			query.where(criteria.equal(camposFuncion.get("id"), id))
+		}
+	}
+
 	override generateWhere(CriteriaBuilder criteria, CriteriaQuery<Funcion> query, Root<Funcion> camposFuncion,
 		Funcion funcion) {
 		if (funcion.nombreSala !== null) {

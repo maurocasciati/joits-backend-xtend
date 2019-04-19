@@ -43,7 +43,32 @@ abstract class Repositorio<T> {
 		}
 	}
 
+	def searchById(Long id, Fetch<T> fetch) {
+		val entityManager = this.entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery as CriteriaQuery<T>
+			val from = query.from(entityType)
+			fetch.doFetch(from)
+			query.select(from)
+			generateWhereId(criteria, query, from, id)
+			val result = entityManager.createQuery(query).resultList
+
+			if (result.isEmpty) {
+				null
+			} else {
+				result.head as T
+			}
+
+		} finally {
+			entityManager.close
+		}
+	}
+
 	abstract def void generateWhere(CriteriaBuilder criteria, CriteriaQuery<T> query, Root<T> camposCandidato, T t)
+
+	abstract def void generateWhereId(CriteriaBuilder criteria, CriteriaQuery<T> query, Root<T> camposCandidato,
+		Long id)
 
 	def create(T t) {
 		val entityManager = this.entityManager

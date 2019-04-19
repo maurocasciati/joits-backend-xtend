@@ -14,6 +14,10 @@ import repositorios.RepoEntrada
 import repositorios.RepoFuncion
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
+import repositorios.FetchNothing
+import repositorios.FetchUsuarioConAmigos
+import repositorios.FetchUsuarioConCarrito
+import repositorios.FetchUsuarioConCarritoCompleto
 
 class TestUsuario {
 
@@ -138,14 +142,14 @@ class TestUsuario {
 
 	@Test
 	def seCreaUsuario() {
-		Assert.assertEquals(repoUsuarios.searchById(aniston.id), aniston)
+		Assert.assertEquals(repoUsuarios.searchById(aniston.id, new FetchNothing), aniston)
 	}
 
 	@Test
 	def unUsuarioAgregaAUnAmigo() {
 		aniston.agregarAmigo(deNiro)
 		repoUsuarios.update(aniston)
-		val anistonActualizada = repoUsuarios.searchById(aniston.id)
+		val anistonActualizada = repoUsuarios.searchById(aniston.id, new FetchUsuarioConAmigos)
 		Assert.assertTrue(anistonActualizada.listaDeAmigos.contains(deNiro))
 	}
 
@@ -154,7 +158,7 @@ class TestUsuario {
 		val BigDecimal saldoAnterior = aniston.saldo
 		aniston.cargarSaldo(50.7)
 		repoUsuarios.update(aniston)
-		val anistonActualizada = repoUsuarios.searchById(aniston.id)
+		val anistonActualizada = repoUsuarios.searchById(aniston.id, new FetchNothing)
 		Assert.assertTrue((saldoAnterior + new BigDecimal("50.7")).compareTo(anistonActualizada.saldo) == 0)
 	}
 
@@ -162,7 +166,7 @@ class TestUsuario {
 	def unUsuarioCambiaEdad() {
 		aniston.edad = 45
 		repoUsuarios.update(aniston)
-		val anistonActualizada = repoUsuarios.searchById(aniston.id)
+		val anistonActualizada = repoUsuarios.searchById(aniston.id, new FetchNothing)
 		Assert.assertEquals(45, anistonActualizada.edad)
 	}
 
@@ -171,7 +175,7 @@ class TestUsuario {
 		val carritoAntes = aniston.carrito.length
 		aniston.agregarAlCarrito(entrada)
 		repoUsuarios.update(aniston)
-		val anistonConCarritoActualizada = repoUsuarios.traerUsuarioLogueado(aniston.id)
+		val anistonConCarritoActualizada = repoUsuarios.searchById(aniston.id, new FetchUsuarioConCarrito)
 		Assert.assertEquals(carritoAntes + 1, anistonConCarritoActualizada.carrito.length)
 //		Assert.assertTrue(anistonConCarritoActualizada.carrito.contains(entrada))
 	}
@@ -180,7 +184,7 @@ class TestUsuario {
 	def unUsuarioLimpiaCarrito() {
 		aniston.limpiarCarrito
 		repoUsuarios.update(aniston)
-		val anistonActualizada = repoUsuarios.traerUsuarioConCarrito(aniston.id)
+		val anistonActualizada = repoUsuarios.searchById(aniston.id, new FetchUsuarioConCarrito)
 		Assert.assertTrue(anistonActualizada.carrito.length == 0)
 	}
 
@@ -189,7 +193,7 @@ class TestUsuario {
 		val totalCompra = new BigDecimal(aniston.totalCarrito)
 		aniston.finalizarCompra
 		repoUsuarios.update(aniston)
-		val anistonActualizada = repoUsuarios.traerUsuarioConCarrito(aniston.id)
+		val anistonActualizada = repoUsuarios.searchById(aniston.id, new FetchUsuarioConCarritoCompleto)
 		Assert.assertTrue((aniston.saldo - totalCompra).compareTo(anistonActualizada.saldo) == 0)
 	}
 
@@ -199,7 +203,7 @@ class TestUsuario {
 		val carritoAntes = aniston.carrito.length
 		aniston.eliminarItem(entrada)
 		repoUsuarios.update(aniston)
-		val anistonConCarritoActualizada = repoUsuarios.traerUsuarioLogueado(aniston.id)
+		val anistonConCarritoActualizada = repoUsuarios.searchById(aniston.id, new FetchUsuarioConCarrito)
 		Assert.assertEquals(carritoAntes - 1, anistonConCarritoActualizada.carrito.length)
 	}
 

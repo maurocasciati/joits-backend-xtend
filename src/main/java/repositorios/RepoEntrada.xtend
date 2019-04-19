@@ -30,32 +30,18 @@ class RepoEntrada extends Repositorio<Entrada> {
 		typeof(Entrada)
 	}
 
+	override generateWhereId(CriteriaBuilder criteria, CriteriaQuery<Entrada> query, Root<Entrada> camposEntrada,
+		Long id) {
+		if (id !== null) {
+			query.where(criteria.equal(camposEntrada.get("id"), id))
+		}
+	}
+
 	override generateWhere(CriteriaBuilder criteria, CriteriaQuery<Entrada> query, Root<Entrada> camposEntrada,
 		Entrada entrada) {
 //		if (entrada.contenido.titulo !== null) {
 //			query.where(criteria.equal(camposEntrada.get("descripcion"), zona.descripcion))
 //		}
-	}
-	
-	def Entrada searchById(Long id) {
-		val entityManager = entityManager
-		try {
-			val criteria = entityManager.criteriaBuilder
-			val query = criteria.createQuery
-			val camposEntrada = query.from(entityType)
-			query.select(camposEntrada)
-			query.where(criteria.equal(camposEntrada.get("id"), id))
-			val result = entityManager.createQuery(query).resultList
-
-			if (result.isEmpty) {
-				null
-			} else {
-				result.head as Entrada
-			}
-
-		} finally {
-			entityManager.close
-		}
 	}
 
 }

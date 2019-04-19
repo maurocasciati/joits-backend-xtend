@@ -31,26 +31,10 @@ class RepoContenido extends Repositorio<Contenido> {
 		}
 	}
 
-	def Contenido searchById(Long id) {
-		val entityManager = entityManager
-		try {
-			val criteria = entityManager.criteriaBuilder
-			val query = criteria.createQuery
-			val camposContenido = query.from(entityType)
-			camposContenido.fetch("funciones", JoinType.LEFT)
-			query.select(camposContenido)
+	override generateWhereId(CriteriaBuilder criteria, CriteriaQuery<Contenido> query, Root<Contenido> camposContenido,
+		Long id) {
+		if (id !== null) {
 			query.where(criteria.equal(camposContenido.get("id"), id))
-			val result = entityManager.createQuery(query).resultList
-
-			if (result.isEmpty) {
-				null
-			} else {
-				result.head as Contenido
-			}
-			
-		} finally {
-			entityManager.close
 		}
 	}
-
 }
