@@ -1,3 +1,11 @@
 language: java
+
+service:
+  - mysql
+
 jdk:
-- openjdk8
+  - openjdk8
+
+before_install:
+  - echo "USE mysql;\nCCREATE USER 'tpuser'@'%' IDENTIFIED BY 'tpuser';\nFLUSH PRIVILEGES;\n" | mysql -u root
+  - mysql --user=tpuser --password=tpuser -e 'CREATE DATABASE IF NOT EXISTS joits;'
