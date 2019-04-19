@@ -11,5 +11,8 @@ before_install:
   - mysql --user=tpuser --password=tpuser -e 'CREATE DATABASE IF NOT EXISTS joits;'
 
 
-script:
-  - mvn -e -DTRAVIS_JOB_ID=$TRAVIS_JOB_ID clean install jacoco:report coveralls:report
+#script:
+#  - mvn -e -DTRAVIS_JOB_ID=$TRAVIS_JOB_ID clean install jacoco:report coveralls:report
+  
+after_success:
+  - mvn clean test jacoco:report coveralls:report
