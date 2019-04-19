@@ -5,6 +5,10 @@ import javax.persistence.DiscriminatorValue
 import javax.persistence.Entity
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
+import javax.persistence.OneToMany
+import javax.persistence.JoinColumn
+import java.util.List
+import javax.persistence.FetchType
 
 @Accessors
 @Observable
@@ -19,15 +23,16 @@ class Saga extends Contenido {
 	@Column
 	Integer nivelClasico
 
-	@Column
-	Integer cantidadDePeliculas
+	@OneToMany(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_saga")
+	List<Pelicula> peliculas
 
 	override precio() {
 		return this.precioPorPeliculas + nivelClasico
 	}
 
 	def precioPorPeliculas() {
-		return cantidadDePeliculas * PRECIO_POR_PELICULA
+		return peliculas.length * PRECIO_POR_PELICULA
 	}
 
 	override getAnio() {

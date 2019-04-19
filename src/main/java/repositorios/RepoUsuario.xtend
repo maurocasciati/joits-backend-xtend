@@ -64,7 +64,8 @@ class RepoUsuario extends Repositorio<Usuario> {
 			val query = criteria.createQuery
 			val camposUsuario = query.from(entityType)
 			val camposAmigos = camposUsuario.fetch("listaDeAmigos", JoinType.LEFT)
-			camposAmigos.fetch("entradas", JoinType.LEFT)
+			val camposEntradas = camposAmigos.fetch("entradas", JoinType.LEFT)
+			camposEntradas.fetch("contenido", JoinType.LEFT)	
 			query.select(camposUsuario)
 			query.where(criteria.equal(camposUsuario.get("id"), id))
 			val result = entityManager.createQuery(query).resultList
@@ -87,11 +88,9 @@ class RepoUsuario extends Repositorio<Usuario> {
 			val query = criteria.createQuery
 			val camposUsuario = query.from(entityType)
 			val camposCarrito = camposUsuario.fetch("carrito", JoinType.LEFT)
-			val camposContenidoCarrito = camposCarrito.fetch("contenido", JoinType.LEFT)
+			camposCarrito.fetch("contenido", JoinType.LEFT)
 			camposCarrito.fetch("funcion", JoinType.LEFT)
-			camposContenidoCarrito.fetch("peliculas", JoinType.LEFT)
-			val camposEntradas = camposUsuario.fetch("entradas", JoinType.LEFT)
-			camposEntradas.fetch("contenido")
+			camposUsuario.fetch("entradas", JoinType.LEFT)
 			query.select(camposUsuario)
 			query.where(criteria.equal(camposUsuario.get("id"), id))
 			val result = entityManager.createQuery(query).resultList
