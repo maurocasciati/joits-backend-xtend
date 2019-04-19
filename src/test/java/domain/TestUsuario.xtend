@@ -11,6 +11,7 @@ import repositorios.RepoFuncion
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
 import org.junit.After
+import java.util.HashSet
 
 class TestUsuario {
 
@@ -120,8 +121,8 @@ class TestUsuario {
 
 	@After
 	def void end() {
-//		repoUsuarios.delete(aniston)
-//		repoUsuarios.delete(deNiro)
-//		repoUsuarios.delete(scorsese)
+		repoUsuarios.delete(aniston)
+		repoUsuarios.delete(deNiro)
+		repoUsuarios.delete(scorsese)
 	}
 }
