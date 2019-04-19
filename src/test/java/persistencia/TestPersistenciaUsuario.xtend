@@ -145,12 +145,10 @@ class TestPersistenciaUsuario {
 
 	@Test
 	def unUsuarioAgregaEntradaAlCarrito() {
-		val carritoAntes = aniston.carrito.length
 		aniston.agregarAlCarrito(entrada)
 		repoUsuarios.update(aniston)
 		val anistonConCarritoActualizada = repoUsuarios.searchById(aniston.id, new FetchUsuarioConCarrito)
-		Assert.assertEquals(carritoAntes + 1, anistonConCarritoActualizada.carrito.length)
-//		Assert.assertTrue(anistonConCarritoActualizada.carrito.contains(entrada))
+		Assert.assertTrue(anistonConCarritoActualizada.carrito.contains(entrada))
 	}
 
 	@Test
@@ -173,11 +171,10 @@ class TestPersistenciaUsuario {
 	@Test
 	def unUsuarioEliminaItemDelCarrito() {
 		aniston.agregarAlCarrito(entrada)
-		val carritoAntes = aniston.carrito.length
 		aniston.eliminarItem(entrada)
 		repoUsuarios.update(aniston)
 		val anistonConCarritoActualizada = repoUsuarios.searchById(aniston.id, new FetchUsuarioConCarrito)
-		Assert.assertEquals(carritoAntes - 1, anistonConCarritoActualizada.carrito.length)
+		Assert.assertTrue(!anistonConCarritoActualizada.carrito.contains(entrada))
 	}
 
 	@After
