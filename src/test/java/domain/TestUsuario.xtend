@@ -1,7 +1,11 @@
 package domain
 
 import java.math.BigDecimal
+import java.time.LocalDateTime
+import java.time.Month
 import java.util.ArrayList
+import java.util.concurrent.ThreadLocalRandom
+import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -10,8 +14,6 @@ import repositorios.RepoEntrada
 import repositorios.RepoFuncion
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
-import org.junit.After
-import java.util.HashSet
 
 class TestUsuario {
 
@@ -29,12 +31,20 @@ class TestUsuario {
 	Pelicula elDiaDeLaMarmota
 	Pelicula losBañeros4
 	Saga sagaMatrix
+	Entrada entrada
+	Entrada entrada2
+	Entrada entrada3
+	Funcion funcion
+	Funcion funcion2
+	Funcion funcion3
 
 	@Before
 	def void init() {
 		inicializarRepos
 		crearContenido
 		inicializarUsuarios
+		crearFunciones
+		crearEntradas
 	}
 
 	def inicializarRepos() {
@@ -106,17 +116,91 @@ class TestUsuario {
 		repoContenido.create(losBañeros4)
 	}
 
+	def crearFunciones() {
+		funcion = new Funcion
+		funcion2 = new Funcion
+		funcion3 = new Funcion
+
+		repoFunciones.create(funcion)
+		repoFunciones.create(funcion2)
+		repoFunciones.create(funcion3)
+	}
+
+	def crearEntradas() {
+		entrada = new Entrada(matrix, funcion)
+		entrada2 = new Entrada(elDiaDeLaMarmota, funcion2)
+		entrada3 = new Entrada(pulpFiction, funcion3)
+
+		repoEntradas.create(entrada)
+		repoEntradas.create(entrada2)
+		repoEntradas.create(entrada3)
+	}
+
 	@Test
-	def seCreoElUsuarioAniston() {
+	def seCreaUsuario() {
 		Assert.assertEquals(repoUsuarios.searchById(aniston.id), aniston)
 	}
 
 	@Test
-	def anistonAgregaADeNiro() {
+	def unUsuarioAgregaAUnAmigo() {
 		aniston.agregarAmigo(deNiro)
 		repoUsuarios.update(aniston)
 		val anistonActualizada = repoUsuarios.searchById(aniston.id)
 		Assert.assertTrue(anistonActualizada.listaDeAmigos.contains(deNiro))
+	}
+
+	@Test
+	def unUsuarioCargaSaldo() {
+		val BigDecimal saldoAnterior = aniston.saldo
+		aniston.cargarSaldo(50.7)
+		repoUsuarios.update(aniston)
+		val anistonActualizada = repoUsuarios.searchById(aniston.id)
+		Assert.assertEquals((saldoAnterior + (new BigDecimal(50.5))).intValue, anistonActualizada.saldo.intValue)
+	}
+
+	@Test
+	def unUsuarioCambiaEdad() {
+		aniston.edad = 45
+		repoUsuarios.update(aniston)
+		val anistonActualizada = repoUsuarios.searchById(aniston.id)
+		Assert.assertEquals(45, anistonActualizada.edad)
+	}
+
+	@Test
+	def unUsuarioAgregaEntradaAlCarrito() {
+		val carritoAntes = aniston.carrito.length
+		aniston.agregarAlCarrito(entrada)
+		repoUsuarios.update(aniston)
+		val anistonConCarritoActualizada = repoUsuarios.traerUsuarioLogueado(aniston.id)
+		Assert.assertEquals(carritoAntes + 1, anistonConCarritoActualizada.carrito.length)
+//		Assert.assertTrue(anistonConCarritoActualizada.carrito.contains(entrada))
+	}
+
+	@Test
+	def unUsuarioLimpiaCarrito() {
+		aniston.limpiarCarrito
+		repoUsuarios.update(aniston)
+		val anistonActualizada = repoUsuarios.traerUsuarioConCarrito(aniston.id)
+		Assert.assertTrue(anistonActualizada.carrito.length == 0)
+	}
+
+	@Test
+	def unUsuarioFinalizaCompra() {
+		val totalCompra = new BigDecimal(aniston.totalCarrito)
+		aniston.finalizarCompra
+		repoUsuarios.update(aniston)
+		val anistonActualizada = repoUsuarios.traerUsuarioConCarrito(aniston.id)
+		Assert.assertEquals(aniston.saldo.intValue - totalCompra.intValue, anistonActualizada.saldo.intValue)
+	}
+
+	@Test
+	def unUsuarioEliminaItemDelCarrito() {
+		aniston.agregarAlCarrito(entrada)
+		val carritoAntes = aniston.carrito.length
+		aniston.eliminarItem(entrada)
+		repoUsuarios.update(aniston)
+		val anistonConCarritoActualizada = repoUsuarios.traerUsuarioLogueado(aniston.id)
+		Assert.assertEquals(carritoAntes - 1, anistonConCarritoActualizada.carrito.length)
 	}
 
 	@After
@@ -127,6 +211,12 @@ class TestUsuario {
 		repoUsuarios.delete(aniston)
 		repoUsuarios.delete(deNiro)
 		repoUsuarios.delete(scorsese)
+		repoEntradas.delete(entrada)
+		repoEntradas.delete(entrada2)
+		repoEntradas.delete(entrada3)
+		repoFunciones.delete(funcion)
+		repoFunciones.delete(funcion2)
+		repoFunciones.delete(funcion3)
 		repoContenido.delete(sagaMatrix)
 		repoContenido.delete(matrix)
 		repoContenido.delete(matrix2)
