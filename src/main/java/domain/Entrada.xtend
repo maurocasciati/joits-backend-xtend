@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import javax.persistence.FetchType
+import java.util.Objects
 
 @Entity
 @Accessors
@@ -18,13 +19,13 @@ class Entrada {
 	@Id
 	@GeneratedValue
 	Long id
-	
+
 	@ManyToOne(fetch=FetchType.LAZY)
 	Contenido contenido
-	
+
 	@ManyToOne(fetch=FetchType.LAZY)
 	Funcion funcion
-	
+
 	@Column
 	LocalDateTime fechaCompra
 
@@ -47,6 +48,17 @@ class Entrada {
 	@JsonIgnore
 	def getPrecioString() {
 		"$" + precio.toString
+	}
+
+	override equals(Object other) {
+		if (other instanceof Entrada) {
+			return (other as Entrada).id == id
+		}
+		false
+	}
+
+	override hashCode() {
+		Objects.hashCode(id)
 	}
 
 }
