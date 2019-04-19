@@ -129,7 +129,7 @@ class Usuario {
 	}
 
 	override hashCode() {
-		Objects.hash(id)
+		Objects.hashCode(id)
 	}
 
 }
