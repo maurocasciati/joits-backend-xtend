@@ -74,7 +74,7 @@ class Usuario {
 		if (noLeAlcanzaSaldo) {
 			throw new UserException("Saldo insuficiente")
 		}
-		saldo -= new BigDecimal(totalCarrito)
+		saldo -= new BigDecimal(totalCarrito.toString)
 		agregarEntradasCarrito
 		limpiarCarrito
 	}
@@ -98,7 +98,7 @@ class Usuario {
 	}
 
 	def cargarSaldo(Double monto) {
-		saldo = saldo + new BigDecimal(monto)
+		saldo = saldo + new BigDecimal(monto.toString)
 	}
 
 	def Boolean coincideEnBusqueda(String valorBuscado) {

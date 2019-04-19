@@ -61,7 +61,7 @@ class TestUsuario {
 			apellido = "Aniston"
 			username = "rachel_g"
 			edad = 50
-			saldo = new BigDecimal(330)
+			saldo = new BigDecimal("330")
 			contrasenia = "jen123"
 		]
 
@@ -70,7 +70,7 @@ class TestUsuario {
 			apellido = "De Niro"
 			username = "robertito"
 			edad = 75
-			saldo = new BigDecimal(964)
+			saldo = new BigDecimal("964")
 			contrasenia = "roberto"
 		]
 
@@ -79,7 +79,7 @@ class TestUsuario {
 			apellido = "Scorsese"
 			username = "MartyBoy"
 			edad = 76
-			saldo = new BigDecimal(167)
+			saldo = new BigDecimal("167")
 			contrasenia = "Ms2000"
 		]
 
@@ -155,7 +155,7 @@ class TestUsuario {
 		aniston.cargarSaldo(50.7)
 		repoUsuarios.update(aniston)
 		val anistonActualizada = repoUsuarios.searchById(aniston.id)
-		Assert.assertEquals((saldoAnterior + (new BigDecimal(50.5))).intValue, anistonActualizada.saldo.intValue)
+		Assert.assertTrue((saldoAnterior + new BigDecimal("50.7")).compareTo(anistonActualizada.saldo) == 0)
 	}
 
 	@Test
@@ -190,7 +190,7 @@ class TestUsuario {
 		aniston.finalizarCompra
 		repoUsuarios.update(aniston)
 		val anistonActualizada = repoUsuarios.traerUsuarioConCarrito(aniston.id)
-		Assert.assertEquals(aniston.saldo.intValue - totalCompra.intValue, anistonActualizada.saldo.intValue)
+		Assert.assertTrue((aniston.saldo - totalCompra).compareTo(anistonActualizada.saldo) == 0)
 	}
 
 	@Test

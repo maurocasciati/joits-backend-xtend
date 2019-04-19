@@ -140,7 +140,7 @@ class JoitsBootstrap implements Bootstrap {
 			apellido = "Aniston"
 			username = "rachel_g"
 			edad = 50
-			saldo = new BigDecimal(330)
+			saldo = new BigDecimal("330")
 			contrasenia = "jen123"
 		]
 
@@ -149,7 +149,7 @@ class JoitsBootstrap implements Bootstrap {
 			apellido = "De Niro"
 			username = "robertito"
 			edad = 75
-			saldo = new BigDecimal(964)
+			saldo = new BigDecimal("964")
 			contrasenia = "roberto"
 		]
 
@@ -158,7 +158,7 @@ class JoitsBootstrap implements Bootstrap {
 			apellido = "Scorsese"
 			username = "MartyBoy"
 			edad = 76
-			saldo = new BigDecimal(167)
+			saldo = new BigDecimal("167")
 			contrasenia = "Ms2000"
 		]
 
@@ -167,7 +167,7 @@ class JoitsBootstrap implements Bootstrap {
 			apellido = "Gomez"
 			username = "c"
 			edad = 45
-			saldo = new BigDecimal(2020)
+			saldo = new BigDecimal("2020")
 			contrasenia = "c"
 		]
 
@@ -176,7 +176,7 @@ class JoitsBootstrap implements Bootstrap {
 			apellido = "Messi"
 			username = "leomessi"
 			edad = 31
-			saldo = new BigDecimal(1312)
+			saldo = new BigDecimal("1312")
 			contrasenia = "L10forever"
 		]
 
@@ -185,7 +185,7 @@ class JoitsBootstrap implements Bootstrap {
 			apellido = "Paulina"
 			username = "pau"
 			edad = 28
-			saldo = new BigDecimal(150)
+			saldo = new BigDecimal("150")
 			contrasenia = "pau"
 		]
 
@@ -194,7 +194,7 @@ class JoitsBootstrap implements Bootstrap {
 			apellido = "Rodriguez"
 			username = "cora"
 			edad = 28
-			saldo = new BigDecimal(150)
+			saldo = new BigDecimal("150")
 			contrasenia = "cora"
 		]
 
