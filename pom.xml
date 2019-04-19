@@ -52,7 +52,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.0</version>
+				<version>0.8.3</version>
 				<executions>
 					<execution>
 						<goals>
@@ -74,11 +74,6 @@
 				<version>4.3.0</version>
 
 				<configuration>
-					<coberturaReports>
-						<coberturaReport>
-							${basedir}/target/coverage.xml
-						</coberturaReport>
-					</coberturaReports>
 					<sourceEncoding>UTF-8</sourceEncoding>
 					<serviceName>travis-ci</serviceName>
 					<serviceJobId>${env.TRAVIS_JOB_ID} </serviceJobId>
