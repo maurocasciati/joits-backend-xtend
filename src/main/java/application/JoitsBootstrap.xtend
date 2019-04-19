@@ -285,6 +285,8 @@ class JoitsBootstrap implements Bootstrap {
 		var entrada17 = new Entrada(redSocial, redSocial.funciones.get(1))
 		val entrada18 = new Entrada(volverAlFuturoI, volverAlFuturoI.funciones.get(1))
 		val entrada19 = new Entrada(pulpFiction, pulpFiction.funciones.get(0))
+		val entrada20 = new Entrada(volverAlFuturoI, volverAlFuturoI.funciones.get(1))
+		val entrada21 = new Entrada(pulpFiction, pulpFiction.funciones.get(0))
 
 		repoEntradas.create(entrada)
 		repoEntradas.create(entrada2)
@@ -305,6 +307,8 @@ class JoitsBootstrap implements Bootstrap {
 		repoEntradas.create(entrada17)
 		repoEntradas.create(entrada18)
 		repoEntradas.create(entrada19)
+		repoEntradas.create(entrada20)
+		repoEntradas.create(entrada21)
 
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
 		deNiro.entradas.addAll(entrada4, entrada5)
@@ -312,12 +316,16 @@ class JoitsBootstrap implements Bootstrap {
 		cacho.carrito.addAll(entrada8, entrada18, entrada19)
 		messi.entradas.addAll(entrada9, entrada10, entrada11, entrada12)
 		scorsese.entradas.addAll(entrada13, entrada14, entrada15, entrada16, entrada17)
+		paulina.entradas.addAll(entrada20)
+		cora.entradas.addAll(entrada21)
 
 		repoUsuarios.update(aniston)
 		repoUsuarios.update(deNiro)
 		repoUsuarios.update(cacho)
 		repoUsuarios.update(messi)
 		repoUsuarios.update(scorsese)
+		repoUsuarios.update(paulina)
+		repoUsuarios.update(cora)
 	}
 
 	override isPending() {
