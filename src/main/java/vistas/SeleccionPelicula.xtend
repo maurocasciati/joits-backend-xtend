@@ -117,7 +117,7 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 
 	def agregarTablaFunciones(Panel panel) {
 		val tablaFunciones = new Table<Funcion>(panel, typeof(Funcion)) => [
-			items <=> "peliculaFromDB.funciones"
+			items <=> "funciones"
 			value <=> "funcionSeleccionada"
 			numberVisibleRows = 10
 		]
