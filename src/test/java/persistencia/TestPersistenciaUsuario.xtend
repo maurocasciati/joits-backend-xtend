@@ -1,25 +1,27 @@
-package domain
+package persistencia
 
+import domain.Entrada
+import domain.Funcion
+import domain.Pelicula
+import domain.Saga
+import domain.Usuario
 import java.math.BigDecimal
-import java.time.LocalDateTime
-import java.time.Month
 import java.util.ArrayList
-import java.util.concurrent.ThreadLocalRandom
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import repositorios.FetchNothing
+import repositorios.FetchUsuarioConAmigos
+import repositorios.FetchUsuarioConCarrito
+import repositorios.FetchUsuarioConCarritoCompleto
 import repositorios.RepoContenido
 import repositorios.RepoEntrada
 import repositorios.RepoFuncion
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
-import repositorios.FetchNothing
-import repositorios.FetchUsuarioConAmigos
-import repositorios.FetchUsuarioConCarrito
-import repositorios.FetchUsuarioConCarritoCompleto
 
-class TestUsuario {
+class TestPersistenciaUsuario {
 
 	RepoContenido repoContenido
 	RepoUsuario repoUsuarios
@@ -27,20 +29,13 @@ class TestUsuario {
 	RepoFuncion repoFunciones
 	Usuario aniston
 	Usuario deNiro
-	Usuario scorsese
 	Pelicula matrix
 	Pelicula matrix2
 	Pelicula matrix3
-	Pelicula pulpFiction
-	Pelicula elDiaDeLaMarmota
-	Pelicula losBañeros4
 	Saga sagaMatrix
+	Pelicula pulpFiction
 	Entrada entrada
-	Entrada entrada2
-	Entrada entrada3
 	Funcion funcion
-	Funcion funcion2
-	Funcion funcion3
 
 	@Before
 	def void init() {
@@ -78,18 +73,8 @@ class TestUsuario {
 			contrasenia = "roberto"
 		]
 
-		scorsese = new Usuario => [
-			nombre = "Martin"
-			apellido = "Scorsese"
-			username = "MartyBoy"
-			edad = 76
-			saldo = new BigDecimal("167")
-			contrasenia = "Ms2000"
-		]
-
 		repoUsuarios.create(aniston)
 		repoUsuarios.create(deNiro)
-		repoUsuarios.create(scorsese)
 	}
 
 	def crearContenido() {
@@ -98,8 +83,6 @@ class TestUsuario {
 		matrix2 = new Pelicula("The Matrix: Reloaded", 7.2, "Ciencia Ficción", 2003)
 		matrix3 = new Pelicula("The Matrix: Revolution", 6.7, "Ciencia Ficción", 2003)
 		pulpFiction = new Pelicula("Pulp Fiction", 8.9, "Drama", 1994)
-		elDiaDeLaMarmota = new Pelicula("El día de la marmota", 8.0, "Comedia", 1993)
-		losBañeros4 = new Pelicula("Los Bañeros 4: Los Rompeolas", 1.4, "Comedia", 2014)
 
 		sagaMatrix = new Saga => [
 			titulo = "Saga Matrix"
@@ -115,29 +98,19 @@ class TestUsuario {
 		repoContenido.create(matrix2)
 		repoContenido.create(matrix3)
 		repoContenido.create(sagaMatrix)
-		repoContenido.create(elDiaDeLaMarmota)
 		repoContenido.create(pulpFiction)
-		repoContenido.create(losBañeros4)
 	}
 
 	def crearFunciones() {
 		funcion = new Funcion
-		funcion2 = new Funcion
-		funcion3 = new Funcion
 
 		repoFunciones.create(funcion)
-		repoFunciones.create(funcion2)
-		repoFunciones.create(funcion3)
 	}
 
 	def crearEntradas() {
 		entrada = new Entrada(matrix, funcion)
-		entrada2 = new Entrada(elDiaDeLaMarmota, funcion2)
-		entrada3 = new Entrada(pulpFiction, funcion3)
 
 		repoEntradas.create(entrada)
-		repoEntradas.create(entrada2)
-		repoEntradas.create(entrada3)
 	}
 
 	@Test
@@ -211,22 +184,12 @@ class TestUsuario {
 	def void end() {
 		repoUsuarios.delete(aniston)
 		repoUsuarios.delete(deNiro)
-		repoUsuarios.delete(scorsese)
-		repoUsuarios.delete(aniston)
-		repoUsuarios.delete(deNiro)
-		repoUsuarios.delete(scorsese)
 		repoEntradas.delete(entrada)
-		repoEntradas.delete(entrada2)
-		repoEntradas.delete(entrada3)
 		repoFunciones.delete(funcion)
-		repoFunciones.delete(funcion2)
-		repoFunciones.delete(funcion3)
 		repoContenido.delete(sagaMatrix)
 		repoContenido.delete(matrix)
 		repoContenido.delete(matrix2)
 		repoContenido.delete(matrix3)
-		repoContenido.delete(elDiaDeLaMarmota)
 		repoContenido.delete(pulpFiction)
-		repoContenido.delete(losBañeros4)
 	}
 }
