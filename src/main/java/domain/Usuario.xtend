@@ -44,7 +44,7 @@ class Usuario {
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	Set<Usuario> listaDeAmigos = new HashSet<Usuario>
 
-	@Column
+	@Column(nullable=false)
 	BigDecimal saldo
 
 	@Column(length=50)
