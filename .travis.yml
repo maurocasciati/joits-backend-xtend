@@ -7,5 +7,5 @@ jdk:
   - openjdk8
 
 before_install:
-  - echo "CREATE USER 'tpuser'@'%' IDENTIFIED BY 'tpuser';\nFLUSH PRIVILEGES;\n" | mysql -u root
+  - echo "CREATE USER 'tpuser'@'%' IDENTIFIED BY 'tpuser';\nGRANT ALL PRIVILEGES ON *.* TO 'tpuser'@'%' WITH GRANT OPTION;\nFLUSH PRIVILEGES;\n" | mysql -u root
   - mysql --user=tpuser --password=tpuser -e 'CREATE DATABASE IF NOT EXISTS joits;'
