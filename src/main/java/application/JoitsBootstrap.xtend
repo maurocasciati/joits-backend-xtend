@@ -102,7 +102,6 @@ class JoitsBootstrap implements Bootstrap {
 			peliculas = new ArrayList<Pelicula>
 			peliculas.addAll(volverAlFuturoI, volverAlFuturoII, volverAlFuturoIII)
 			trailerURL = "https://www.youtube.com/watch?v=Ktx1uv-F8EU"
-			cantidadDePeliculas = peliculas.length
 		]
 		sagaMatrix = new Saga => [
 			titulo = "Saga Matrix"
@@ -113,7 +112,6 @@ class JoitsBootstrap implements Bootstrap {
 			peliculas = new ArrayList<Pelicula>
 			peliculas.addAll(matrix, matrix2, matrix3)
 			trailerURL = "https://www.youtube.com/watch?v=ZOxRqas9vWk"
-			cantidadDePeliculas = peliculas.length
 		]
 
 		repoContenido.create(matrix)
