@@ -17,7 +17,9 @@ import repositorios.RepoLocator
 import repositorios.RepoUsuario
 import repositorios.RepoFuncion
 import org.uqbar.arena.bootstrap.Bootstrap
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class JoitsBootstrap implements Bootstrap {
 
 	RepoContenido repoContenido
