@@ -17,7 +17,7 @@ class LoginViewModel {
 	RepoUsuario repoUsuario
 
 	new() {
-		repoUsuario = RepoLocator.getRepoUsuario
+		repoUsuario = RepoLocator.repoUsuario
 	}
 
 	def aceptar(Login pantallaLogin) {

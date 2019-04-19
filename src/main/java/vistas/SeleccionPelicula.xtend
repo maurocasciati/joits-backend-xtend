@@ -1,7 +1,6 @@
 package vistas
 
 import domain.Funcion
-import domain.Pelicula
 import domain.Usuario
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.ColumnLayout

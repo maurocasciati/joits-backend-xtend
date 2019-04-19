@@ -19,7 +19,7 @@ class SeleccionPeliculaViewModel {
 	Usuario usuarioLogueado
 	LocalDate fechaHoy = LocalDate.now
 
-	List<Contenido> peliculas = RepoLocator.getRepoContenido.allInstances as List<Contenido>
+	List<Contenido> peliculas = RepoLocator.repoContenido.allInstances as List<Contenido>
 	Contenido peliculaSeleccionada
 	Funcion funcionSeleccionada
 	Contenido peliculaFromDB

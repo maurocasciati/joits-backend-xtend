@@ -48,10 +48,10 @@ class JoitsBootstrap implements Bootstrap {
 	Saga sagaMatrix
 
 	new() {
-		repoContenido = RepoLocator.getRepoContenido
-		repoUsuarios = RepoLocator.getRepoUsuario
-		repoEntradas = RepoLocator.getRepoEntrada
-		repoFunciones = RepoLocator.getRepoFuncion
+		repoContenido = RepoLocator.repoContenido
+		repoUsuarios = RepoLocator.repoUsuario
+		repoEntradas = RepoLocator.repoEntrada
+		repoFunciones = RepoLocator.repoFuncion
 	}
 
 	override run() {
