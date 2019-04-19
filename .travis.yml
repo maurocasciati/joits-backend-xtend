@@ -9,3 +9,7 @@ jdk:
 before_install:
   - echo "CREATE USER 'tpuser'@'%' IDENTIFIED BY 'tpuser';\nGRANT ALL PRIVILEGES ON *.* TO 'tpuser'@'%' WITH GRANT OPTION;\nFLUSH PRIVILEGES;\n" | mysql -u root
   - mysql --user=tpuser --password=tpuser -e 'CREATE DATABASE IF NOT EXISTS joits;'
+
+
+script:
+  - mvn -e -DTRAVIS_JOB_ID=$TRAVIS_JOB_ID clean install jacoco:report coveralls:report
