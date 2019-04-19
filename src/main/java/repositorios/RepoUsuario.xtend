@@ -88,9 +88,8 @@ class RepoUsuario extends Repositorio<Usuario> {
 			val query = criteria.createQuery
 			val camposUsuario = query.from(entityType)
 			val camposCarrito = camposUsuario.fetch("carrito", JoinType.LEFT)
-			val camposContenidoCarrito = camposCarrito.fetch("contenido", JoinType.LEFT)
+			camposCarrito.fetch("contenido", JoinType.LEFT)
 			camposCarrito.fetch("funcion", JoinType.LEFT)
-			camposContenidoCarrito.fetch("peliculas", JoinType.LEFT)
 			camposUsuario.fetch("entradas", JoinType.LEFT)
 			query.select(camposUsuario)
 			query.where(criteria.equal(camposUsuario.get("id"), id))

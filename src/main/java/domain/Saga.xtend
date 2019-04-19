@@ -5,6 +5,9 @@ import javax.persistence.DiscriminatorValue
 import javax.persistence.Entity
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
+import javax.persistence.OneToMany
+import javax.persistence.JoinColumn
+import java.util.List
 
 @Accessors
 @Observable
@@ -21,6 +24,10 @@ class Saga extends Contenido {
 
 	@Column
 	Integer cantidadDePeliculas
+	
+	@OneToMany()
+	@JoinColumn(name="id_saga")
+	List<Pelicula> peliculas
 
 	override precio() {
 		return this.precioPorPeliculas + nivelClasico
