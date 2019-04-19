@@ -18,17 +18,19 @@ class UsuariosApiRest {
 
 	@Get("/usuarios/:nombre")
 	def getBuscarUsuariosPorNombre() {
-		return ok(RepoLocator.repoUsuario.busqueda(nombre).toJson)
+		var Usuario proto = new Usuario()
+		proto.nombre = nombre
+		return ok(RepoLocator.repoUsuario.searchByExample(proto).toJson)
 	}
 
 	@Get("/usuarios/id/:id")
 	def getUsuarioPorId() {
-		return ok(RepoLocator.repoUsuario.searchById(Integer.parseInt(id)).toJson)
+		return ok(RepoLocator.repoUsuario.searchById(Long.parseLong(id)).toJson)
 	}
 
 	@Get("/usuarios/id/:id/amigos")
 	def getAmigosDeUsuarioPorId() {
-		return ok(RepoLocator.repoUsuario.searchById(Integer.parseInt(id)).listaDeAmigos.toJson)
+		return ok(RepoLocator.repoUsuario.searchById(Long.parseLong(id)).listaDeAmigos.toJson)
 	}
 
 	@Put("/usuario/eliminarAmigo")
@@ -36,8 +38,8 @@ class UsuariosApiRest {
 		try {
 			val idUsuario = body.getPropertyValue("idUsuarioLoggeado")
 			val idAmigo = body.getPropertyValue("idAmigoAEliminar")
-			val usuario = RepoLocator.repoUsuario.searchById(Integer.parseInt(idUsuario))
-			val amigo = RepoLocator.repoUsuario.searchById(Integer.parseInt(idAmigo))
+			val usuario = RepoLocator.repoUsuario.searchById(Long.parseLong(idUsuario))
+			val amigo = RepoLocator.repoUsuario.searchById(Long.parseLong(idAmigo))
 			usuario.eliminarAmigo(amigo)
 			ok('{ "status" : "OK" }');
 		} catch (Exception e) {
@@ -54,7 +56,7 @@ class UsuariosApiRest {
 				return badRequest('{ "error" : "Id en URL distinto del cuerpo" }')
 			}
 
-			RepoLocator.repoUsuario.updateRecord(actualizado)
+			RepoLocator.repoUsuario.update(actualizado)
 			ok('{ "status" : "OK" }');
 		} catch (Exception e) {
 			badRequest(e.message)
@@ -66,7 +68,7 @@ class UsuariosApiRest {
 		try {
 			val user = body.getPropertyValue("user")
 			val pass = body.getPropertyValue("pass")
-			ok(RepoLocator.repoUsuario.getUsuario(user, pass).id.toJson);
+			ok(RepoLocator.repoUsuario.login(user, pass).id.toJson);
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
@@ -75,7 +77,7 @@ class UsuariosApiRest {
 	@Get("/usuario/carrito/:id")
 	def getCarritoUsuario() {
 		try {
-			val idUsuario = Integer.parseInt(id)
+			val idUsuario = Long.parseLong(id)
 			val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
 			return ok(usuario.carrito.toJson)
 		} catch (Exception e) {
@@ -86,7 +88,7 @@ class UsuariosApiRest {
 	@Put("/usuario/finalizar-compra/:id")
 	def Result finalizarCompra() {
 		try {
-			val idUsuario = Integer.parseInt(id)
+			val idUsuario = Long.parseLong(id)
 			val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
 			usuario.finalizarCompra()
 			ok('{ "status" : "OK" }');
@@ -98,7 +100,7 @@ class UsuariosApiRest {
 	@Put("/usuario/limpiar-carrito/:id")
 	def Result limpiarCarrito() {
 		try {
-			val idUsuario = Integer.parseInt(id)
+			val idUsuario = Long.parseLong(id)
 			val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
 			usuario.limpiarCarrito()
 			ok('{ "status" : "OK" }');
@@ -110,8 +112,8 @@ class UsuariosApiRest {
 	@Put("/usuario/eliminar-item-carrito/:id")
 	def Result eliminarItemCarrito(@Body String body) {
 		try {
-			val idUsuario = Integer.parseInt(id)
-			val idEntrada = Integer.parseInt(body.getPropertyValue("idEntrada"))
+			val idUsuario = Long.parseLong(id)
+			val idEntrada = Long.parseLong(body.getPropertyValue("idEntrada"))
 			val entrada = RepoLocator.repoEntrada.searchById(idEntrada)
 			val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
 			usuario.eliminarItem(entrada)
@@ -124,9 +126,9 @@ class UsuariosApiRest {
 	@Put("/usuario/agregar-item-carrito/:id")
 	def Result agregarItemCarrito(@Body String body) {
 		try {
-			val idUsuario = Integer.parseInt(id)
-			val idContenido = Integer.parseInt(body.getPropertyValue("idContenido"))
-			val idFuncion = Integer.parseInt(body.getPropertyValue("idFuncion"))
+			val idUsuario = Long.parseLong(id)
+			val idContenido = Long.parseLong(body.getPropertyValue("idContenido"))
+			val idFuncion = Long.parseLong(body.getPropertyValue("idFuncion"))
 
 			val contenido = RepoLocator.repoContenido.searchById(idContenido)
 			val funcion = contenido.searchFuncionById(idFuncion)
@@ -144,7 +146,7 @@ class UsuariosApiRest {
 	@Put("/usuario/:id/cargar-saldo/")
 	def Result cargarSaldo(@Body String body) {
 		try {
-			val idUsuario = Integer.parseInt(id)
+			val idUsuario = Long.parseLong(id)
 			val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
 			val saldoACargar = Double.parseDouble(body.getPropertyValue("saldoACargar"))
 			usuario.cargarSaldo(saldoACargar)

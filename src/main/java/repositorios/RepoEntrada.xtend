@@ -1,23 +1,15 @@
 package repositorios
 
 import domain.Entrada
+import javax.persistence.criteria.CriteriaBuilder
+import javax.persistence.criteria.CriteriaQuery
+import javax.persistence.criteria.Root
 
 class RepoEntrada extends Repositorio<Entrada> {
 
 	static RepoEntrada instance
 
 	private new() {
-	}
-
-	override create(Entrada object) {
-//		object.validar // -> si tiene errores de validación, no puede sumar objecto al repo.
-		super.create(object)
-	}
-
-	override updateRecord(Entrada object) {
-		var objetoEncontrado = searchById(object.id)
-//		object.validar
-		updateFieldByField(objetoEncontrado, object)
 	}
 
 	protected def void updateFieldByField(Entrada encontrado, Entrada nuevoDato) {
@@ -32,6 +24,38 @@ class RepoEntrada extends Repositorio<Entrada> {
 			instance = new RepoEntrada
 		}
 		instance
+	}
+
+	override getEntityType() {
+		typeof(Entrada)
+	}
+
+	override generateWhere(CriteriaBuilder criteria, CriteriaQuery<Entrada> query, Root<Entrada> camposEntrada,
+		Entrada entrada) {
+//		if (entrada.contenido.titulo !== null) {
+//			query.where(criteria.equal(camposEntrada.get("descripcion"), zona.descripcion))
+//		}
+	}
+	
+	def Entrada searchById(Long id) {
+		val entityManager = entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery
+			val camposEntrada = query.from(entityType)
+			query.select(camposEntrada)
+			query.where(criteria.equal(camposEntrada.get("id"), id))
+			val result = entityManager.createQuery(query).resultList
+
+			if (result.isEmpty) {
+				null
+			} else {
+				result.head as Entrada
+			}
+
+		} finally {
+			entityManager.close
+		}
 	}
 
 }

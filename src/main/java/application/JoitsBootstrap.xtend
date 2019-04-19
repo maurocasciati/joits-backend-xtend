@@ -1,6 +1,7 @@
 package application
 
 import domain.Contenido
+import domain.Entrada
 import domain.Funcion
 import domain.Pelicula
 import domain.Saga
@@ -10,18 +11,21 @@ import java.time.LocalDateTime
 import java.time.Month
 import java.util.ArrayList
 import java.util.concurrent.ThreadLocalRandom
-import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
 import repositorios.RepoContenido
+import repositorios.RepoEntrada
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
-import domain.Entrada
-import repositorios.RepoEntrada
+import repositorios.RepoFuncion
+import org.uqbar.arena.bootstrap.Bootstrap
+import org.eclipse.xtend.lib.annotations.Accessors
 
-class JoitsBootstrap extends CollectionBasedBootstrap {
+@Accessors
+class JoitsBootstrap implements Bootstrap {
 
 	RepoContenido repoContenido
 	RepoUsuario repoUsuarios
 	RepoEntrada repoEntradas
+	RepoFuncion repoFunciones
 	Usuario aniston
 	Usuario scorsese
 	Usuario deNiro
@@ -46,9 +50,10 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	Saga sagaMatrix
 
 	new() {
-		repoContenido = RepoLocator.getRepoContenido
-		repoUsuarios = RepoLocator.getRepoUsuario
-		repoEntradas = RepoLocator.getRepoEntrada
+		repoContenido = RepoLocator.repoContenido
+		repoUsuarios = RepoLocator.repoUsuario
+		repoEntradas = RepoLocator.repoEntrada
+		repoFunciones = RepoLocator.repoFuncion
 	}
 
 	override run() {
@@ -120,10 +125,10 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		repoContenido.create(elDiaDeLaMarmota)
 		repoContenido.create(pulpFiction)
 		repoContenido.create(redSocial)
-		repoContenido.create(volverAlFuturo)
 		repoContenido.create(volverAlFuturoI)
 		repoContenido.create(volverAlFuturoII)
 		repoContenido.create(volverAlFuturoIII)
+		repoContenido.create(volverAlFuturo)
 		repoContenido.create(warGames)
 		repoContenido.create(losBañeros4)
 	}
@@ -193,10 +198,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			contrasenia = "cora"
 		]
 
-		aniston.listaDeAmigos.addAll(deNiro, scorsese, messi)
-		cacho.listaDeAmigos.addAll(deNiro, aniston)
-		cora.listaDeAmigos.addAll(deNiro, aniston, paulina, messi)
-		paulina.listaDeAmigos.addAll(cora, scorsese, messi)
 		repoUsuarios.create(aniston)
 		repoUsuarios.create(cacho)
 		repoUsuarios.create(deNiro)
@@ -204,6 +205,16 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		repoUsuarios.create(scorsese)
 		repoUsuarios.create(cora)
 		repoUsuarios.create(paulina)
+
+		aniston.listaDeAmigos.addAll(deNiro, scorsese, messi)
+		cacho.listaDeAmigos.addAll(deNiro, aniston)
+		cora.listaDeAmigos.addAll(deNiro, aniston, paulina, messi)
+		paulina.listaDeAmigos.addAll(cora, scorsese, messi)
+
+		repoUsuarios.update(aniston)
+		repoUsuarios.update(cacho)
+		repoUsuarios.update(cora)
+		repoUsuarios.update(paulina)
 	}
 
 	def crearFunciones() {
@@ -229,7 +240,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	def agregarFuncionesRandom(Contenido contenido, int cantidad) {
 
 		var fecha = LocalDateTime.of(2019, Month.APRIL, 29, 18, 00, 00);
-		var i = 0
+		var i = new Long(0)
 		var String[] cines = #["Hoyts Unicenter", "ShowCase", "Hoyts Dot", "ShowCase", "Cinemark Caballito",
 			"Bama Cine Arte", "Multiplex Belgrano", "Cine Lorca", "Cinemark Palermo", "Hoyts Abasto",
 			"Village Cines Recoleta", "Atlas Flores", "Cinemark", "Cine Teatro Ocean", "Arte Multiplex",
@@ -244,9 +255,12 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			var int horasRandom = ThreadLocalRandom.current().nextInt(-10, 10 + 1);
 			var int indexMinutos = ThreadLocalRandom.current().nextInt(0, minutos.size);
 
-			contenido.funciones.add(
-				new Funcion(i, fecha.plusDays(diasRandom).plusHours(horasRandom).plusMinutes(minutos.get(indexMinutos)),
-					cines.get(index), contenido))
+			var funcion = new Funcion(
+				fecha.plusDays(diasRandom).plusHours(horasRandom).plusMinutes(minutos.get(indexMinutos)),
+				cines.get(index))
+			repoFunciones.create(funcion)
+			contenido.funciones.add(funcion)
+			repoContenido.update(contenido)
 			i++
 		}
 	}
@@ -271,6 +285,8 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		var entrada17 = new Entrada(redSocial, redSocial.funciones.get(1))
 		val entrada18 = new Entrada(volverAlFuturoI, volverAlFuturoI.funciones.get(1))
 		val entrada19 = new Entrada(pulpFiction, pulpFiction.funciones.get(0))
+		val entrada20 = new Entrada(volverAlFuturoI, volverAlFuturoI.funciones.get(1))
+		val entrada21 = new Entrada(pulpFiction, pulpFiction.funciones.get(0))
 
 		repoEntradas.create(entrada)
 		repoEntradas.create(entrada2)
@@ -291,6 +307,8 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		repoEntradas.create(entrada17)
 		repoEntradas.create(entrada18)
 		repoEntradas.create(entrada19)
+		repoEntradas.create(entrada20)
+		repoEntradas.create(entrada21)
 
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
 		deNiro.entradas.addAll(entrada4, entrada5)
@@ -298,5 +316,18 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		cacho.carrito.addAll(entrada8, entrada18, entrada19)
 		messi.entradas.addAll(entrada9, entrada10, entrada11, entrada12)
 		scorsese.entradas.addAll(entrada13, entrada14, entrada15, entrada16, entrada17)
+
+		repoUsuarios.update(aniston)
+		repoUsuarios.update(deNiro)
+		repoUsuarios.update(cacho)
+		repoUsuarios.update(messi)
+		repoUsuarios.update(scorsese)
+		repoUsuarios.update(paulina)
+		repoUsuarios.update(cora)
 	}
+
+	override isPending() {
+		RepoLocator.repoUsuario.searchByExample(new Usuario).isEmpty
+	}
+
 }

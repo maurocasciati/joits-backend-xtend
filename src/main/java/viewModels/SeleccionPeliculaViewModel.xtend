@@ -1,16 +1,16 @@
 package viewModels
 
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Observable
-import java.time.LocalDate
-import java.util.List
 import domain.Contenido
-import repositorios.RepoLocator
-import domain.Funcion
-import java.util.ArrayList
-import org.uqbar.commons.model.annotations.Dependencies
-import domain.Usuario
 import domain.Entrada
+import domain.Funcion
+import domain.Usuario
+import java.time.LocalDate
+import java.util.ArrayList
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.Dependencies
+import org.uqbar.commons.model.annotations.Observable
+import repositorios.RepoLocator
 
 @Accessors
 @Observable
@@ -19,9 +19,10 @@ class SeleccionPeliculaViewModel {
 	Usuario usuarioLogueado
 	LocalDate fechaHoy = LocalDate.now
 
-	List<Contenido> peliculas = RepoLocator.getRepoContenido.pool
+	List<Contenido> peliculas = RepoLocator.repoContenido.allInstances as List<Contenido>
 	Contenido peliculaSeleccionada
 	Funcion funcionSeleccionada
+	Contenido peliculaFromDB
 
 	String valorDeBusqueda = null
 
@@ -45,10 +46,11 @@ class SeleccionPeliculaViewModel {
 		getResultadoBusqueda.subList(4, 7)
 	}
 
-	@Dependencies("peliculaSeleccionada")
+	@Dependencies("peliculaSeleccionada") // USO peliculaFromDB PARA EVITAR LLAMAR AL SETTER DE PELICULASELECCIONADA Y CAER EN LOOP
 	def getFunciones() {
 		if (peliculaSeleccionada !== null) {
-			peliculaSeleccionada.funciones.toList
+			peliculaFromDB = RepoLocator.repoContenido.searchById(peliculaSeleccionada.id)
+			peliculaFromDB.funciones.toList
 		} else {
 			new ArrayList()
 		}
@@ -58,6 +60,7 @@ class SeleccionPeliculaViewModel {
 		val entrada = new Entrada(peliculaSeleccionada, funcionSeleccionada)
 		RepoLocator.repoEntrada.create(entrada)
 		usuarioLogueado.agregarAlCarrito(entrada)
+		RepoLocator.repoUsuario.update(usuarioLogueado)
 	}
 
 	def getCantidadItemsCarrito() {
@@ -69,9 +72,13 @@ class SeleccionPeliculaViewModel {
 		if (funcionSeleccionada === null) {
 			""
 		} else {
-			"$" + funcionSeleccionada.precio.toString
+			"$" + (funcionSeleccionada.precio + peliculaSeleccionada.precio).toString
 		}
 
+	}
+
+	def traerUsuarioLogueado() {
+		usuarioLogueado = RepoLocator.repoUsuario.traerUsuarioLogueado(usuarioLogueado.id)
 	}
 
 }

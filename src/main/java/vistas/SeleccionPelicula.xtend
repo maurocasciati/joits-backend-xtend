@@ -1,7 +1,6 @@
 package vistas
 
 import domain.Funcion
-import domain.Pelicula
 import domain.Usuario
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.ColumnLayout
@@ -15,6 +14,7 @@ import org.uqbar.arena.windows.WindowOwner
 import viewModels.SeleccionPeliculaViewModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import domain.Contenido
 
 class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 
@@ -48,7 +48,7 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 				width = 290
 				caption = "Panel de control"
 				onClick[
-					new PanelControl(this, modelObject.usuarioLogueado).open
+					new PanelControl(this, modelObject.usuarioLogueado.id).open
 				]
 			]
 		]
@@ -73,7 +73,7 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 	}
 
 	def agregarTabla(Panel panel, String listado, Integer filas) {
-		val tabla = new Table<Pelicula>(panel, typeof(Pelicula)) => [
+		val tabla = new Table<Contenido>(panel, typeof(Contenido)) => [
 			items <=> listado
 			value <=> "peliculaSeleccionada"
 			numberVisibleRows = filas
@@ -106,7 +106,8 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 				caption = "Finalizar la compra"
 				bindEnabled(new NotNullObservable("usuarioLogueado.carrito"))
 				onClick[
-					new FinalizarCompra(this, modelObject.usuarioLogueado).open
+					new FinalizarCompra(this, modelObject.usuarioLogueado.id).open
+					modelObject.traerUsuarioLogueado
 					actualizarVista("cantidadItemsCarrito")
 				]
 			]

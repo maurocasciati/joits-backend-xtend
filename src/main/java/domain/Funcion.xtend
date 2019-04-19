@@ -4,18 +4,31 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
-import repositorios.Entidad
+import javax.persistence.Entity
+import javax.persistence.Column
 
 @Accessors
 @Observable
-class Funcion extends Entidad{
-	@JsonIgnore LocalDateTime fechaHora
-	String nombreSala
+@Entity
+class Funcion {
+	@Id
+	@GeneratedValue
+	Long id
 
-	new(Integer _id,LocalDateTime _fechaHora, String _nombreSala, Contenido _contenido) {
-		id = _id
+	@JsonIgnore
+	@Column
+	LocalDateTime fechaHora
+
+	@Column(length=150)
+	String nombreSala
+	
+	new(){}
+
+	new(LocalDateTime _fechaHora, String _nombreSala) {
 		fechaHora = _fechaHora
 		nombreSala = _nombreSala
 	}

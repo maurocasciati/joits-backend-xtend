@@ -14,7 +14,7 @@ class ContenidoApiRest {
 	@Get("/cartelera")
 	def Result getContenidoEnCartelera() {
 		try {
-			return ok(RepoLocator.repoContenido.pool.toList.toJson)
+			return ok(RepoLocator.repoContenido.allInstances.toJson)
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
@@ -23,7 +23,7 @@ class ContenidoApiRest {
 	@Get("/recomendaciones")
 	def Result getContenidoRecomendado() {
 		try {
-			return ok(RepoLocator.repoContenido.pool.toList.subList(4, 7).toJson)
+			return ok(RepoLocator.repoContenido.allInstances.subList(4, 7).toJson)
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
@@ -32,7 +32,7 @@ class ContenidoApiRest {
 	@Get("/funciones/:id")
 	def Result getFuncionesByIdContenido() {
 		try {
-			val contenido = RepoLocator.repoContenido.searchById(Integer.parseInt(id))
+			val contenido = RepoLocator.repoContenido.searchById(Long.parseLong(id))
 			return ok(contenido.funciones.toJson)
 		} catch (Exception e) {
 			badRequest(e.message)

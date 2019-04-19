@@ -1,7 +1,7 @@
 package viewModels
 
 import domain.Usuario
-import java.util.List
+import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import repositorios.RepoLocator
@@ -12,24 +12,28 @@ class BuscarAmigosViewModel {
 	Usuario usuarioLogueado
 	Usuario usuarioSeleccionado
 	String valorBuscado = ""
-	
-	def List<Usuario> getListadoUsuarios(){
-		RepoLocator.repoUsuario.pool.filter[usuario|
-			!usuarioLogueado.listaDeAmigos.contains(usuario) &&
-			!usuario.equals(usuarioLogueado)
-		].toList
+
+	def Set<Usuario> getListadoUsuarios() {
+		RepoLocator.repoUsuario.allInstances.filter [ usuario |
+			!usuarioLogueado.listaDeAmigos.contains(usuario) && !usuario.equals(usuarioLogueado)
+		].toSet
 	}
-	
-	def List<Usuario> getResultados(){
-		getListadoUsuarios.filter[usuario|usuario.coincideEnBusqueda(valorBuscado)].toList
+
+	def Set<Usuario> getResultados() {
+		getListadoUsuarios.filter[usuario|usuario.coincideEnBusqueda(valorBuscado)].toSet
 	}
-	
-	def List<Usuario> getListadoSugeridos(){
+
+	def Set<Usuario> getListadoSugeridos() {
 		getListadoUsuarios
 	}
-	
-	def agregarAmigo(){
+
+	def agregarAmigo() {
 		usuarioLogueado.agregarAmigo(usuarioSeleccionado)
 	}
 	
+	def aceptar(){
+		RepoLocator.repoUsuario.update(usuarioLogueado)
+//		usuarioLogueado = RepoLocator.repoUsuario.searchById(usuarioLogueado.id)		
+	}
+
 }

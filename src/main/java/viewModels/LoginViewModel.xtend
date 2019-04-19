@@ -17,11 +17,11 @@ class LoginViewModel {
 	RepoUsuario repoUsuario
 
 	new() {
-		repoUsuario = RepoLocator.getRepoUsuario
+		repoUsuario = RepoLocator.repoUsuario
 	}
 
 	def aceptar(Login pantallaLogin) {
-		val Usuario usuario = repoUsuario.getUsuario(username, password)
+		val Usuario usuario = repoUsuario.login(username,password)
 		pantallaLogin.accept
 		pantallaLogin.irASeleccionarPelicula(usuario)
 	}

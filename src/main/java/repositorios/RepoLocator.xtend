@@ -1,23 +1,12 @@
 package repositorios
 
-import java.util.ArrayList
+import org.eclipse.xtend.lib.annotations.Accessors
 
 class RepoLocator {
-	def static getRepoContenido() {
-		RepoContenido.getInstance
-	}
 
-	def static getRepoUsuario() {
-		RepoUsuario.getInstance
-	}
+	@Accessors static RepoContenido repoContenido = RepoContenido.getInstance
+	@Accessors static RepoUsuario repoUsuario = RepoUsuario.getInstance
+	@Accessors static RepoEntrada repoEntrada = RepoEntrada.getInstance
+	@Accessors static RepoFuncion repoFuncion = RepoFuncion.getInstance
 
-	def static getRepoEntrada() {
-		RepoEntrada.getInstance
-	}
-
-	def static resetAll() {
-		getRepoContenido.pool = new ArrayList
-		getRepoUsuario.pool = new ArrayList
-		getRepoEntrada.pool = new ArrayList
-	}
 }

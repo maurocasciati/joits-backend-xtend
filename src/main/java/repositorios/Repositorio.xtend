@@ -1,55 +1,102 @@
 package repositorios
 
-import java.util.ArrayList
 import java.util.List
-import org.eclipse.xtend.lib.annotations.Accessors
+import javax.persistence.EntityManagerFactory
+import javax.persistence.Persistence
+import javax.persistence.criteria.CriteriaQuery
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
+import javax.persistence.PersistenceException
+import javax.persistence.criteria.CriteriaBuilder
+import javax.persistence.criteria.Root
 
 @TransactionalAndObservable
-abstract class Repositorio<T extends Entidad> {
-	@Accessors List<T> pool = new ArrayList
+abstract class Repositorio<T> {
 
-	def void create(T object) {
-		if (validaNoExistePreviamenteEnRepo(object)) {
-			addId(object)
-			pool.add(object)
-		} else {
-			updateRecord(object)
+	static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("joits")
+
+	def List<T> allInstances() {
+		val entityManager = this.entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery as CriteriaQuery<T>
+			val from = query.from(entityType)
+			query.select(from)
+			entityManager.createQuery(query).resultList
+		} finally {
+			entityManager.close
 		}
 	}
-	
-	def void addId(T object) {
 
-		object.id = getNextFreeId
-	}
+	abstract def Class<T> getEntityType()
 
-	def int getNextFreeId() {
-		var int id
-		if (pool.isEmpty) {
-			id = 0
-		} else {
-			id = pool.stream.mapToInt(object|object.id).max.asInt + 1
+	def searchByExample(T t) {
+		val entityManager = this.entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery as CriteriaQuery<T>
+			val from = query.from(entityType)
+			query.select(from)
+			generateWhere(criteria, query, from, t)
+			entityManager.createQuery(query).resultList
+		} finally {
+			entityManager.close
 		}
-		return id
 	}
 
-	def void delete(T object) {
-		pool.remove(object)
+	abstract def void generateWhere(CriteriaBuilder criteria, CriteriaQuery<T> query, Root<T> camposCandidato, T t)
+
+	def create(T t) {
+		val entityManager = this.entityManager
+		try {
+			entityManager => [
+				transaction.begin
+				persist(t)
+				transaction.commit
+			]
+		} catch (PersistenceException e) {
+			e.printStackTrace
+			entityManager.transaction.rollback
+			throw new RuntimeException("Ocurrió un error, la operación no puede completarse", e)
+		} finally {
+			entityManager.close
+		}
 	}
 
-	def void updateRecord(T object)
-
-	def T searchById(int id) {
-		// lanzar una excepción si no se encuentra
-		pool.findFirst[object|object.id == id]
+	def update(T t) {
+		val entityManager = this.entityManager
+		try {
+			entityManager => [
+				transaction.begin
+				merge(t)
+				transaction.commit
+			]
+		} catch (PersistenceException e) {
+			e.printStackTrace
+			entityManager.transaction.rollback
+			throw new RuntimeException("Ocurrió un error, la operación no puede completarse", e)
+		} finally {
+			entityManager.close
+		}
 	}
 
-//	def List<T> search(String value)
-
-	def boolean validaNoExistePreviamenteEnRepo(Entidad object) {
-		!pool.contains(object)
+	def delete(T t) {
+		val entityManager = this.entityManager
+		try {
+			entityManager => [
+				transaction.begin
+				remove(t)
+				transaction.commit
+			]
+		} catch (PersistenceException e) {
+			e.printStackTrace
+			entityManager.transaction.rollback
+			throw new RuntimeException("Ocurrió un error, la operación no puede completarse", e)
+		} finally {
+			entityManager.close
+		}
 	}
 
-//	def String retrieveAllObjects()
-
+	def getEntityManager() {
+		entityManagerFactory.createEntityManager
+	}
 }

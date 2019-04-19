@@ -1,7 +1,6 @@
 package vistas
 
 import domain.Entrada
-import domain.Usuario
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
@@ -16,9 +15,8 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
 class FinalizarCompra extends Ventana<FinalizarCompraViewModel> {
 
-	new(WindowOwner parent, Usuario usuarioLogueado) {
-		super(parent, new FinalizarCompraViewModel)
-		modelObject.usuarioLogueado = usuarioLogueado
+	new(WindowOwner parent, Long idLogueado) {
+		super(parent, new FinalizarCompraViewModel(idLogueado))
 	}
 
 	override addActions(Panel actionsPanel) {
