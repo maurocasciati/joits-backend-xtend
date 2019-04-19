@@ -129,22 +129,8 @@ class RepoUsuario extends Repositorio<Usuario> {
 	}
 
 	override delete(Usuario usuario) {
-		val entityManager = this.entityManager
-		try {
-			entityManager => [
-				transaction.begin
-				usuario.listaDeAmigos = new HashSet
-				val Usuario usuarioNuevo = merge(usuario)
-				remove(usuarioNuevo)
-				transaction.commit
-			]
-		} catch (PersistenceException e) {
-			e.printStackTrace
-			entityManager.transaction.rollback
-			throw new RuntimeException("Ocurrió un error, la operación no puede completarse", e)
-		} finally {
-			entityManager.close
-		}
+		usuario.listaDeAmigos = new HashSet
+		super.delete(usuario)
 	}
 
 }

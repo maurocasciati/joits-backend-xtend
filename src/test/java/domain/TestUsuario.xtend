@@ -124,5 +124,15 @@ class TestUsuario {
 		repoUsuarios.delete(aniston)
 		repoUsuarios.delete(deNiro)
 		repoUsuarios.delete(scorsese)
+		repoUsuarios.delete(aniston)
+		repoUsuarios.delete(deNiro)
+		repoUsuarios.delete(scorsese)
+		repoContenido.delete(sagaMatrix)
+		repoContenido.delete(matrix)
+		repoContenido.delete(matrix2)
+		repoContenido.delete(matrix3)
+		repoContenido.delete(elDiaDeLaMarmota)
+		repoContenido.delete(pulpFiction)
+		repoContenido.delete(losBañeros4)
 	}
 }

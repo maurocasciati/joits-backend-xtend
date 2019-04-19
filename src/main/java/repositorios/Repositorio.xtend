@@ -84,7 +84,8 @@ abstract class Repositorio<T> {
 		try {
 			entityManager => [
 				transaction.begin
-				remove(t)
+				var ent = if(contains(t)) t else merge(t)
+				remove(ent)
 				transaction.commit
 			]
 		} catch (PersistenceException e) {
