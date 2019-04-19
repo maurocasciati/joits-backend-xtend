@@ -9,6 +9,7 @@ import javax.persistence.Id
 import javax.persistence.ManyToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
+import javax.persistence.FetchType
 
 @Entity
 @Accessors
@@ -18,10 +19,10 @@ class Entrada {
 	@GeneratedValue
 	Long id
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	Contenido contenido
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	Funcion funcion
 	
 	@Column
