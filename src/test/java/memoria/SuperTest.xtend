@@ -27,14 +27,19 @@ class SuperTest {
 	def void init() {
 		crearContenido
 		inicializarUsuarios
+		crearFunciones
 		crearEntradas
+	}
+
+	def crearFunciones() {
+		funcion = new Funcion(LocalDateTime.of(2019, Month.APRIL, 29, 18, 00, 00), "Hoyts Unicenter")
 	}
 
 	def crearEntradas() {
 		entrada = new Entrada => [
 			contenido = matrix
 		]
-		entrada.funcion = new Funcion(LocalDateTime.of(2019, Month.APRIL, 29, 18, 00, 00), "Hoyts Unicenter")
+		entrada.funcion = funcion
 	}
 
 	def inicializarUsuarios() {
