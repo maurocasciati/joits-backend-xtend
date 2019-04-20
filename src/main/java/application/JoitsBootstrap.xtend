@@ -11,17 +11,18 @@ import java.time.LocalDateTime
 import java.time.Month
 import java.util.ArrayList
 import java.util.concurrent.ThreadLocalRandom
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
+import repositorios.FetchNothing
+import repositorios.FetchUsuarioConCarritoCompleto
 import repositorios.RepoContenido
 import repositorios.RepoEntrada
+import repositorios.RepoFuncion
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
-import repositorios.RepoFuncion
-import org.uqbar.arena.bootstrap.Bootstrap
-import org.eclipse.xtend.lib.annotations.Accessors
-import repositorios.FetchUsuarioConCarritoCompleto
 
 @Accessors
-class JoitsBootstrap implements Bootstrap {
+class JoitsBootstrap extends CollectionBasedBootstrap {
 
 	RepoContenido repoContenido
 	RepoUsuario repoUsuarios
@@ -58,10 +59,12 @@ class JoitsBootstrap implements Bootstrap {
 	}
 
 	override run() {
-		crearContenido
-		crearUsuarios
-		crearFunciones
-		agregarEntradasAUsuarios
+		if (RepoLocator.repoUsuario.searchByExample(new Usuario).isEmpty) {
+			crearContenido
+			crearUsuarios
+			crearFunciones
+			agregarEntradasAUsuarios
+		}
 	}
 
 	def crearContenido() {
@@ -321,9 +324,4 @@ class JoitsBootstrap implements Bootstrap {
 		repoUsuarios.update(paulina)
 		repoUsuarios.update(cora)
 	}
-
-	override isPending() {
-		RepoLocator.repoUsuario.searchByExample(new Usuario).isEmpty
-	}
-
 }
