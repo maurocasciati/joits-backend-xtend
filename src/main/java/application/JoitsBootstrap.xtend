@@ -18,6 +18,7 @@ import repositorios.RepoUsuario
 import repositorios.RepoFuncion
 import org.uqbar.arena.bootstrap.Bootstrap
 import org.eclipse.xtend.lib.annotations.Accessors
+import repositorios.FetchUsuarioConCarritoCompleto
 
 @Accessors
 class JoitsBootstrap implements Bootstrap {
@@ -206,15 +207,10 @@ class JoitsBootstrap implements Bootstrap {
 		repoUsuarios.create(cora)
 		repoUsuarios.create(paulina)
 
-		aniston.listaDeAmigos.addAll(deNiro, scorsese, messi)
 		cacho.listaDeAmigos.addAll(deNiro, aniston)
-		cora.listaDeAmigos.addAll(deNiro, aniston, paulina, messi)
-		paulina.listaDeAmigos.addAll(cora, scorsese, messi)
 
-		repoUsuarios.update(aniston)
 		repoUsuarios.update(cacho)
-		repoUsuarios.update(cora)
-		repoUsuarios.update(paulina)
+		cacho = repoUsuarios.searchById(cacho.id, new FetchUsuarioConCarritoCompleto)
 	}
 
 	def crearFunciones() {
