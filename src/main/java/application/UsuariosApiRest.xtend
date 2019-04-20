@@ -55,6 +55,15 @@ class UsuariosApiRest {
 		}
 	}
 
+	@Get("/usuarios/:id/porConocer")
+	def getUsuariosNoAmigos() {
+		val Usuario usuarioLogueado = RepoLocator.repoUsuario.searchById(Long.parseLong(id), new FetchUsuarioConAmigos)
+
+		return ok(RepoLocator.repoUsuario.allInstances.filter [ usuario |
+			!usuarioLogueado.listaDeAmigos.contains(usuario) && !usuario.equals(usuarioLogueado)
+		].toSet.toJson)
+	}
+
 	@Put('/usuarios/id/:id')
 	def Result actualizarUsuario(@Body String body) {
 		try {
