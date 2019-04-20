@@ -50,6 +50,9 @@ class Usuario {
 	@Column(length=50)
 	String contrasenia
 
+	@Column(length=250)
+	String imagenURL
+
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="id_usuario")
 	@JsonIgnore
@@ -59,7 +62,7 @@ class Usuario {
 	@JoinColumn(name="id_usuario_carrito")
 	@JsonIgnore
 	Set<Entrada> carrito = new HashSet<Entrada>
-	
+
 	@JsonIgnore
 	def getHistorial() {
 		entradas.map[entrada|entrada.contenido.titulo].toSet

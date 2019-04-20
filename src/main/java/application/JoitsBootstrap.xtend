@@ -143,6 +143,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			apellido = "Aniston"
 			username = "rachel_g"
 			edad = 50
+			imagenURL = "https://ep01.epimg.net/elpais/imagenes/2019/02/07/gente/1549557293_732656_1549639628_noticia_normal.jpg"
 			saldo = new BigDecimal("330")
 			contrasenia = "jen123"
 		]
@@ -152,6 +153,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			apellido = "De Niro"
 			username = "robertito"
 			edad = 75
+			imagenURL = "https://m.media-amazon.com/images/M/MV5BMjAwNDU3MzcyOV5BMl5BanBnXkFtZTcwMjc0MTIxMw@@._V1_UY317_CR13,0,214,317_AL_.jpg"
 			saldo = new BigDecimal("964")
 			contrasenia = "roberto"
 		]
@@ -161,6 +163,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			apellido = "Scorsese"
 			username = "MartyBoy"
 			edad = 76
+			imagenURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Martin_Scorsese_Berlinale_2010_%28cropped%29.jpg/220px-Martin_Scorsese_Berlinale_2010_%28cropped%29.jpg"
 			saldo = new BigDecimal("167")
 			contrasenia = "Ms2000"
 		]
@@ -170,6 +173,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			apellido = "Gomez"
 			username = "c"
 			edad = 45
+			imagenURL = "http://www.javiercacho.com/uploads/1/0/1/5/10159943/6508932.jpg?250"
 			saldo = new BigDecimal("2020")
 			contrasenia = "c"
 		]
@@ -179,6 +183,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			apellido = "Messi"
 			username = "leomessi"
 			edad = 31
+			imagenURL = "http://e00-co-marca.uecdn.es/claro/assets/multimedia/imagenes/2019/04/19/15556256166086.jpg"
 			saldo = new BigDecimal("1312")
 			contrasenia = "L10forever"
 		]
@@ -188,6 +193,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			apellido = "Paulina"
 			username = "pau"
 			edad = 28
+			imagenURL = "https://cdn-3.expansion.mx/dims4/default/09e4abb/2147483647/strip/true/crop/1500x2157+0+0/resize/800x1150!/quality/90/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fde%2Ffd%2Fde56442e4d1a93da91bce6fa3106%2Fpaulina-rubio.jpg"
 			saldo = new BigDecimal("150")
 			contrasenia = "pau"
 		]
@@ -197,6 +203,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			apellido = "Rodriguez"
 			username = "cora"
 			edad = 28
+			imagenURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Cora_logo.svg/1200px-Cora_logo.svg.png"
 			saldo = new BigDecimal("150")
 			contrasenia = "cora"
 		]
