@@ -47,8 +47,8 @@ class Usuario {
 	@Column(nullable=false)
 	BigDecimal saldo
 
-	@Column(length=50)
-	String contrasenia
+	@Column(length=256)
+	String passwordHash
 
 	@Column(length=250)
 	String imagenURL

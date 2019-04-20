@@ -54,7 +54,7 @@ class RepoUsuario extends Repositorio<Usuario> {
 			if (result.isEmpty) {
 				null
 			} else {
-				if (usuario.contrasenia != password) {
+				if (usuario.getPasswordHash != password) {
 					throw new UserException("Credenciales incorrectas")
 				}
 				usuario

@@ -59,7 +59,7 @@ class TestPersistenciaUsuario {
 			username = "rachel_g"
 			edad = 50
 			saldo = new BigDecimal("330")
-			contrasenia = "jen123"
+			setPasswordHash = "3FBDD18C7FBF4323800765BEABE2EFD37FC1233B0E18AD8F271AC76B7517E304"
 		]
 
 		deNiro = new Usuario => [
@@ -68,7 +68,7 @@ class TestPersistenciaUsuario {
 			username = "robertito"
 			edad = 75
 			saldo = new BigDecimal("964")
-			contrasenia = "roberto"
+			setPasswordHash = "72534C4A93DDC043FE3229ED46B1D526C4CCC747FEBDCD0F284F7F6057A37858"
 		]
 
 		repoUsuarios.create(aniston)
