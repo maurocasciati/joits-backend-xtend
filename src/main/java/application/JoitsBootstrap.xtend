@@ -13,7 +13,6 @@ import java.util.ArrayList
 import java.util.concurrent.ThreadLocalRandom
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
-import repositorios.FetchNothing
 import repositorios.FetchUsuarioConCarritoCompleto
 import repositorios.RepoContenido
 import repositorios.RepoEntrada

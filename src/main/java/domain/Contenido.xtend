@@ -17,6 +17,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import javax.persistence.JoinColumn
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonIgnore
 
 @Observable
 @Entity
@@ -38,6 +39,7 @@ abstract class Contenido {
 	String genero // accion, comedia, drama, ciencia ficcion	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="id_contenido")
+	@JsonIgnore
 	List<Funcion> funciones = new ArrayList<Funcion>
 
 	@Column(length=60)

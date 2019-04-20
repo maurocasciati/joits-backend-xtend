@@ -9,6 +9,7 @@ import javax.persistence.OneToMany
 import javax.persistence.JoinColumn
 import java.util.List
 import javax.persistence.FetchType
+import com.fasterxml.jackson.annotation.JsonIgnore
 
 @Accessors
 @Observable
@@ -25,6 +26,7 @@ class Saga extends Contenido {
 
 	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_saga")
+	@JsonIgnore
 	List<Pelicula> peliculas
 
 	override precio() {

@@ -24,6 +24,16 @@ class FetchUsuarioConCarritoCompleto implements Fetch<Usuario> {
 	}
 }
 
+class FetchUsuarioConEntradas implements Fetch<Usuario> {
+
+	override doFetch(Root<Usuario> query) {
+		val camposEntrada = query.fetch("entradas", JoinType.LEFT)
+		camposEntrada.fetch("contenido", JoinType.LEFT)
+//		camposEntrada.fetch("funcion", JoinType.LEFT)
+
+	}
+}
+
 class FetchUsuarioConCarrito implements Fetch<Usuario> {
 
 	override doFetch(Root<Usuario> query) {

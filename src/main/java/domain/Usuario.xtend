@@ -40,8 +40,8 @@ class Usuario {
 	@Column
 	Integer edad
 
-	@JsonIgnore
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JsonIgnore
 	Set<Usuario> listaDeAmigos = new HashSet<Usuario>
 
 	@Column(nullable=false)
@@ -52,12 +52,15 @@ class Usuario {
 
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="id_usuario")
+	@JsonIgnore
 	Set<Entrada> entradas = new HashSet<Entrada>
 
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="id_usuario_carrito")
+	@JsonIgnore
 	Set<Entrada> carrito = new HashSet<Entrada>
-
+	
+	@JsonIgnore
 	def getHistorial() {
 		entradas.map[entrada|entrada.contenido.titulo].toSet
 	}
