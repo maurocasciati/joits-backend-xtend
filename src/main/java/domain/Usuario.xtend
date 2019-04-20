@@ -48,6 +48,7 @@ class Usuario {
 	BigDecimal saldo
 
 	@Column(length=256)
+	@JsonIgnore
 	String passwordHash
 
 	@Column(length=250)
