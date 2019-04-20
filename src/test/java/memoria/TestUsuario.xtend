@@ -10,6 +10,9 @@ import java.util.ArrayList
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import java.time.LocalDateTime
+import java.time.Month
+import org.uqbar.commons.model.exceptions.UserException
 
 class TestUsuario {
 
@@ -21,11 +24,20 @@ class TestUsuario {
 	Saga sagaMatrix
 	Pelicula pulpFiction
 	Funcion funcion
+	Entrada entrada
 
 	@Before
 	def void init() {
 		crearContenido
 		inicializarUsuarios
+		crearEntradas
+	}
+
+	def crearEntradas() {
+		entrada = new Entrada => [
+			contenido = matrix
+		]
+		entrada.funcion = new Funcion(LocalDateTime.of(2019, Month.APRIL, 29, 18, 00, 00), "Hoyts Unicenter")
 	}
 
 	def inicializarUsuarios() {
@@ -90,7 +102,6 @@ class TestUsuario {
 
 	@Test
 	def unUsuarioAgregaEntradaAlCarrito() {
-		val entrada = new Entrada
 		aniston.agregarAlCarrito(entrada)
 		Assert.assertTrue(aniston.carrito.contains(entrada))
 	}
@@ -110,10 +121,15 @@ class TestUsuario {
 
 	@Test
 	def unUsuarioEliminaItemDelCarrito() {
-		val entrada = new Entrada
 		aniston.agregarAlCarrito(entrada)
 		aniston.eliminarItem(entrada)
 		Assert.assertTrue(!aniston.carrito.contains(entrada))
 	}
 
+	@Test(expected=UserException)
+	def void unUsuarioQuiereFinalizarCompraPeroNoLeAlcanzaElSaldo() {
+		aniston.saldo = new BigDecimal("0")
+		aniston.agregarAlCarrito(entrada)
+		aniston.finalizarCompra
+	}
 }
