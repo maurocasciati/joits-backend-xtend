@@ -23,6 +23,9 @@ class SuperTest {
 	Pelicula pulpFiction
 	Funcion funcion
 	Entrada entrada
+	Funcion funcionMiercoles
+	Funcion funcionSabado
+	Funcion funcionRegular
 
 	def void init() {
 		crearContenido
@@ -32,14 +35,16 @@ class SuperTest {
 	}
 
 	def crearFunciones() {
-		funcion = new Funcion(LocalDateTime.of(2019, Month.APRIL, 29, 18, 00, 00), "Hoyts Unicenter")
+		funcionMiercoles = new Funcion(LocalDateTime.of(2019, Month.APRIL, 10, 18, 00, 00), "Cinemark Palermo")
+		funcionSabado = new Funcion(LocalDateTime.of(2019, Month.APRIL, 20, 12, 30, 00), "Hoyts Unicenter")
+		funcionRegular = new Funcion(LocalDateTime.of(2019, Month.APRIL, 15, 17, 15, 00), "Cine Gaumont")
 	}
 
 	def crearEntradas() {
 		entrada = new Entrada => [
 			contenido = matrix
 		]
-		entrada.funcion = funcion
+		entrada.funcion = funcionMiercoles
 	}
 
 	def inicializarUsuarios() {

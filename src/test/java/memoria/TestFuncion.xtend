@@ -1,28 +1,14 @@
 package memoria
 
-import domain.Funcion
-import java.time.LocalDateTime
-import java.time.Month
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
 class TestFuncion extends SuperTest {
 
-	Funcion funcionMiercoles
-	Funcion funcionSabado
-	Funcion funcionRegular
-
 	@Before
 	def void initialize() {
 		super.init()
-		inicializarFunciones
-	}
-
-	def inicializarFunciones() {
-		funcionMiercoles = new Funcion(LocalDateTime.of(2019, Month.APRIL, 10, 18, 00, 00), "Cinemark Palermo")
-		funcionSabado = new Funcion(LocalDateTime.of(2019, Month.APRIL, 20, 12, 30, 00), "Hoyts Unicenter")
-		funcionRegular = new Funcion(LocalDateTime.of(2019, Month.APRIL, 15, 17, 15, 00), "Cine Gaumont")
 	}
 
 	@Test
