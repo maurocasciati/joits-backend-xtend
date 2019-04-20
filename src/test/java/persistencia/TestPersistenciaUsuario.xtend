@@ -20,6 +20,8 @@ import repositorios.RepoEntrada
 import repositorios.RepoFuncion
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
+import java.time.LocalDateTime
+import java.time.Month
 
 class TestPersistenciaUsuario {
 
@@ -102,8 +104,7 @@ class TestPersistenciaUsuario {
 	}
 
 	def crearFunciones() {
-		funcion = new Funcion
-
+		funcion = new Funcion(LocalDateTime.of(2019, Month.DECEMBER, 22, 15, 00, 00), "Cinemark Palermo")
 		repoFunciones.create(funcion)
 	}
 
@@ -116,6 +117,13 @@ class TestPersistenciaUsuario {
 	@Test
 	def seCreaUsuario() {
 		Assert.assertEquals(repoUsuarios.searchById(aniston.id, new FetchNothing), aniston)
+	}
+
+	@Test
+	def seEliminaUsuario() {
+		repoUsuarios.delete(aniston)
+		val anistonDB = repoUsuarios.searchById(aniston.id, new FetchNothing)
+		Assert.assertEquals(null, anistonDB)
 	}
 
 	@Test

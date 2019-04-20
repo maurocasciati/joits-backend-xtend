@@ -16,6 +16,7 @@ import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import javax.persistence.JoinColumn
+import java.util.Objects
 
 @Observable
 @Entity
@@ -35,7 +36,6 @@ abstract class Contenido {
 
 	@Column(length=100)
 	String genero // accion, comedia, drama, ciencia ficcion	
-	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="id_contenido")
 	List<Funcion> funciones = new ArrayList<Funcion>
@@ -46,13 +46,23 @@ abstract class Contenido {
 	@Column(length=150)
 	String trailerURL
 
-
 	def Double precio()
 
 	def Integer getAnio()
 
 	def searchFuncionById(Long id) {
 		funciones.findFirst[funcion|funcion.id == id]
+	}
+
+	override equals(Object other) {
+		if (other instanceof Contenido) {
+			return (other as Contenido).id == id
+		}
+		false
+	}
+
+	override hashCode() {
+		Objects.hashCode(id)
 	}
 
 }

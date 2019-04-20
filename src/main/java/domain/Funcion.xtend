@@ -10,6 +10,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import javax.persistence.Entity
 import javax.persistence.Column
+import java.util.Objects
 
 @Accessors
 @Observable
@@ -25,8 +26,9 @@ class Funcion {
 
 	@Column(length=150)
 	String nombreSala
-	
-	new(){}
+
+	new() {
+	}
 
 	new(LocalDateTime _fechaHora, String _nombreSala) {
 		fechaHora = _fechaHora
@@ -67,6 +69,17 @@ class Funcion {
 	@JsonIgnore
 	def getHora() {
 		fechaHora.toLocalTime
+	}
+
+	override equals(Object other) {
+		if (other instanceof Funcion) {
+			return (other as Funcion).id == id
+		}
+		false
+	}
+
+	override hashCode() {
+		Objects.hashCode(id)
 	}
 
 }
