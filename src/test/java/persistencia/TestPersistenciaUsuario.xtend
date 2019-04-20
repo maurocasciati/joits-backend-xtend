@@ -32,10 +32,6 @@ class TestPersistenciaUsuario {
 	Usuario aniston
 	Usuario deNiro
 	Pelicula matrix
-	Pelicula matrix2
-	Pelicula matrix3
-	Saga sagaMatrix
-	Pelicula pulpFiction
 	Entrada entrada
 	Funcion funcion
 
@@ -80,27 +76,8 @@ class TestPersistenciaUsuario {
 	}
 
 	def crearContenido() {
-
 		matrix = new Pelicula("The Matrix", 8.7, "Ciencia Ficción", 1999)
-		matrix2 = new Pelicula("The Matrix: Reloaded", 7.2, "Ciencia Ficción", 2003)
-		matrix3 = new Pelicula("The Matrix: Revolution", 6.7, "Ciencia Ficción", 2003)
-		pulpFiction = new Pelicula("Pulp Fiction", 8.9, "Drama", 1994)
-
-		sagaMatrix = new Saga => [
-			titulo = "Saga Matrix"
-			puntaje = 7.5
-			genero = "Ciencia Ficción"
-			anioRecopilacion = 2007
-			nivelClasico = 120
-			peliculas = new ArrayList<Pelicula>
-			peliculas.addAll(matrix, matrix2, matrix3)
-		]
-
 		repoContenido.create(matrix)
-		repoContenido.create(matrix2)
-		repoContenido.create(matrix3)
-		repoContenido.create(sagaMatrix)
-		repoContenido.create(pulpFiction)
 	}
 
 	def crearFunciones() {
@@ -191,10 +168,6 @@ class TestPersistenciaUsuario {
 		repoUsuarios.delete(deNiro)
 		repoEntradas.delete(entrada)
 		repoFunciones.delete(funcion)
-		repoContenido.delete(sagaMatrix)
 		repoContenido.delete(matrix)
-		repoContenido.delete(matrix2)
-		repoContenido.delete(matrix3)
-		repoContenido.delete(pulpFiction)
 	}
 }
