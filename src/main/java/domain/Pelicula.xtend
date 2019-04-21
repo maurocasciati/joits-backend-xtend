@@ -20,11 +20,12 @@ class Pelicula extends Contenido {
 	new() {
 	}
 
-	new(String _titulo, Double _puntaje, String _genero, Integer _anioRodaje) {
+	new(String _titulo, Double _puntaje, String _genero, Integer _anioRodaje, String _apiID) {
 		titulo = _titulo
 		puntaje = _puntaje
 		genero = _genero
 		anioRodaje = _anioRodaje
+		apiID =_apiID
 	}
 
 	override precio() {

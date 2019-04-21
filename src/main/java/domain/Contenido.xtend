@@ -43,10 +43,7 @@ abstract class Contenido {
 	List<Funcion> funciones = new ArrayList<Funcion>
 
 	@Column(length=60)
-	String imdbID
-
-	@Column(length=150)
-	String trailerURL
+	String apiID
 
 	def Double precio()
 
