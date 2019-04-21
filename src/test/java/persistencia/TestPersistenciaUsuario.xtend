@@ -76,7 +76,7 @@ class TestPersistenciaUsuario {
 	}
 
 	def crearContenido() {
-		matrix = new Pelicula("The Matrix", 8.7, "Ciencia Ficción", 1999)
+		matrix = new Pelicula("The Matrix", 8.7, "Ciencia Ficción", 1999, "")
 		repoContenido.create(matrix)
 	}
 

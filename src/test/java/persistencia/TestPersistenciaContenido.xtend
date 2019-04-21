@@ -15,7 +15,7 @@ class TestPersistenciaContenido {
 
 	@Before
 	def void init() {
-		matrix = new Pelicula("The Matrix", 8.7, "Ciencia Ficción", 1999)
+		matrix = new Pelicula("The Matrix", 8.7, "Ciencia Ficción", 1999, "")
 		repoContenido = RepoLocator.repoContenido
 		repoContenido.create(matrix)
 	}

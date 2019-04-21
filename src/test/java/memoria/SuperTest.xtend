@@ -71,10 +71,10 @@ class SuperTest {
 
 	def crearContenido() {
 
-		matrix = new Pelicula("The Matrix", 8.7, "Ciencia Ficción", 1999)
-		matrix2 = new Pelicula("The Matrix: Reloaded", 7.2, "Ciencia Ficción", 2003)
-		matrix3 = new Pelicula("The Matrix: Revolution", 6.7, "Ciencia Ficción", 2003)
-		pulpFiction = new Pelicula("Pulp Fiction", 8.9, "Drama", 1994)
+		matrix = new Pelicula("The Matrix", 8.7, "Ciencia Ficción", 1999, "")
+		matrix2 = new Pelicula("The Matrix: Reloaded", 7.2, "Ciencia Ficción", 2003, "")
+		matrix3 = new Pelicula("The Matrix: Revolution", 6.7, "Ciencia Ficción", 2003, "")
+		pulpFiction = new Pelicula("Pulp Fiction", 8.9, "Drama", 1994, "")
 
 		sagaMatrix = new Saga => [
 			titulo = "Saga Matrix"
