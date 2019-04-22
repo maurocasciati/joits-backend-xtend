@@ -41,12 +41,19 @@ class FetchUsuarioConCarrito implements Fetch<Usuario> {
 	}
 }
 
-class FetchUsuarioConAmigos implements Fetch<Usuario> {
+class FetchUsuarioConAmigosYEntradas implements Fetch<Usuario> {
 
 	override doFetch(Root<Usuario> query) {
 		val camposAmigos = query.fetch("listaDeAmigos", JoinType.LEFT)
 		val camposEntradas = camposAmigos.fetch("entradas", JoinType.LEFT)
 		camposEntradas.fetch("contenido", JoinType.LEFT)
+	}
+}
+
+class FetchUsuarioConAmigos implements Fetch<Usuario> {
+
+	override doFetch(Root<Usuario> query) {
+		query.fetch("listaDeAmigos", JoinType.LEFT)
 	}
 }
 
