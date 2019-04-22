@@ -11,11 +11,13 @@ import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.json.JSONUtils
 import repositorios.FetchContenidoConFunciones
 import repositorios.FetchNothing
-import repositorios.FetchUsuarioConAmigos
 import repositorios.FetchUsuarioConCarrito
 import repositorios.FetchUsuarioConCarritoCompleto
 import repositorios.RepoLocator
 import repositorios.FetchUsuarioConEntradas
+import java.util.Set
+import repositorios.FetchUsuarioConAmigosYEntradas
+import repositorios.FetchUsuarioConAmigos
 
 @Controller
 class UsuariosApiRest {
@@ -31,13 +33,13 @@ class UsuariosApiRest {
 
 	@Get("/usuarios/id/:id")
 	def getUsuarioPorId() {
-		return ok(RepoLocator.repoUsuario.searchById(Long.parseLong(id), new FetchUsuarioConAmigos).toJson)
+		return ok(RepoLocator.repoUsuario.searchById(Long.parseLong(id), new FetchUsuarioConAmigosYEntradas).toJson)
 	}
 
 	@Get("/usuarios/id/:id/amigos")
 	def getAmigosDeUsuarioPorId() {
 		return ok(
-			RepoLocator.repoUsuario.searchById(Long.parseLong(id), new FetchUsuarioConAmigos).listaDeAmigos.toJson)
+			RepoLocator.repoUsuario.searchById(Long.parseLong(id), new FetchUsuarioConAmigosYEntradas).listaDeAmigos.toJson)
 	}
 
 	@Put("/usuario/eliminarAmigo")
@@ -45,8 +47,8 @@ class UsuariosApiRest {
 		try {
 			val idUsuario = body.getPropertyValue("idUsuarioLoggeado")
 			val idAmigo = body.getPropertyValue("idAmigoAEliminar")
-			val usuario = RepoLocator.repoUsuario.searchById(Long.parseLong(idUsuario), new FetchUsuarioConAmigos)
-			val amigo = RepoLocator.repoUsuario.searchById(Long.parseLong(idAmigo), new FetchUsuarioConAmigos)
+			val usuario = RepoLocator.repoUsuario.searchById(Long.parseLong(idUsuario), new FetchUsuarioConAmigosYEntradas)
+			val amigo = RepoLocator.repoUsuario.searchById(Long.parseLong(idAmigo), new FetchUsuarioConAmigosYEntradas)
 			usuario.eliminarAmigo(amigo)
 			RepoLocator.repoUsuario.update(usuario)
 			ok('{ "status" : "OK" }');
@@ -57,21 +59,21 @@ class UsuariosApiRest {
 
 	@Get("/usuarios/:id/porConocer")
 	def getUsuariosNoAmigos() {
-		val Usuario usuarioLogueado = RepoLocator.repoUsuario.searchById(Long.parseLong(id), new FetchUsuarioConAmigos)
+		val Usuario usuarioLogueado = RepoLocator.repoUsuario.searchById(Long.parseLong(id), new FetchUsuarioConAmigosYEntradas)
 
 		return ok(RepoLocator.repoUsuario.allInstances.filter [ usuario |
 			!usuarioLogueado.listaDeAmigos.contains(usuario) && !usuario.equals(usuarioLogueado)
 		].toSet.toJson)
 	}
 
-	@Put('/usuarios/id/:id')
-	def Result actualizarUsuario(@Body String body) {
+	@Put('/usuarios/actualizarAmigosDe/:id')
+	def Result actualizarAmigosDeUsuario(@Body String body) {
 		try {
-			val actualizado = body.fromJson(Usuario)
-
-			if (Integer.parseInt(id) != actualizado.id) {
-				return badRequest('{ "error" : "Id en URL distinto del cuerpo" }')
-			}
+			val idLogueado = Long.parseLong(id)
+			val actualizado = RepoLocator.repoUsuario.searchById(idLogueado,new FetchUsuarioConAmigos)
+			var listaDeids= body.getPropertyAsList("idsAmigos", Long)
+			var Set<Usuario> listaDeAmigos = listaDeids.map[cadaId | RepoLocator.repoUsuario.searchById(cadaId,new FetchUsuarioConAmigos)].toSet
+			listaDeAmigos.forEach[nuevoAmigo | actualizado.agregarAmigo(nuevoAmigo)]
 
 			RepoLocator.repoUsuario.update(actualizado)
 			ok('{ "status" : "OK" }');
