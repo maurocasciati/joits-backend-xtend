@@ -3,16 +3,16 @@ package persistencia
 import domain.Entrada
 import domain.Funcion
 import domain.Pelicula
-import domain.Saga
 import domain.Usuario
 import java.math.BigDecimal
-import java.util.ArrayList
+import java.time.LocalDateTime
+import java.time.Month
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import repositorios.FetchNothing
-import repositorios.FetchUsuarioConAmigos
+import repositorios.FetchUsuarioConAmigosYEntradas
 import repositorios.FetchUsuarioConCarrito
 import repositorios.FetchUsuarioConCarritoCompleto
 import repositorios.RepoContenido
@@ -20,8 +20,6 @@ import repositorios.RepoEntrada
 import repositorios.RepoFuncion
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
-import java.time.LocalDateTime
-import java.time.Month
 
 class TestPersistenciaUsuario {
 
@@ -107,7 +105,7 @@ class TestPersistenciaUsuario {
 	def unUsuarioAgregaAUnAmigo() {
 		aniston.agregarAmigo(deNiro)
 		repoUsuarios.update(aniston)
-		val anistonActualizada = repoUsuarios.searchById(aniston.id, new FetchUsuarioConAmigos)
+		val anistonActualizada = repoUsuarios.searchById(aniston.id, new FetchUsuarioConAmigosYEntradas)
 		Assert.assertTrue(anistonActualizada.listaDeAmigos.contains(deNiro))
 	}
 

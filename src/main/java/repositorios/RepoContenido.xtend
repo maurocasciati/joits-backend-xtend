@@ -4,7 +4,6 @@ import domain.Contenido
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Root
-import javax.persistence.criteria.JoinType
 
 class RepoContenido extends Repositorio<Contenido> {
 
