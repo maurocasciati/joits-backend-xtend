@@ -70,7 +70,7 @@ class Usuario {
 	}
 
 	def limpiarCarrito() {
-		carrito.clear
+		carrito = new HashSet
 	}
 
 	def eliminarItem(Entrada item) {
