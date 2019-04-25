@@ -12,9 +12,14 @@ class BuscarAmigosViewModel {
 	Usuario usuarioLogueado
 	Usuario usuarioSeleccionado
 	String valorBuscado = ""
+	Set<Usuario> todosLosUsuarios
 
-	def Set<Usuario> getListadoUsuarios() {
-		RepoLocator.repoUsuario.allInstances.filter [ usuario |
+	new() {
+		todosLosUsuarios = RepoLocator.repoUsuario.allInstances.toSet
+	}
+
+	def getListadoUsuarios() {
+		todosLosUsuarios.filter [ usuario |
 			!usuarioLogueado.listaDeAmigos.contains(usuario) && !usuario.equals(usuarioLogueado)
 		].toSet
 	}
@@ -30,8 +35,8 @@ class BuscarAmigosViewModel {
 	def agregarAmigo() {
 		usuarioLogueado.agregarAmigo(usuarioSeleccionado)
 	}
-	
-	def aceptar(){
+
+	def aceptar() {
 		RepoLocator.repoUsuario.update(usuarioLogueado)
 //		usuarioLogueado = RepoLocator.repoUsuario.searchById(usuarioLogueado.id)		
 	}
