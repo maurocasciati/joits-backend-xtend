@@ -35,11 +35,6 @@ abstract class Contenido {
 	@Column
 	Double puntaje
 
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_saga")
-	@JsonIgnore
-	List<Pelicula> peliculas
-
 	@Column(length=100)
 	String genero // accion, comedia, drama, ciencia ficcion	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)

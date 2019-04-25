@@ -24,6 +24,10 @@ class Saga extends Contenido {
 	@Column
 	Integer nivelClasico
 
+	@OneToMany(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_saga")
+	@JsonIgnore
+	List<Pelicula> peliculas
 
 	override precio() {
 		return this.precioPorPeliculas + nivelClasico
