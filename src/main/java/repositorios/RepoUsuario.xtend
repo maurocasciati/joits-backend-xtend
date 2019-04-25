@@ -51,14 +51,11 @@ class RepoUsuario extends Repositorio<Usuario> {
 			query.where(criteria.equal(camposUsuario.get("username"), _username))
 			val result = entityManager.createQuery(query).resultList
 			val usuario = result.head as Usuario
-			if (result.isEmpty) {
-				null
-			} else {
-				if (usuario.getPasswordHash != password) {
-					throw new UserException("Credenciales incorrectas")
-				}
-				usuario
+
+			if (result.isEmpty || usuario.getPasswordHash != password) {
+				throw new UserException("Credenciales incorrectas")
 			}
+			usuario
 
 		} finally {
 			entityManager.close
