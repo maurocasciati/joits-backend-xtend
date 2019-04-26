@@ -5,7 +5,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import repositorios.RepoLocator
-import repositorios.FetchUsuarioConAmigosYEntradas
 
 @Observable
 @Accessors
@@ -16,7 +15,7 @@ class PanelControlViewModel {
 	Integer edadUsuario
 
 	new(Long idLogueado) {
-		usuarioLogueado = RepoLocator.repoUsuario.searchById(idLogueado, new FetchUsuarioConAmigosYEntradas)
+		usuarioLogueado = RepoLocator.repoUsuario.getUsuarioConAmigosYEntradas(idLogueado)
 		edadUsuario = usuarioLogueado.edad
 	}
 
@@ -49,7 +48,7 @@ class PanelControlViewModel {
 	}
 
 	def traerUsuarioLogueado() {
-		usuarioLogueado = RepoLocator.repoUsuario.searchById(usuarioLogueado.id, new FetchUsuarioConAmigosYEntradas)
+		usuarioLogueado = RepoLocator.repoUsuario.getUsuarioConAmigosYEntradas(usuarioLogueado.id)
 	}
 
 }

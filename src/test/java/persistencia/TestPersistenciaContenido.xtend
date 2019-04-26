@@ -5,7 +5,6 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import repositorios.FetchNothing
 import repositorios.RepoContenido
 import repositorios.RepoLocator
 
@@ -22,7 +21,7 @@ class TestPersistenciaContenido {
 
 	@Test
 	def seCreaPelicula() {
-		val matrixBD = repoContenido.searchById(matrix.id, new FetchNothing)
+		val matrixBD = repoContenido.searchById(matrix.id)
 		Assert.assertEquals(matrix, matrixBD)
 	}
 
@@ -30,14 +29,14 @@ class TestPersistenciaContenido {
 	def seActualizaPelicula() {
 		matrix.genero = "Test"
 		repoContenido.update(matrix)
-		val matrixBD = repoContenido.searchById(matrix.id, new FetchNothing)
+		val matrixBD = repoContenido.searchById(matrix.id)
 		Assert.assertEquals("Test", matrixBD.genero)
 	}
 
 	@Test
 	def seEliminaPelicula() {
 		repoContenido.delete(matrix)
-		val matrixBD = repoContenido.searchById(matrix.id, new FetchNothing)
+		val matrixBD = repoContenido.searchById(matrix.id)
 		Assert.assertEquals(null, matrixBD)
 	}
 

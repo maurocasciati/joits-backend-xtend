@@ -13,7 +13,6 @@ import java.util.ArrayList
 import java.util.concurrent.ThreadLocalRandom
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
-import repositorios.FetchUsuarioConCarritoCompleto
 import repositorios.RepoContenido
 import repositorios.RepoEntrada
 import repositorios.RepoFuncion
@@ -129,7 +128,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 50
 			imagenURL = "https://ep01.epimg.net/elpais/imagenes/2019/02/07/gente/1549557293_732656_1549639628_noticia_normal.jpg"
 			saldo = new BigDecimal("330")
-			setPasswordHash = "3FBDD18C7FBF4323800765BEABE2EFD37FC1233B0E18AD8F271AC76B7517E304" //jen123
+			setPasswordHash = "3FBDD18C7FBF4323800765BEABE2EFD37FC1233B0E18AD8F271AC76B7517E304" // jen123
 		]
 
 		deNiro = new Usuario => [
@@ -139,7 +138,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 75
 			imagenURL = "https://m.media-amazon.com/images/M/MV5BMjAwNDU3MzcyOV5BMl5BanBnXkFtZTcwMjc0MTIxMw@@._V1_UY317_CR13,0,214,317_AL_.jpg"
 			saldo = new BigDecimal("964")
-			setPasswordHash = "72534C4A93DDC043FE3229ED46B1D526C4CCC747FEBDCD0F284F7F6057A37858" //roberto
+			setPasswordHash = "72534C4A93DDC043FE3229ED46B1D526C4CCC747FEBDCD0F284F7F6057A37858" // roberto
 		]
 
 		scorsese = new Usuario => [
@@ -149,7 +148,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 76
 			imagenURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Martin_Scorsese_Berlinale_2010_%28cropped%29.jpg/220px-Martin_Scorsese_Berlinale_2010_%28cropped%29.jpg"
 			saldo = new BigDecimal("167")
-			setPasswordHash = "94F806C643110DD37C28848E4C825B098ECEAB5B76B1FF0D9708D1AF60EC8932" //Ms2000
+			setPasswordHash = "94F806C643110DD37C28848E4C825B098ECEAB5B76B1FF0D9708D1AF60EC8932" // Ms2000
 		]
 
 		cacho = new Usuario => [
@@ -159,7 +158,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 45
 			imagenURL = "http://www.javiercacho.com/uploads/1/0/1/5/10159943/6508932.jpg?250"
 			saldo = new BigDecimal("2020")
-			setPasswordHash = "2E7D2C03A9507AE265ECF5B5356885A53393A2029D241394997265A1A25AEFC6" //c
+			setPasswordHash = "2E7D2C03A9507AE265ECF5B5356885A53393A2029D241394997265A1A25AEFC6" // c
 		]
 
 		messi = new Usuario => [
@@ -169,7 +168,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 31
 			imagenURL = "http://e00-co-marca.uecdn.es/claro/assets/multimedia/imagenes/2019/04/19/15556256166086.jpg"
 			saldo = new BigDecimal("1312")
-			setPasswordHash = "EFD8D201835C864623837BCE92A331433BDFA4FC488B2156A4357D42B1D5850D" //L10forever
+			setPasswordHash = "EFD8D201835C864623837BCE92A331433BDFA4FC488B2156A4357D42B1D5850D" // L10forever
 		]
 
 		paulina = new Usuario => [
@@ -179,7 +178,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 28
 			imagenURL = "https://cdn-3.expansion.mx/dims4/default/09e4abb/2147483647/strip/true/crop/1500x2157+0+0/resize/800x1150!/quality/90/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fde%2Ffd%2Fde56442e4d1a93da91bce6fa3106%2Fpaulina-rubio.jpg"
 			saldo = new BigDecimal("150")
-			setPasswordHash = "470ADAA55FAB37A1A00DB983FCC022A1DBB13FC7361937F36CDC5F14DE19F6CE" //pau
+			setPasswordHash = "470ADAA55FAB37A1A00DB983FCC022A1DBB13FC7361937F36CDC5F14DE19F6CE" // pau
 		]
 
 		cora = new Usuario => [
@@ -189,7 +188,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			edad = 28
 			imagenURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Cora_logo.svg/1200px-Cora_logo.svg.png"
 			saldo = new BigDecimal("150")
-			setPasswordHash = "B8D8A9B672985B1DF0C1C580E2981200646F9120945B31F5407722BDA0E1E62A" //cora
+			setPasswordHash = "B8D8A9B672985B1DF0C1C580E2981200646F9120945B31F5407722BDA0E1E62A" // cora
 		]
 
 		repoUsuarios.create(aniston)
@@ -203,7 +202,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		cacho.listaDeAmigos.addAll(deNiro, aniston)
 
 		repoUsuarios.update(cacho)
-		cacho = repoUsuarios.searchById(cacho.id, new FetchUsuarioConCarritoCompleto)
+		cacho = repoUsuarios.getUsuarioConCarritoCompleto(cacho.id)
 	}
 
 	def crearFunciones() {

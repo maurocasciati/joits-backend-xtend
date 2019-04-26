@@ -7,7 +7,6 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import repositorios.FetchNothing
 import repositorios.RepoFuncion
 import repositorios.RepoLocator
 
@@ -24,7 +23,7 @@ class TestPersistenciaFuncion {
 
 	@Test
 	def seCreaFuncion() {
-		val funcionBD = repoFuncion.searchById(funcion.id, new FetchNothing)
+		val funcionBD = repoFuncion.searchById(funcion.id)
 		Assert.assertEquals(funcion, funcionBD)
 	}
 
@@ -32,14 +31,14 @@ class TestPersistenciaFuncion {
 	def seActualizaFuncion() {
 		funcion.nombreSala = "Sala Test"
 		repoFuncion.update(funcion)
-		val funcionDB = repoFuncion.searchById(funcion.id, new FetchNothing)
+		val funcionDB = repoFuncion.searchById(funcion.id)
 		Assert.assertEquals("Sala Test", funcionDB.nombreSala)
 	}
 
 	@Test
 	def seEliminaFuncion() {
 		repoFuncion.delete(funcion)
-		val funcionDB = repoFuncion.searchById(funcion.id, new FetchNothing)
+		val funcionDB = repoFuncion.searchById(funcion.id)
 		Assert.assertEquals(null, funcionDB)
 	}
 

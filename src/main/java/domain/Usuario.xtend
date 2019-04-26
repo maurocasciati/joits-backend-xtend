@@ -40,7 +40,7 @@ class Usuario {
 	@Column
 	Integer edad
 
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JsonIgnore
 	Set<Usuario> listaDeAmigos = new HashSet<Usuario>
 
