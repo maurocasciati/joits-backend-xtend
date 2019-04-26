@@ -9,6 +9,7 @@ import javax.persistence.PersistenceException
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.Root
 import java.util.function.Function
+import javax.persistence.EntityManager
 
 @TransactionalAndObservable
 abstract class Repositorio<T> {
@@ -78,14 +79,12 @@ abstract class Repositorio<T> {
 	abstract def void generateWhereId(CriteriaBuilder criteria, CriteriaQuery<T> query, Root<T> camposCandidato,
 		Long id)
 
-	def create(T t) {
-		val entityManager = this.entityManager
+	def createDeleteOrUpdate(T t, Function<T, Object> funcion, EntityManager entityManager) {
 		try {
-			entityManager => [
-				transaction.begin
-				persist(t)
-				transaction.commit
-			]
+			entityManager.transaction.begin
+			funcion.apply(t)
+			entityManager.transaction.commit
+
 		} catch (PersistenceException e) {
 			e.printStackTrace
 			entityManager.transaction.rollback
@@ -93,41 +92,21 @@ abstract class Repositorio<T> {
 		} finally {
 			entityManager.close
 		}
+	}
+
+	def create(T t) {
+		val entityManager = this.entityManager
+		createDeleteOrUpdate(t, [object|entityManager.persist(object) return null], entityManager)
 	}
 
 	def update(T t) {
 		val entityManager = this.entityManager
-		try {
-			entityManager => [
-				transaction.begin
-				merge(t)
-				transaction.commit
-			]
-		} catch (PersistenceException e) {
-			e.printStackTrace
-			entityManager.transaction.rollback
-			throw new RuntimeException("Ocurrió un error, la operación no puede completarse", e)
-		} finally {
-			entityManager.close
-		}
+		createDeleteOrUpdate(t, [object|entityManager.merge(object)], entityManager)
 	}
 
 	def delete(T t) {
 		val entityManager = this.entityManager
-		try {
-			entityManager => [
-				transaction.begin
-				var ent = if(contains(t)) t else merge(t)
-				remove(ent)
-				transaction.commit
-			]
-		} catch (PersistenceException e) {
-			e.printStackTrace
-			entityManager.transaction.rollback
-			throw new RuntimeException("Ocurrió un error, la operación no puede completarse", e)
-		} finally {
-			entityManager.close
-		}
+		createDeleteOrUpdate(t, [object|entityManager.remove(object) return null], entityManager)
 	}
 
 	def getEntityManager() {
