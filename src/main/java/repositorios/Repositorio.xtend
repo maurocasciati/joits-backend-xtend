@@ -8,6 +8,7 @@ import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import javax.persistence.PersistenceException
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.Root
+import java.util.function.Function
 
 @TransactionalAndObservable
 abstract class Repositorio<T> {
@@ -43,13 +44,13 @@ abstract class Repositorio<T> {
 		}
 	}
 
-	def searchById(Long id, Fetch<T> fetch) {
+	def searchById(Long id, Function<Root<T>, Object> funcion) {
 		val entityManager = this.entityManager
 		try {
 			val criteria = entityManager.criteriaBuilder
 			val query = criteria.createQuery as CriteriaQuery<T>
 			val from = query.from(entityType)
-			fetch.doFetch(from)
+			funcion.apply(from)
 			query.select(from)
 			generateWhereId(criteria, query, from, id)
 			val result = entityManager.createQuery(query).resultList
@@ -63,6 +64,13 @@ abstract class Repositorio<T> {
 		} finally {
 			entityManager.close
 		}
+	}
+
+	def searchById(Long id) {
+		searchById(id, [fetchNothing])
+	}
+
+	def fetchNothing(Root<T> query) {
 	}
 
 	abstract def void generateWhere(CriteriaBuilder criteria, CriteriaQuery<T> query, Root<T> camposCandidato, T t)

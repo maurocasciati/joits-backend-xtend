@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.JoinType
 import javax.persistence.criteria.Root
 import org.uqbar.commons.model.exceptions.UserException
+import java.util.function.Function
 
 class RepoUsuario extends Repositorio<Usuario> {
 
@@ -38,6 +39,55 @@ class RepoUsuario extends Repositorio<Usuario> {
 		if (id !== null) {
 			query.where(criteria.equal(camposUsuario.get("id"), id))
 		}
+	}
+
+	def getUsuarioConCarritoCompleto(Long id) {
+		searchById(id, [fetchUsuarioConCarritoCompleto])
+	}
+
+	def fetchUsuarioConCarritoCompleto(Root<Usuario> query) {
+		val camposCarrito = query.fetch("carrito", JoinType.LEFT)
+		val camposContenido = camposCarrito.fetch("contenido", JoinType.LEFT)
+//		camposContenido.fetch("peliculas", JoinType.LEFT)
+		camposCarrito.fetch("funcion", JoinType.LEFT)
+		query.fetch("entradas", JoinType.LEFT)
+	}
+
+	def getUsuarioConCarrito(Long id) {
+		searchById(id, [fetchUsuarioConCarrito])
+	}
+
+	def fetchUsuarioConCarrito(Root<Usuario> query) {
+		query.fetch("carrito", JoinType.LEFT)
+	}
+
+	def getUsuarioConEntradas(Long id) {
+		searchById(id, [fetchUsuarioConEntradas])
+	}
+
+	def fetchUsuarioConEntradas(Root<Usuario> query) {
+		val camposEntrada = query.fetch("entradas", JoinType.LEFT)
+		camposEntrada.fetch("contenido", JoinType.LEFT)
+//		camposEntrada.fetch("funcion", JoinType.LEFT)
+	}
+
+	def getUsuarioConAmigosYEntradas(Long id) {
+		searchById(id, [FetchUsuarioConAmigosYEntradas])
+	}
+
+	def FetchUsuarioConAmigosYEntradas(Root<Usuario> query) {
+		val camposAmigos = query.fetch("listaDeAmigos", JoinType.LEFT)
+		val camposEntradas = camposAmigos.fetch("entradas", JoinType.LEFT)
+		camposEntradas.fetch("contenido", JoinType.LEFT)
+	}
+
+	def getUsuarioConAmigos(Long id) {
+		searchById(id, [FetchUsuarioConAmigos])
+
+	}
+
+	def FetchUsuarioConAmigos(Root<Usuario> query) {
+		query.fetch("listaDeAmigos", JoinType.LEFT)
 	}
 
 	def login(String _username, String password) {
