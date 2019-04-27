@@ -106,7 +106,8 @@ abstract class Repositorio<T> {
 
 	def delete(T t) {
 		val entityManager = this.entityManager
-		createDeleteOrUpdate(t, [object|entityManager.remove(object) return null], entityManager)
+		createDeleteOrUpdate(t, [object|var ent = if(entityManager.contains(t)) t else entityManager.merge(t) entityManager.remove(ent) return null],
+			entityManager)
 	}
 
 	def getEntityManager() {
