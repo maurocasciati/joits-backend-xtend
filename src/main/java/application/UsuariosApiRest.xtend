@@ -193,5 +193,18 @@ class UsuariosApiRest {
 			badRequest(e.message)
 		}
 	}
+	
+	@Put("/usuario/:id/actualizar/")
+	def Result actualizarUsuario(@Body String body) {
+		try {
+			val idUsuario = Long.parseLong(id)
+			var usuario = RepoLocator.repoUsuario.searchById(idUsuario)
+			usuario.edad = body.getPropertyAsInteger("edad")
+			RepoLocator.repoUsuario.update(usuario)
+			ok('{ "status" : "OK" }');
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
+	}
 
 }
