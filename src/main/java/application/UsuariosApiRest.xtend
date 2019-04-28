@@ -80,7 +80,8 @@ class UsuariosApiRest {
 		try {
 			val user = body.getPropertyValue("user")
 			val pass = body.getPropertyValue("pass")
-			ok(RepoLocator.repoUsuario.login(user, pass).id.toJson);
+			val usuario = RepoLocator.repoUsuario.login(user, pass)
+			ok(usuario.toJson);
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
@@ -193,7 +194,7 @@ class UsuariosApiRest {
 			badRequest(e.message)
 		}
 	}
-	
+
 	@Put("/usuario/:id/actualizar/")
 	def Result actualizarUsuario(@Body String body) {
 		try {
