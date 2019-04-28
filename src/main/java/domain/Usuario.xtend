@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import java.math.BigDecimal
 import java.util.Arrays
 import java.util.HashSet
+import java.util.Objects
 import java.util.Set
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -18,8 +19,6 @@ import org.apache.commons.lang.StringUtils
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
-import java.util.Objects
-import com.fasterxml.jackson.annotation.JsonProperty
 
 @Entity
 @Accessors
@@ -64,11 +63,6 @@ class Usuario {
 	@JoinColumn(name="id_usuario_carrito")
 	@JsonIgnore
 	Set<Entrada> carrito = new HashSet<Entrada>
-
-	@JsonProperty
-	def getCantidadItemsCarrito() {
-		this.carrito.length
-	}
 
 	@JsonIgnore
 	def getHistorial() {

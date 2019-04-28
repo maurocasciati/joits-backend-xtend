@@ -81,7 +81,10 @@ class UsuariosApiRest {
 			val user = body.getPropertyValue("user")
 			val pass = body.getPropertyValue("pass")
 			val usuario = RepoLocator.repoUsuario.login(user, pass)
-			ok(usuario.toJson);
+			val jsonUsuario = usuario.toJson
+			var String nuevoJson = jsonUsuario.substring(0, jsonUsuario.length() - 3);
+			var jsonFinal = nuevoJson + ',\n  "cantidadItemsCarrito" : ' + usuario.carrito.length + "\n}"
+			ok(jsonFinal);
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
