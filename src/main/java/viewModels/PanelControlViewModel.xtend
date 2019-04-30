@@ -37,6 +37,21 @@ class PanelControlViewModel {
 		usuarioLogueado.listaDeAmigos
 	}
 
+	@Dependencies("edadUsuario")
+	def getPuedeGuardar() {
+		edadValida && cambioEdad
+	}
+
+	@Dependencies("edadUsuario")
+	def edadValida() {
+		edadUsuario !== null && edadUsuario >= 0 && edadUsuario <= 120
+	}
+
+	@Dependencies("edadUsuario")
+	def cambioEdad() {
+		edadUsuario != usuarioLogueado.edad
+	}
+
 	@Dependencies("saldoParaCargar")
 	def getPusoSaldo() {
 		saldoParaCargar !== null && saldoParaCargar !== 0

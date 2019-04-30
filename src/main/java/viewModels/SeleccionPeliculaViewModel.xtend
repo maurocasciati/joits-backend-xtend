@@ -54,6 +54,11 @@ class SeleccionPeliculaViewModel {
 		}
 	}
 
+	@Dependencies("cantidadItemsCarrito")
+	def getPuedeIrAFinalizar() {
+		getCantidadItemsCarrito > 0
+	}
+
 	def agregarAlCarrito() {
 		val entrada = new Entrada(peliculaSeleccionada, funcionSeleccionada)
 		RepoLocator.repoEntrada.create(entrada)

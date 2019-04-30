@@ -82,15 +82,16 @@ class PanelControl extends Ventana<PanelControlViewModel> {
 				new Panel(it) => [
 					layout = new HorizontalLayout
 					new Button(it) => [
+						caption = "Volver"
+						onClick[close]
+					]
+					new Button(it) => [
+						enabled <=> "puedeGuardar"
 						caption = "Aceptar"
 						onClick[
 							modelObject.actualizar
 							close
 						]
-					]
-					new Button(it) => [
-						caption = "Volver"
-						onClick[close]
 					]
 				]
 			]
