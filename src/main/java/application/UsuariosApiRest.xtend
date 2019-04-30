@@ -1,5 +1,6 @@
 package application
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import domain.Entrada
 import domain.Usuario
 import java.util.Set
@@ -78,12 +79,13 @@ class UsuariosApiRest {
 	@Post("/login")
 	def Result login(@Body String body) {
 		try {
+			val ObjectMapper mapper = new ObjectMapper();
 			val user = body.getPropertyValue("user")
 			val pass = body.getPropertyValue("pass")
 			val usuario = RepoLocator.repoUsuario.login(user, pass)
-			val jsonUsuario = usuario.toJson
-			var String nuevoJson = jsonUsuario.substring(0, jsonUsuario.length() - 3);
-			var jsonFinal = nuevoJson + ',\n  "cantidadItemsCarrito" : ' + usuario.carrito.length + "\n}"
+			val jsonUsuario = mapper.writeValueAsString(usuario)
+			val String nuevoJson = jsonUsuario.substring(0, jsonUsuario.length() - 1);
+			val jsonFinal = nuevoJson + ',"cantidadItemsCarrito":' + usuario.carrito.length + "}"
 			ok(jsonFinal);
 		} catch (Exception e) {
 			badRequest(e.message)
