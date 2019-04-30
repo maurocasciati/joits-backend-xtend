@@ -114,17 +114,6 @@ class UsuariosApiRest {
 		}
 	}
 
-	@Get("/usuario/cantidad-de-items-carrito/:id")
-	def getCantidadDeItemsCarrito() {
-		try {
-			val idUsuario = Long.parseLong(id)
-			val usuario = RepoLocator.repoUsuario.getUsuarioConCarrito(idUsuario)
-			return ok(usuario.carrito.length.toJson)
-		} catch (Exception e) {
-			badRequest(e.message)
-		}
-	}
-
 	@Put("/usuario/finalizar-compra/:id")
 	def Result finalizarCompra() {
 		try {
