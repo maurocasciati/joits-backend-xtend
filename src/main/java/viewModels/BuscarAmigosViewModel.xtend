@@ -13,6 +13,7 @@ class BuscarAmigosViewModel {
 	Usuario usuarioSeleccionado
 	String valorBuscado = ""
 	Set<Usuario> todosLosUsuarios
+	Boolean puedeAceptar = false
 
 	new() {
 		todosLosUsuarios = RepoLocator.repoUsuario.allInstances.toSet
@@ -34,6 +35,7 @@ class BuscarAmigosViewModel {
 
 	def agregarAmigo() {
 		usuarioLogueado.agregarAmigo(usuarioSeleccionado)
+		puedeAceptar = true
 	}
 
 	def aceptar() {

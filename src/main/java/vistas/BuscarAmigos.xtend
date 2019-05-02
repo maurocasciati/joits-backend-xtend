@@ -55,16 +55,17 @@ class BuscarAmigos extends Ventana<BuscarAmigosViewModel> {
 			layout = new HorizontalLayout
 
 			new Button(it) => [
-				caption = "Aceptar"
+				caption = "Cancelar"
 				onClick[
-					modelObject.aceptar
 					close
 				]
 				width = 100
 			]
 			new Button(it) => [
-				caption = "Cancelar"
+				caption = "Aceptar"
+				enabled <=> "puedeAceptar"
 				onClick[
+					modelObject.aceptar
 					close
 				]
 				width = 100

@@ -4,6 +4,7 @@ import domain.Contenido
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Root
+import javax.persistence.criteria.JoinType
 
 class RepoContenido extends Repositorio<Contenido> {
 
@@ -36,4 +37,13 @@ class RepoContenido extends Repositorio<Contenido> {
 			query.where(criteria.equal(camposContenido.get("id"), id))
 		}
 	}
+
+	def getContenidoConFunciones(Long id) {
+		searchById(id, [fetchContenidoConFunciones])
+	}
+
+	def fetchContenidoConFunciones(Root<Contenido> query) {
+		query.fetch("funciones", JoinType.LEFT)
+	}
+
 }

@@ -8,6 +8,8 @@ import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import javax.persistence.PersistenceException
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.Root
+import java.util.function.Function
+import javax.persistence.EntityManager
 
 @TransactionalAndObservable
 abstract class Repositorio<T> {
@@ -43,13 +45,13 @@ abstract class Repositorio<T> {
 		}
 	}
 
-	def searchById(Long id, Fetch<T> fetch) {
+	def searchById(Long id, Function<Root<T>, Object> funcion) {
 		val entityManager = this.entityManager
 		try {
 			val criteria = entityManager.criteriaBuilder
 			val query = criteria.createQuery as CriteriaQuery<T>
 			val from = query.from(entityType)
-			fetch.doFetch(from)
+			funcion.apply(from)
 			query.select(from)
 			generateWhereId(criteria, query, from, id)
 			val result = entityManager.createQuery(query).resultList
@@ -65,19 +67,24 @@ abstract class Repositorio<T> {
 		}
 	}
 
+	def searchById(Long id) {
+		searchById(id, [fetchNothing])
+	}
+
+	def fetchNothing(Root<T> query) {
+	}
+
 	abstract def void generateWhere(CriteriaBuilder criteria, CriteriaQuery<T> query, Root<T> camposCandidato, T t)
 
 	abstract def void generateWhereId(CriteriaBuilder criteria, CriteriaQuery<T> query, Root<T> camposCandidato,
 		Long id)
 
-	def create(T t) {
-		val entityManager = this.entityManager
+	def createDeleteOrUpdate(T t, Function<T, Object> funcion, EntityManager entityManager) {
 		try {
-			entityManager => [
-				transaction.begin
-				persist(t)
-				transaction.commit
-			]
+			entityManager.transaction.begin
+			funcion.apply(t)
+			entityManager.transaction.commit
+
 		} catch (PersistenceException e) {
 			e.printStackTrace
 			entityManager.transaction.rollback
@@ -85,41 +92,22 @@ abstract class Repositorio<T> {
 		} finally {
 			entityManager.close
 		}
+	}
+
+	def create(T t) {
+		val entityManager = this.entityManager
+		createDeleteOrUpdate(t, [object|entityManager.persist(object) return null], entityManager)
 	}
 
 	def update(T t) {
 		val entityManager = this.entityManager
-		try {
-			entityManager => [
-				transaction.begin
-				merge(t)
-				transaction.commit
-			]
-		} catch (PersistenceException e) {
-			e.printStackTrace
-			entityManager.transaction.rollback
-			throw new RuntimeException("Ocurrió un error, la operación no puede completarse", e)
-		} finally {
-			entityManager.close
-		}
+		createDeleteOrUpdate(t, [object|entityManager.merge(object)], entityManager)
 	}
 
 	def delete(T t) {
 		val entityManager = this.entityManager
-		try {
-			entityManager => [
-				transaction.begin
-				var ent = if(contains(t)) t else merge(t)
-				remove(ent)
-				transaction.commit
-			]
-		} catch (PersistenceException e) {
-			e.printStackTrace
-			entityManager.transaction.rollback
-			throw new RuntimeException("Ocurrió un error, la operación no puede completarse", e)
-		} finally {
-			entityManager.close
-		}
+		createDeleteOrUpdate(t, [object|var ent = if(entityManager.contains(t)) t else entityManager.merge(t) entityManager.remove(ent) return null],
+			entityManager)
 	}
 
 	def getEntityManager() {

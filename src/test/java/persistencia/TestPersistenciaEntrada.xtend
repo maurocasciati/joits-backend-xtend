@@ -7,7 +7,6 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import repositorios.FetchNothing
 import repositorios.RepoEntrada
 import repositorios.RepoLocator
 
@@ -24,7 +23,7 @@ class TestPersistenciaEntrada {
 
 	@Test
 	def seCreaEntrada() {
-		val entradaDB = repoEntrada.searchById(entrada.id, new FetchNothing)
+		val entradaDB = repoEntrada.searchById(entrada.id)
 		Assert.assertEquals(entrada, entradaDB)
 	}
 
@@ -33,14 +32,14 @@ class TestPersistenciaEntrada {
 		val fecha = (LocalDateTime.of(2019, Month.JUNE, 5, 11, 25, 00))
 		entrada.fechaCompra = fecha
 		repoEntrada.update(entrada)
-		val entradaDB = repoEntrada.searchById(entrada.id, new FetchNothing)
+		val entradaDB = repoEntrada.searchById(entrada.id)
 		Assert.assertEquals(fecha, entradaDB.fechaCompra)
 	}
 
 	@Test
 	def seEliminaEntrada() {
 		repoEntrada.delete(entrada)
-		val entradaDB = repoEntrada.searchById(entrada.id, new FetchNothing)
+		val entradaDB = repoEntrada.searchById(entrada.id)
 		Assert.assertEquals(null, entradaDB)
 	}
 

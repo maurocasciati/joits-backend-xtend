@@ -44,7 +44,7 @@ class PanelControl extends Ventana<PanelControlViewModel> {
 
 				new Button(it) => [
 					caption = "Cargar"
-					enabled <=> "pusoSaldo"
+					enabled <=> "puedeCargar"
 					onClick[
 						modelObject.cargarSaldo
 						actualizarVista("saldoUsuario")
@@ -82,15 +82,16 @@ class PanelControl extends Ventana<PanelControlViewModel> {
 				new Panel(it) => [
 					layout = new HorizontalLayout
 					new Button(it) => [
+						caption = "Volver"
+						onClick[close]
+					]
+					new Button(it) => [
+						enabled <=> "puedeGuardar"
 						caption = "Aceptar"
 						onClick[
 							modelObject.actualizar
 							close
 						]
-					]
-					new Button(it) => [
-						caption = "Volver"
-						onClick[close]
 					]
 				]
 			]

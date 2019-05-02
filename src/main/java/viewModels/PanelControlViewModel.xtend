@@ -5,7 +5,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import repositorios.RepoLocator
-import repositorios.FetchUsuarioConAmigosYEntradas
 
 @Observable
 @Accessors
@@ -16,7 +15,7 @@ class PanelControlViewModel {
 	Integer edadUsuario
 
 	new(Long idLogueado) {
-		usuarioLogueado = RepoLocator.repoUsuario.searchById(idLogueado, new FetchUsuarioConAmigosYEntradas)
+		usuarioLogueado = RepoLocator.repoUsuario.getUsuarioConAmigosYEntradas(idLogueado)
 		edadUsuario = usuarioLogueado.edad
 	}
 
@@ -38,9 +37,32 @@ class PanelControlViewModel {
 		usuarioLogueado.listaDeAmigos
 	}
 
-	@Dependencies("saldoParaCargar")
-	def getPusoSaldo() {
+	@Dependencies("edadUsuario")
+	def getPuedeGuardar() {
+		edadValida && cambioEdad
+	}
+
+	@Dependencies("edadUsuario")
+	def edadValida() {
+		edadUsuario !== null && edadUsuario >= 0 && edadUsuario <= 120
+	}
+
+	@Dependencies("edadUsuario")
+	def cambioEdad() {
+		edadUsuario != usuarioLogueado.edad
+	}
+	
+	def pusoSaldo() {
 		saldoParaCargar !== null && saldoParaCargar !== 0
+	}
+
+	@Dependencies("saldoParaCargar")
+	def getPuedeCargar() {
+		pusoSaldo && !superaSaldoMaximo
+	}
+
+	def superaSaldoMaximo() {
+		saldoParaCargar > 100000
 	}
 
 	def actualizar() {
@@ -49,7 +71,7 @@ class PanelControlViewModel {
 	}
 
 	def traerUsuarioLogueado() {
-		usuarioLogueado = RepoLocator.repoUsuario.searchById(usuarioLogueado.id, new FetchUsuarioConAmigosYEntradas)
+		usuarioLogueado = RepoLocator.repoUsuario.getUsuarioConAmigosYEntradas(usuarioLogueado.id)
 	}
 
 }

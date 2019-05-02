@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import java.math.BigDecimal
 import java.util.Arrays
 import java.util.HashSet
+import java.util.Objects
 import java.util.Set
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -18,7 +19,6 @@ import org.apache.commons.lang.StringUtils
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
-import java.util.Objects
 
 @Entity
 @Accessors
@@ -40,7 +40,7 @@ class Usuario {
 	@Column
 	Integer edad
 
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JsonIgnore
 	Set<Usuario> listaDeAmigos = new HashSet<Usuario>
 
@@ -105,6 +105,9 @@ class Usuario {
 	}
 
 	def cargarSaldo(Double monto) {
+		if (monto > 100000) {
+			throw new UserException("No se puede cargar mas de $100000")
+		}
 		saldo = saldo + new BigDecimal(monto.toString)
 	}
 

@@ -49,6 +49,7 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 				caption = "Panel de control"
 				onClick[
 					new PanelControl(this, modelObject.usuarioLogueado.id).open
+					modelObject.traerUsuarioLogueado
 				]
 			]
 		]
@@ -104,7 +105,8 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 			agregarLineaValor("Items en carrito: ", "cantidadItemsCarrito")
 			new Button(it) => [
 				caption = "Finalizar la compra"
-				bindEnabled(new NotNullObservable("usuarioLogueado.carrito"))
+				enabled <=> "puedeIrAFinalizar"
+//				bindEnabled(new NotNullObservable("usuarioLogueado.carrito"))
 				onClick[
 					new FinalizarCompra(this, modelObject.usuarioLogueado.id).open
 					modelObject.traerUsuarioLogueado
