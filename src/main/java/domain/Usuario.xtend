@@ -105,6 +105,9 @@ class Usuario {
 	}
 
 	def cargarSaldo(Double monto) {
+		if (monto > 100000) {
+			throw new UserException("No se puede cargar mas de $100000")
+		}
 		saldo = saldo + new BigDecimal(monto.toString)
 	}
 

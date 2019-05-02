@@ -51,10 +51,18 @@ class PanelControlViewModel {
 	def cambioEdad() {
 		edadUsuario != usuarioLogueado.edad
 	}
+	
+	def pusoSaldo() {
+		saldoParaCargar !== null && saldoParaCargar !== 0
+	}
 
 	@Dependencies("saldoParaCargar")
-	def getPusoSaldo() {
-		saldoParaCargar !== null && saldoParaCargar !== 0
+	def getPuedeCargar() {
+		pusoSaldo && !superaSaldoMaximo
+	}
+
+	def superaSaldoMaximo() {
+		saldoParaCargar > 100000
 	}
 
 	def actualizar() {
