@@ -99,10 +99,9 @@ class RepoUsuario extends Repositorio<Usuario> {
 			camposUsuario.fetch("carrito", JoinType.LEFT)
 			query.select(camposUsuario)
 			query.where(criteria.equal(camposUsuario.get("username"), _username))
-			val result = entityManager.createQuery(query).resultList
-			val usuario = result.head as Usuario
+			val usuario = entityManager.createQuery(query).singleResult as Usuario
 
-			if (result.isEmpty || usuario.getPasswordHash != password) {
+			if (usuario === null || usuario.getPasswordHash != password) {
 				throw new UserException("Credenciales incorrectas")
 			}
 			usuario
