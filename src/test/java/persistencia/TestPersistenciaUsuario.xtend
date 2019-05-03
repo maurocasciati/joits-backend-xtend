@@ -1,5 +1,6 @@
 package persistencia
 
+import domain.Carrito
 import domain.Entrada
 import domain.Funcion
 import domain.Pelicula
@@ -25,14 +26,16 @@ class TestPersistenciaUsuario {
 	Pelicula matrix
 	Entrada entrada
 	Funcion funcion
+	Carrito carrito
 
 	@Before
 	def void init() {
 		inicializarRepos
+		crearFunciones
 		crearContenido
 		inicializarUsuarios
-		crearFunciones
 		crearEntradas
+		crearCarrito
 	}
 
 	def inicializarRepos() {
@@ -66,6 +69,7 @@ class TestPersistenciaUsuario {
 
 	def crearContenido() {
 		matrix = new Pelicula("The Matrix", 8.7, "Ciencia Ficción", 1999, "")
+		matrix.funciones.add(funcion)
 		repoContenido.create(matrix)
 	}
 
@@ -75,6 +79,11 @@ class TestPersistenciaUsuario {
 
 	def crearEntradas() {
 		entrada = new Entrada(matrix, funcion)
+	}
+
+	def crearCarrito() {
+		carrito = new Carrito
+		carrito.entradas.add(entrada)
 	}
 
 	@Test
@@ -91,8 +100,9 @@ class TestPersistenciaUsuario {
 
 	@Test
 	def unUsuarioAgregaAUnAmigo() {
-		aniston.agregarAmigo(deNiro)
-		repoUsuarios.update(aniston)
+		var anistonConAmigos = repoUsuarios.getUsuarioConAmigos(aniston.id)
+		anistonConAmigos.agregarAmigo(deNiro)
+		repoUsuarios.update(anistonConAmigos)
 		val anistonActualizada = repoUsuarios.getUsuarioConAmigosYEntradas(aniston.id)
 		Assert.assertTrue(anistonActualizada.listaDeAmigos.contains(deNiro))
 	}
@@ -115,35 +125,17 @@ class TestPersistenciaUsuario {
 	}
 
 	@Test
-	def unUsuarioLimpiaCarrito() {
-		aniston.limpiarCarrito
-		repoUsuarios.update(aniston)
-		val anistonActualizada = repoUsuarios.getUsuarioConCarrito(aniston.id)
-		Assert.assertTrue(anistonActualizada.carrito.length == 0)
-	}
-
-	@Test
 	def unUsuarioFinalizaCompra() {
-		val totalCompra = new BigDecimal(aniston.totalCarrito)
-		aniston.finalizarCompra
+		aniston.finalizarCompra(carrito)
 		repoUsuarios.update(aniston)
-		val anistonActualizada = repoUsuarios.getUsuarioConCarritoCompleto(aniston.id)
-		Assert.assertTrue((aniston.saldo - totalCompra).compareTo(anistonActualizada.saldo) == 0)
-	}
-
-	@Test
-	def unUsuarioEliminaItemDelCarrito() {
-		aniston.agregarAlCarrito(entrada)
-		aniston.eliminarItem(entrada)
-		repoUsuarios.update(aniston)
-		val anistonConCarritoActualizada = repoUsuarios.getUsuarioConCarrito(aniston.id)
-		Assert.assertTrue(!anistonConCarritoActualizada.carrito.contains(entrada))
+		var anistonDB = repoUsuarios.getUsuarioConEntradas(aniston.id)
+		Assert.assertTrue((aniston.saldo).compareTo(anistonDB.saldo) == 0)
 	}
 
 	@After
 	def void end() {
+		repoContenido.delete(matrix)
 		repoUsuarios.delete(aniston)
 		repoUsuarios.delete(deNiro)
-		repoContenido.delete(matrix)
 	}
 }

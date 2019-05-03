@@ -194,9 +194,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		repoUsuarios.create(paulina)
 
 		cacho.listaDeAmigos.addAll(deNiro, aniston)
-
 		repoUsuarios.update(cacho)
-		cacho = repoUsuarios.getUsuarioConCarritoCompleto(cacho.id)
 	}
 
 	def crearFunciones() {
@@ -254,7 +252,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		var entrada5 = new Entrada(matrix, matrix.funciones.get(1))
 		var entrada6 = new Entrada(volverAlFuturoI, volverAlFuturoI.funciones.get(0))
 		var entrada7 = new Entrada(redSocial, redSocial.funciones.get(1))
-		var entrada8 = new Entrada(losBañeros4, losBañeros4.funciones.get(2))
 		var entrada9 = new Entrada(volverAlFuturoII, volverAlFuturoII.funciones.get(2))
 		var entrada10 = new Entrada(duroDeMatar, duroDeMatar.funciones.get(1))
 		var entrada11 = new Entrada(warGames, warGames.funciones.get(1))
@@ -264,13 +261,10 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		var entrada15 = new Entrada(pulpFiction, pulpFiction.funciones.get(2))
 		var entrada16 = new Entrada(volverAlFuturo, volverAlFuturo.funciones.get(0))
 		var entrada17 = new Entrada(redSocial, redSocial.funciones.get(1))
-		val entrada18 = new Entrada(volverAlFuturoI, volverAlFuturoI.funciones.get(1))
-		val entrada19 = new Entrada(pulpFiction, pulpFiction.funciones.get(0))
 
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
 		deNiro.entradas.addAll(entrada4, entrada5)
 		cacho.entradas.addAll(entrada6, entrada7)
-		cacho.carrito.addAll(entrada8, entrada18, entrada19)
 		messi.entradas.addAll(entrada9, entrada10, entrada11, entrada12)
 		scorsese.entradas.addAll(entrada13, entrada14, entrada15, entrada16, entrada17)
 

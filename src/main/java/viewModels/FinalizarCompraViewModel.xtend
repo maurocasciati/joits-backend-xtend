@@ -1,5 +1,6 @@
 package viewModels
 
+import domain.Carrito
 import domain.Entrada
 import domain.Usuario
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -13,28 +14,28 @@ class FinalizarCompraViewModel {
 
 	Usuario usuarioLogueado
 	Entrada itemSeleccionado
+	Carrito carrito
 
-	new(Long idLogueado) {
-		usuarioLogueado = RepoLocator.repoUsuario.getUsuarioConCarritoCompleto(idLogueado)
+	new(Long idLogueado, Carrito _carrito) {
+		usuarioLogueado = RepoLocator.repoUsuario.getUsuarioConEntradas(idLogueado)
+		carrito = _carrito
 	}
 
 	def getCarrito() {
-		usuarioLogueado.carrito
+		carrito.entradas
 	}
 
 	def limpiarCarrito() {
-		usuarioLogueado.limpiarCarrito
-		RepoLocator.repoUsuario.update(usuarioLogueado)
+		carrito.limpiarCarrito
 	}
 
 	def eliminarItem() {
-		usuarioLogueado.eliminarItem(itemSeleccionado)
-		RepoLocator.repoUsuario.update(usuarioLogueado)
+		carrito.eliminarItem(itemSeleccionado)
 	}
 
 	@Dependencies("carrito")
 	def getTotal() {
-		"$" + usuarioLogueado.totalCarrito.toString
+		"$" + carrito.totalCarrito.toString
 	}
 
 	@Dependencies("itemSeleccionado")
@@ -44,11 +45,11 @@ class FinalizarCompraViewModel {
 
 	@Dependencies("carrito")
 	def getCarritoNoVacio() {
-		!carrito.isEmpty
+		!carrito.entradas.isEmpty
 	}
 
 	def finalizarCompra() {
-		usuarioLogueado.finalizarCompra
+		usuarioLogueado.finalizarCompra(carrito)
 		RepoLocator.repoUsuario.update(usuarioLogueado)
 	}
 }

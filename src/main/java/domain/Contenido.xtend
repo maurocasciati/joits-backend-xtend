@@ -37,7 +37,7 @@ abstract class Contenido {
 
 	@Column(length=100)
 	String genero // accion, comedia, drama, ciencia ficcion	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn(name="id_contenido")
 	@JsonIgnore
 	List<Funcion> funciones = new ArrayList<Funcion>

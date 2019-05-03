@@ -1,10 +1,11 @@
 package repositorios
 
 import domain.Contenido
+import java.util.ArrayList
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
-import javax.persistence.criteria.Root
 import javax.persistence.criteria.JoinType
+import javax.persistence.criteria.Root
 
 class RepoContenido extends Repositorio<Contenido> {
 
@@ -44,6 +45,11 @@ class RepoContenido extends Repositorio<Contenido> {
 
 	def fetchContenidoConFunciones(Root<Contenido> query) {
 		query.fetch("funciones", JoinType.LEFT)
+	}
+
+	override delete(Contenido contenido) {
+		contenido.funciones = new ArrayList
+		super.delete(contenido)
 	}
 
 }

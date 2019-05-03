@@ -1,5 +1,6 @@
 package vistas
 
+import domain.Contenido
 import domain.Funcion
 import domain.Usuario
 import org.uqbar.arena.bindings.NotNullObservable
@@ -14,7 +15,6 @@ import org.uqbar.arena.windows.WindowOwner
 import viewModels.SeleccionPeliculaViewModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import domain.Contenido
 
 class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 
@@ -49,7 +49,6 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 				caption = "Panel de control"
 				onClick[
 					new PanelControl(this, modelObject.usuarioLogueado.id).open
-					modelObject.traerUsuarioLogueado
 				]
 			]
 		]
@@ -108,8 +107,7 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 				enabled <=> "puedeIrAFinalizar"
 //				bindEnabled(new NotNullObservable("usuarioLogueado.carrito"))
 				onClick[
-					new FinalizarCompra(this, modelObject.usuarioLogueado.id).open
-					modelObject.traerUsuarioLogueado
+					new FinalizarCompra(this, modelObject.usuarioLogueado.id, modelObject.carrito).open
 					actualizarVista("cantidadItemsCarrito")
 				]
 			]

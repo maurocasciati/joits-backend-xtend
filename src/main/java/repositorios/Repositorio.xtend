@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.Root
 import java.util.function.Function
 import javax.persistence.EntityManager
+import java.util.ArrayList
 
 @TransactionalAndObservable
 abstract class Repositorio<T> {
@@ -79,10 +80,10 @@ abstract class Repositorio<T> {
 	abstract def void generateWhereId(CriteriaBuilder criteria, CriteriaQuery<T> query, Root<T> camposCandidato,
 		Long id)
 
-	def createDeleteOrUpdate(T t, Function<T, Object> funcion, EntityManager entityManager) {
+	def createDeleteOrUpdate(List<T> objetos, Function<T, Object> funcion, EntityManager entityManager) {
 		try {
 			entityManager.transaction.begin
-			funcion.apply(t)
+			objetos.forEach[objeto|funcion.apply(objeto)]
 			entityManager.transaction.commit
 
 		} catch (PersistenceException e) {
@@ -94,20 +95,48 @@ abstract class Repositorio<T> {
 		}
 	}
 
+	def createAll(List<T> objetos) {
+		val entityManager = this.entityManager
+		createDeleteOrUpdate(objetos, [object|entityManager.persist(object) return null], entityManager)
+	}
+
+	def updateAll(List<T> objetos) {
+		val entityManager = this.entityManager
+		createDeleteOrUpdate(objetos, [object|entityManager.merge(object)], entityManager)
+	}
+
+	def deleteAll(List<T> objetos) {
+		val entityManager = this.entityManager
+		createDeleteOrUpdate(objetos, [ object |
+			var ent = if(entityManager.contains(object)) object else entityManager.merge(object)
+			entityManager.remove(ent)
+			return null
+		], entityManager)
+	}
+
 	def create(T t) {
 		val entityManager = this.entityManager
-		createDeleteOrUpdate(t, [object|entityManager.persist(object) return null], entityManager)
+		var lista = new ArrayList
+		lista.add(t)
+		createDeleteOrUpdate(lista, [object|entityManager.persist(object) return null], entityManager)
 	}
 
 	def update(T t) {
 		val entityManager = this.entityManager
-		createDeleteOrUpdate(t, [object|entityManager.merge(object)], entityManager)
+		var lista = new ArrayList
+		lista.add(t)
+		createDeleteOrUpdate(lista, [object|entityManager.merge(object)], entityManager)
 	}
 
 	def delete(T t) {
 		val entityManager = this.entityManager
-		createDeleteOrUpdate(t, [object|var ent = if(entityManager.contains(t)) t else entityManager.merge(t) entityManager.remove(ent) return null],
-			entityManager)
+		var lista = new ArrayList
+		lista.add(t)
+		createDeleteOrUpdate(lista, [ object |
+			var ent = if(entityManager.contains(object)) object else entityManager.merge(object)
+			entityManager.remove(ent)
+			return null
+		], entityManager)
 	}
 
 	def getEntityManager() {

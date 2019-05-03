@@ -84,24 +84,22 @@ class UsuariosApiRest {
 			val pass = body.getPropertyValue("pass")
 			val usuario = RepoLocator.repoUsuario.login(user, pass)
 			val jsonUsuario = mapper.writeValueAsString(usuario)
-			val String nuevoJson = jsonUsuario.substring(0, jsonUsuario.length() - 1);
-			val jsonFinal = nuevoJson + ',"cantidadItemsCarrito":' + usuario.carrito.length + "}"
-			ok(jsonFinal);
+			ok(jsonUsuario);
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
 	}
 
-	@Get("/usuario/carrito/:id")
-	def getCarritoUsuario() {
-		try {
-			val idUsuario = Long.parseLong(id)
-			val usuario = RepoLocator.repoUsuario.getUsuarioConCarritoCompleto(idUsuario)
-			return ok(usuario.carrito.toJson)
-		} catch (Exception e) {
-			badRequest(e.message)
-		}
-	}
+//	@Get("/usuario/carrito/:id")
+//	def getCarritoUsuario() {
+//		try {
+//			val idUsuario = Long.parseLong(id)
+//			val usuario = RepoLocator.repoUsuario.getUsuarioConCarritoCompleto(idUsuario)
+//			return ok(usuario.carrito.toJson)
+//		} catch (Exception e) {
+//			badRequest(e.message)
+//		}
+//	}
 
 	@Get("/usuario/historial-pelis-vistas/:id")
 	def getHistorialUsuario() {
@@ -114,63 +112,63 @@ class UsuariosApiRest {
 		}
 	}
 
-	@Put("/usuario/finalizar-compra/:id")
-	def Result finalizarCompra() {
-		try {
-			val idUsuario = Long.parseLong(id)
-			val usuario = RepoLocator.repoUsuario.getUsuarioConCarritoCompleto(idUsuario)
-			usuario.finalizarCompra()
-			RepoLocator.repoUsuario.update(usuario)
-			ok('{ "status" : "OK" }');
-		} catch (Exception e) {
-			badRequest(e.message)
-		}
-	}
+//	@Put("/usuario/finalizar-compra/:id")
+//	def Result finalizarCompra() {
+//		try {
+//			val idUsuario = Long.parseLong(id)
+//			val usuario = RepoLocator.repoUsuario.getUsuarioConCarritoCompleto(idUsuario)
+//			usuario.finalizarCompra()
+//			RepoLocator.repoUsuario.update(usuario)
+//			ok('{ "status" : "OK" }');
+//		} catch (Exception e) {
+//			badRequest(e.message)
+//		}
+//	}
 
-	@Put("/usuario/limpiar-carrito/:id")
-	def Result limpiarCarrito() {
-		try {
-			val idUsuario = Long.parseLong(id)
-			val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
-			usuario.limpiarCarrito()
-			RepoLocator.repoUsuario.update(usuario)
-			ok('{ "status" : "OK" }');
-		} catch (Exception e) {
-			badRequest(e.message)
-		}
-	}
+//	@Put("/usuario/limpiar-carrito/:id")
+//	def Result limpiarCarrito() {
+//		try {
+//			val idUsuario = Long.parseLong(id)
+//			val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
+//			usuario.limpiarCarrito()
+//			RepoLocator.repoUsuario.update(usuario)
+//			ok('{ "status" : "OK" }');
+//		} catch (Exception e) {
+//			badRequest(e.message)
+//		}
+//	}
 
-	@Put("/usuario/eliminar-item-carrito/:id")
-	def Result eliminarItemCarrito(@Body String body) {
-		try {
-			val idUsuario = Long.parseLong(id)
-			val idEntrada = Long.parseLong(body.getPropertyValue("idEntrada"))
-			val usuario = RepoLocator.repoUsuario.getUsuarioConCarrito(idUsuario)
-			RepoLocator.repoUsuario.update(usuario)
-			ok('{ "status" : "OK" }');
-		} catch (Exception e) {
-			badRequest(e.message)
-		}
-	}
+//	@Put("/usuario/eliminar-item-carrito/:id")
+//	def Result eliminarItemCarrito(@Body String body) {
+//		try {
+//			val idUsuario = Long.parseLong(id)
+//			val idEntrada = Long.parseLong(body.getPropertyValue("idEntrada"))
+//			val usuario = RepoLocator.repoUsuario.getUsuarioConCarrito(idUsuario)
+//			RepoLocator.repoUsuario.update(usuario)
+//			ok('{ "status" : "OK" }');
+//		} catch (Exception e) {
+//			badRequest(e.message)
+//		}
+//	}
 
-	@Put("/usuario/agregar-item-carrito/:id")
-	def Result agregarItemCarrito(@Body String body) {
-		try {
-			val idUsuario = Long.parseLong(id)
-			val idContenido = Long.parseLong(body.getPropertyValue("idContenido"))
-			val idFuncion = Long.parseLong(body.getPropertyValue("idFuncion"))
-			val contenido = RepoLocator.repoContenido.getContenidoConFunciones(idContenido)
-			val funcion = contenido.searchFuncionById(idFuncion)
-			val usuario = RepoLocator.repoUsuario.getUsuarioConCarrito(idUsuario)
-			val entrada = new Entrada(contenido, funcion)
-			usuario.agregarAlCarrito(entrada)
-			RepoLocator.repoUsuario.update(usuario)
-
-			ok('{ "status" : "OK" }');
-		} catch (Exception e) {
-			badRequest(e.message)
-		}
-	}
+//	@Put("/usuario/agregar-item-carrito/:id")
+//	def Result agregarItemCarrito(@Body String body) {
+//		try {
+//			val idUsuario = Long.parseLong(id)
+//			val idContenido = Long.parseLong(body.getPropertyValue("idContenido"))
+//			val idFuncion = Long.parseLong(body.getPropertyValue("idFuncion"))
+//			val contenido = RepoLocator.repoContenido.getContenidoConFunciones(idContenido)
+//			val funcion = contenido.searchFuncionById(idFuncion)
+//			val usuario = RepoLocator.repoUsuario.getUsuarioConCarrito(idUsuario)
+//			val entrada = new Entrada(contenido, funcion)
+//			usuario.agregarAlCarrito(entrada)
+//			RepoLocator.repoUsuario.update(usuario)
+//
+//			ok('{ "status" : "OK" }');
+//		} catch (Exception e) {
+//			badRequest(e.message)
+//		}
+//	}
 
 	@Put("/usuario/:id/cargar-saldo/")
 	def Result cargarSaldo(@Body String body) {

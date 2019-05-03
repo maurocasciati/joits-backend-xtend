@@ -10,6 +10,7 @@ import java.time.LocalDateTime
 import java.time.Month
 import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
+import domain.Carrito
 
 @Accessors
 class SuperTest {
@@ -26,12 +27,19 @@ class SuperTest {
 	Funcion funcionMiercoles
 	Funcion funcionSabado
 	Funcion funcionRegular
+	Carrito carrito
 
 	def void init() {
 		crearContenido
 		inicializarUsuarios
 		crearFunciones
 		crearEntradas
+		crearCarrito
+	}
+
+	def crearCarrito() {
+		carrito = new Carrito
+		carrito.agregarAlCarrito(entrada)
 	}
 
 	def crearFunciones() {

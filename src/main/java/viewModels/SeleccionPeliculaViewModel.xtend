@@ -1,5 +1,6 @@
 package viewModels
 
+import domain.Carrito
 import domain.Contenido
 import domain.Entrada
 import domain.Funcion
@@ -23,6 +24,7 @@ class SeleccionPeliculaViewModel {
 	Funcion funcionSeleccionada
 	Contenido peliculaFromDB
 	String valorDeBusqueda = null
+	Carrito carrito = new Carrito
 
 	def getResultadoBusqueda() {
 		peliculas.filter [ contenido |
@@ -61,12 +63,11 @@ class SeleccionPeliculaViewModel {
 
 	def agregarAlCarrito() {
 		val entrada = new Entrada(peliculaSeleccionada, funcionSeleccionada)
-		usuarioLogueado.agregarAlCarrito(entrada)
-		RepoLocator.repoUsuario.update(usuarioLogueado)
+		carrito.agregarAlCarrito(entrada)
 	}
 
 	def getCantidadItemsCarrito() {
-		usuarioLogueado.carrito.size
+		carrito.entradas.size
 	}
 
 	@Dependencies("funcionSeleccionada")
@@ -78,9 +79,4 @@ class SeleccionPeliculaViewModel {
 		}
 
 	}
-
-	def traerUsuarioLogueado() {
-		usuarioLogueado = RepoLocator.repoUsuario.getUsuarioConCarrito(usuarioLogueado.id)
-	}
-
 }

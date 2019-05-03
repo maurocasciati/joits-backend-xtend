@@ -41,26 +41,6 @@ class RepoUsuario extends Repositorio<Usuario> {
 		}
 	}
 
-	def getUsuarioConCarritoCompleto(Long id) {
-		searchById(id, [fetchUsuarioConCarritoCompleto])
-	}
-
-	def fetchUsuarioConCarritoCompleto(Root<Usuario> query) {
-		val camposCarrito = query.fetch("carrito", JoinType.LEFT)
-		val camposContenido = camposCarrito.fetch("contenido", JoinType.LEFT)
-//		camposContenido.fetch("peliculas", JoinType.LEFT)
-		camposCarrito.fetch("funcion", JoinType.LEFT)
-		query.fetch("entradas", JoinType.LEFT)
-	}
-
-	def getUsuarioConCarrito(Long id) {
-		searchById(id, [fetchUsuarioConCarrito])
-	}
-
-	def fetchUsuarioConCarrito(Root<Usuario> query) {
-		query.fetch("carrito", JoinType.LEFT)
-	}
-
 	def getUsuarioConEntradas(Long id) {
 		searchById(id, [fetchUsuarioConEntradas])
 	}
@@ -96,7 +76,6 @@ class RepoUsuario extends Repositorio<Usuario> {
 			val criteria = entityManager.criteriaBuilder
 			val query = criteria.createQuery
 			val camposUsuario = query.from(entityType)
-			camposUsuario.fetch("carrito", JoinType.LEFT)
 			query.select(camposUsuario)
 			query.where(criteria.equal(camposUsuario.get("username"), _username))
 			val usuario = entityManager.createQuery(query).singleResult as Usuario
@@ -111,6 +90,7 @@ class RepoUsuario extends Repositorio<Usuario> {
 	}
 
 	override delete(Usuario usuario) {
+		usuario.entradas = new HashSet
 		usuario.listaDeAmigos = new HashSet
 		super.delete(usuario)
 	}

@@ -12,11 +12,12 @@ import org.uqbar.arena.windows.WindowOwner
 import viewModels.FinalizarCompraViewModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import domain.Carrito
 
 class FinalizarCompra extends Ventana<FinalizarCompraViewModel> {
 
-	new(WindowOwner parent, Long idLogueado) {
-		super(parent, new FinalizarCompraViewModel(idLogueado))
+	new(WindowOwner parent, Long idLogueado, Carrito carrito) {
+		super(parent, new FinalizarCompraViewModel(idLogueado, carrito))
 	}
 
 	override addActions(Panel actionsPanel) {

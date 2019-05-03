@@ -2,7 +2,6 @@ package domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.math.BigDecimal
-import java.util.Arrays
 import java.util.HashSet
 import java.util.Objects
 import java.util.Set
@@ -19,6 +18,8 @@ import org.apache.commons.lang.StringUtils
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 
 @Entity
 @Accessors
@@ -54,54 +55,32 @@ class Usuario {
 	@Column(length=250)
 	String imagenURL
 
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="id_usuario")
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name="usuario_id")
 	@JsonIgnore
 	Set<Entrada> entradas = new HashSet<Entrada>
-
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="id_usuario_carrito")
-	@JsonIgnore
-	Set<Entrada> carrito = new HashSet<Entrada>
 
 	@JsonIgnore
 	def getHistorial() {
 		entradas.map[entrada|entrada.contenido.titulo].toSet
 	}
 
-	def limpiarCarrito() {
-		carrito = new HashSet
-	}
-
-	def eliminarItem(Entrada item) {
-		carrito.remove(item)
-	}
-
-	def finalizarCompra() {
-		if (noLeAlcanzaSaldo) {
+	def finalizarCompra(Carrito carrito) {
+		if (noLeAlcanzaSaldo(carrito)) {
 			throw new UserException("Saldo insuficiente")
 		}
-		saldo -= new BigDecimal(totalCarrito.toString)
-		agregarEntradasCarrito
-		limpiarCarrito
+		saldo -= new BigDecimal(carrito.totalCarrito.toString)
+		agregarEntradasDeCarrito(carrito)
+		carrito.limpiarCarrito
 	}
 
-	def agregarEntradasCarrito() {
-		carrito.forEach[entrada|entrada.asignarFechaCompra]
-		carrito.forEach[entrada|entradas.add(entrada)]
+	def agregarEntradasDeCarrito(Carrito carrito) {
+		carrito.entradas.forEach[entrada|entrada.asignarFechaCompra]
+		carrito.entradas.forEach[entrada|entradas.add(entrada)]
 	}
 
-	def agregarAlCarrito(Entrada entrada) {
-		carrito.add(entrada)
-	}
-
-	def noLeAlcanzaSaldo() {
-		totalCarrito > saldo.doubleValue
-	}
-
-	def totalCarrito() {
-		var double[] precios = getCarrito.map[entrada|entrada.precio]
-		Arrays.stream(precios).sum();
+	def noLeAlcanzaSaldo(Carrito carrito) {
+		carrito.totalCarrito > saldo.doubleValue
 	}
 
 	def cargarSaldo(Double monto) {

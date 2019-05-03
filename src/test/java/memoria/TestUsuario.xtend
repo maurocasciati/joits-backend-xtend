@@ -32,36 +32,34 @@ class TestUsuario extends SuperTest {
 		Assert.assertEquals(45, aniston.edad)
 	}
 
-	@Test
-	def unUsuarioAgregaEntradaAlCarrito() {
-		aniston.agregarAlCarrito(entrada)
-		Assert.assertTrue(aniston.carrito.contains(entrada))
-	}
-
-	@Test
-	def unUsuarioLimpiaCarrito() {
-		aniston.limpiarCarrito
-		Assert.assertTrue(aniston.carrito.isEmpty)
-	}
-
+//	@Test
+//	def unUsuarioAgregaEntradaAlCarrito() {
+//		aniston.agregarAlCarrito(entrada)
+//		Assert.assertTrue(aniston.carrito.contains(entrada))
+//	}
+//
+//	@Test
+//	def unUsuarioLimpiaCarrito() {
+//		aniston.limpiarCarrito
+//		Assert.assertTrue(aniston.carrito.isEmpty)
+//	}
 	@Test
 	def unUsuarioFinalizaCompra() {
-		val totalCompra = new BigDecimal(aniston.totalCarrito)
-		aniston.finalizarCompra
-		Assert.assertTrue((aniston.saldo - totalCompra).compareTo(aniston.saldo) == 0)
+		val totalCompra = new BigDecimal(carrito.totalCarrito)
+		val saldoAnterior = new BigDecimal(aniston.saldo.toString)
+		aniston.finalizarCompra(carrito)
+		Assert.assertTrue((saldoAnterior - totalCompra).compareTo(aniston.saldo) == 0)
 	}
 
-	@Test
-	def unUsuarioEliminaItemDelCarrito() {
-		aniston.agregarAlCarrito(entrada)
-		aniston.eliminarItem(entrada)
-		Assert.assertTrue(!aniston.carrito.contains(entrada))
-	}
-
+//	@Test
+//	def unUsuarioEliminaItemDelCarrito() {
+//		aniston.agregarAlCarrito(entrada)
+//		aniston.eliminarItem(entrada)
+//		Assert.assertTrue(!aniston.carrito.contains(entrada))
+//	}
 	@Test(expected=UserException)
 	def void unUsuarioQuiereFinalizarCompraPeroNoLeAlcanzaElSaldo() {
 		aniston.saldo = new BigDecimal("0")
-		aniston.agregarAlCarrito(entrada)
-		aniston.finalizarCompra
+		aniston.finalizarCompra(carrito)
 	}
 }
