@@ -104,8 +104,7 @@ class RepoUsuario extends Repositorio<Usuario> {
 				throw new UserException("Credenciales incorrectas")
 			}
 			usuario
-		} catch (Exception e) {
-			throw new UserException("Credenciales incorrectas")
+
 		} finally {
 			entityManager.close
 		}

@@ -8,6 +8,7 @@ import org.uqbar.commons.model.annotations.Observable
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
 import vistas.Login
+import org.uqbar.commons.model.exceptions.UserException
 
 @Accessors
 @Observable
@@ -22,10 +23,14 @@ class LoginViewModel {
 	}
 
 	def aceptar(Login pantallaLogin) {
-		val String hashString = DigestUtils.sha256Hex(password) 
-		val Usuario usuario = repoUsuario.login(username, hashString.toUpperCase())
-		pantallaLogin.accept
-		pantallaLogin.irASeleccionarPelicula(usuario)
+		try {
+			val String hashString = DigestUtils.sha256Hex(password)
+			val Usuario usuario = repoUsuario.login(username, hashString.toUpperCase())
+			pantallaLogin.accept
+			pantallaLogin.irASeleccionarPelicula(usuario)
+		} catch (Exception e) {
+			throw new UserException(e.message)
+		}
 	}
 
 	@Dependencies("username", "password")
