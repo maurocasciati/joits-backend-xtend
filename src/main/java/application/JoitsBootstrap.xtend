@@ -96,21 +96,11 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			apiID = "603"
 		]
 
-		repoContenido.create(matrix)
-		repoContenido.create(matrix2)
-		repoContenido.create(matrix3)
-		repoContenido.create(sagaMatrix)
-		repoContenido.create(duroDeMatar)
-		repoContenido.create(nueveReinas)
-		repoContenido.create(elDiaDeLaMarmota)
-		repoContenido.create(pulpFiction)
-		repoContenido.create(redSocial)
-		repoContenido.create(volverAlFuturoI)
-		repoContenido.create(volverAlFuturoII)
-		repoContenido.create(volverAlFuturoIII)
-		repoContenido.create(volverAlFuturo)
-		repoContenido.create(warGames)
-		repoContenido.create(losBañeros4)
+		var peliculas = new ArrayList
+		peliculas.addAll(matrix, matrix2, matrix3, sagaMatrix, duroDeMatar, nueveReinas, elDiaDeLaMarmota, pulpFiction,
+			redSocial, volverAlFuturoI, volverAlFuturoII, volverAlFuturoIII, volverAlFuturo, warGames, losBañeros4)
+
+		repoContenido.createAll(peliculas)
 	}
 
 	def crearUsuarios() {
@@ -185,14 +175,10 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			setPasswordHash = "B8D8A9B672985B1DF0C1C580E2981200646F9120945B31F5407722BDA0E1E62A" // cora
 		]
 
-		repoUsuarios.create(aniston)
-		repoUsuarios.create(cacho)
-		repoUsuarios.create(deNiro)
-		repoUsuarios.create(messi)
-		repoUsuarios.create(scorsese)
-		repoUsuarios.create(cora)
-		repoUsuarios.create(paulina)
+		var usuarios = new ArrayList
+		usuarios.addAll(aniston, cacho, deNiro, messi, scorsese, cora, paulina)
 
+		repoUsuarios.createAll(usuarios)
 		cacho.listaDeAmigos.addAll(deNiro, aniston)
 		repoUsuarios.update(cacho)
 	}
@@ -263,17 +249,13 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		var entrada17 = new Entrada(redSocial, redSocial.funciones.get(1))
 
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
-		deNiro.entradas.addAll(entrada4, entrada5)
 		cacho.entradas.addAll(entrada6, entrada7)
+		deNiro.entradas.addAll(entrada4, entrada5)
 		messi.entradas.addAll(entrada9, entrada10, entrada11, entrada12)
 		scorsese.entradas.addAll(entrada13, entrada14, entrada15, entrada16, entrada17)
 
-		repoUsuarios.update(aniston)
-		repoUsuarios.update(deNiro)
-		repoUsuarios.update(cacho)
-		repoUsuarios.update(messi)
-		repoUsuarios.update(scorsese)
-		repoUsuarios.update(paulina)
-		repoUsuarios.update(cora)
+		var usuarios = new ArrayList
+		usuarios.addAll(aniston, cacho, deNiro, messi, scorsese)
+		repoUsuarios.updateAll(usuarios)
 	}
 }
