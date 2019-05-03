@@ -70,16 +70,4 @@ class Funcion {
 	def getHora() {
 		fechaHora.toLocalTime
 	}
-
-	override equals(Object other) {
-		if (other instanceof Funcion) {
-			return (other as Funcion).id == id
-		}
-		false
-	}
-
-	override hashCode() {
-		Objects.hashCode(id)
-	}
-
 }

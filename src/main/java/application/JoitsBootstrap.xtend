@@ -14,8 +14,6 @@ import java.util.concurrent.ThreadLocalRandom
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
 import repositorios.RepoContenido
-import repositorios.RepoEntrada
-import repositorios.RepoFuncion
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
 
@@ -24,8 +22,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 
 	RepoContenido repoContenido
 	RepoUsuario repoUsuarios
-	RepoEntrada repoEntradas
-	RepoFuncion repoFunciones
 	Usuario aniston
 	Usuario scorsese
 	Usuario deNiro
@@ -52,8 +48,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	new() {
 		repoContenido = RepoLocator.repoContenido
 		repoUsuarios = RepoLocator.repoUsuario
-		repoEntradas = RepoLocator.repoEntrada
-		repoFunciones = RepoLocator.repoFuncion
 	}
 
 	override run() {
@@ -246,7 +240,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			var funcion = new Funcion(
 				fecha.plusDays(diasRandom).plusHours(horasRandom).plusMinutes(minutos.get(indexMinutos)),
 				cines.get(index))
-			repoFunciones.create(funcion)
 			contenido.funciones.add(funcion)
 			repoContenido.update(contenido)
 			i++
@@ -273,30 +266,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		var entrada17 = new Entrada(redSocial, redSocial.funciones.get(1))
 		val entrada18 = new Entrada(volverAlFuturoI, volverAlFuturoI.funciones.get(1))
 		val entrada19 = new Entrada(pulpFiction, pulpFiction.funciones.get(0))
-		val entrada20 = new Entrada(volverAlFuturoI, volverAlFuturoI.funciones.get(1))
-		val entrada21 = new Entrada(pulpFiction, pulpFiction.funciones.get(0))
-
-		repoEntradas.create(entrada)
-		repoEntradas.create(entrada2)
-		repoEntradas.create(entrada3)
-		repoEntradas.create(entrada4)
-		repoEntradas.create(entrada5)
-		repoEntradas.create(entrada6)
-		repoEntradas.create(entrada7)
-		repoEntradas.create(entrada8)
-		repoEntradas.create(entrada9)
-		repoEntradas.create(entrada10)
-		repoEntradas.create(entrada11)
-		repoEntradas.create(entrada12)
-		repoEntradas.create(entrada13)
-		repoEntradas.create(entrada14)
-		repoEntradas.create(entrada15)
-		repoEntradas.create(entrada16)
-		repoEntradas.create(entrada17)
-		repoEntradas.create(entrada18)
-		repoEntradas.create(entrada19)
-		repoEntradas.create(entrada20)
-		repoEntradas.create(entrada21)
 
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
 		deNiro.entradas.addAll(entrada4, entrada5)

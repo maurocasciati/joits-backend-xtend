@@ -11,6 +11,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import javax.persistence.FetchType
 import java.util.Objects
+import javax.persistence.CascadeType
 
 @Entity
 @Accessors
@@ -23,7 +24,7 @@ class Entrada {
 	@ManyToOne(fetch=FetchType.LAZY)
 	Contenido contenido
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	Funcion funcion
 
 	@Column
@@ -49,16 +50,4 @@ class Entrada {
 	def getPrecioString() {
 		"$" + precio.toString
 	}
-
-	override equals(Object other) {
-		if (other instanceof Entrada) {
-			return (other as Entrada).id == id
-		}
-		false
-	}
-
-	override hashCode() {
-		Objects.hashCode(id)
-	}
-
 }

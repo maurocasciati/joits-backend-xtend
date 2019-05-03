@@ -145,9 +145,7 @@ class UsuariosApiRest {
 		try {
 			val idUsuario = Long.parseLong(id)
 			val idEntrada = Long.parseLong(body.getPropertyValue("idEntrada"))
-			val entrada = RepoLocator.repoEntrada.searchById(idEntrada)
 			val usuario = RepoLocator.repoUsuario.getUsuarioConCarrito(idUsuario)
-			usuario.eliminarItem(entrada)
 			RepoLocator.repoUsuario.update(usuario)
 			ok('{ "status" : "OK" }');
 		} catch (Exception e) {
@@ -165,7 +163,6 @@ class UsuariosApiRest {
 			val funcion = contenido.searchFuncionById(idFuncion)
 			val usuario = RepoLocator.repoUsuario.getUsuarioConCarrito(idUsuario)
 			val entrada = new Entrada(contenido, funcion)
-			RepoLocator.repoEntrada.create(entrada)
 			usuario.agregarAlCarrito(entrada)
 			RepoLocator.repoUsuario.update(usuario)
 

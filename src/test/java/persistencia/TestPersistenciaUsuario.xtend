@@ -12,17 +12,14 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import repositorios.RepoContenido
-import repositorios.RepoEntrada
-import repositorios.RepoFuncion
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
+import java.util.HashSet
 
 class TestPersistenciaUsuario {
 
 	RepoContenido repoContenido
 	RepoUsuario repoUsuarios
-	RepoEntrada repoEntradas
-	RepoFuncion repoFunciones
 	Usuario aniston
 	Usuario deNiro
 	Pelicula matrix
@@ -41,8 +38,6 @@ class TestPersistenciaUsuario {
 	def inicializarRepos() {
 		repoUsuarios = RepoLocator.repoUsuario
 		repoContenido = RepoLocator.repoContenido
-		repoEntradas = RepoLocator.repoEntrada
-		repoFunciones = RepoLocator.repoFuncion
 	}
 
 	def inicializarUsuarios() {
@@ -76,13 +71,10 @@ class TestPersistenciaUsuario {
 
 	def crearFunciones() {
 		funcion = new Funcion(LocalDateTime.of(2019, Month.DECEMBER, 22, 15, 00, 00), "Cinemark Palermo")
-		repoFunciones.create(funcion)
 	}
 
 	def crearEntradas() {
 		entrada = new Entrada(matrix, funcion)
-
-		repoEntradas.create(entrada)
 	}
 
 	@Test
@@ -123,14 +115,6 @@ class TestPersistenciaUsuario {
 	}
 
 	@Test
-	def unUsuarioAgregaEntradaAlCarrito() {
-		aniston.agregarAlCarrito(entrada)
-		repoUsuarios.update(aniston)
-		val anistonConCarritoActualizada = repoUsuarios.getUsuarioConCarrito(aniston.id)
-		Assert.assertTrue(anistonConCarritoActualizada.carrito.contains(entrada))
-	}
-
-	@Test
 	def unUsuarioLimpiaCarrito() {
 		aniston.limpiarCarrito
 		repoUsuarios.update(aniston)
@@ -160,8 +144,6 @@ class TestPersistenciaUsuario {
 	def void end() {
 		repoUsuarios.delete(aniston)
 		repoUsuarios.delete(deNiro)
-		repoEntradas.delete(entrada)
-		repoFunciones.delete(funcion)
 		repoContenido.delete(matrix)
 	}
 }
