@@ -126,10 +126,12 @@ class TestPersistenciaUsuario {
 
 	@Test
 	def unUsuarioFinalizaCompra() {
+		val saldoAnterior = aniston.saldo
+		val totalCompra = new BigDecimal(carrito.totalCarrito.toString)
 		aniston.finalizarCompra(carrito)
 		repoUsuarios.update(aniston)
 		var anistonDB = repoUsuarios.getUsuarioConEntradas(aniston.id)
-		Assert.assertTrue((aniston.saldo).compareTo(anistonDB.saldo) == 0)
+		Assert.assertTrue((saldoAnterior - totalCompra).compareTo(anistonDB.saldo) == 0)
 	}
 
 	@After
