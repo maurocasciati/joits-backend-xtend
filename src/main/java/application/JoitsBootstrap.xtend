@@ -186,7 +186,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	}
 
 	def crearFunciones() {
-
 		agregarFuncionesRandom(matrix, 12)
 		agregarFuncionesRandom(matrix2, 8)
 		agregarFuncionesRandom(matrix3, 6)
@@ -195,7 +194,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		agregarFuncionesRandom(duroDeMatar, 9)
 		agregarFuncionesRandom(elDiaDeLaMarmota, 5)
 		agregarFuncionesRandom(nueveReinas, 7)
-		agregarFuncionesRandom(duroDeMatar, 6)
 		agregarFuncionesRandom(redSocial, 10)
 		agregarFuncionesRandom(warGames, 5)
 		agregarFuncionesRandom(losBañeros4, 9)
@@ -203,6 +201,10 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		agregarFuncionesRandom(volverAlFuturoII, 7)
 		agregarFuncionesRandom(volverAlFuturoIII, 11)
 		agregarFuncionesRandom(volverAlFuturo, 4)
+		var peliculas = new ArrayList
+		peliculas.addAll(matrix, matrix2, matrix3, sagaMatrix, duroDeMatar, nueveReinas, elDiaDeLaMarmota, pulpFiction,
+			redSocial, volverAlFuturoI, volverAlFuturoII, volverAlFuturoIII, volverAlFuturo, warGames, losBañeros4)
+		repoContenido.updateAll(peliculas)
 	}
 
 	def agregarFuncionesRandom(Contenido contenido, int cantidad) {
@@ -227,7 +229,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 				fecha.plusDays(diasRandom).plusHours(horasRandom).plusMinutes(minutos.get(indexMinutos)),
 				cines.get(index))
 			contenido.funciones.add(funcion)
-			repoContenido.update(contenido)
 			i++
 		}
 	}
