@@ -2,12 +2,12 @@ package repositorios
 
 import domain.Usuario
 import java.util.HashSet
+import java.util.List
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.JoinType
 import javax.persistence.criteria.Root
 import org.uqbar.commons.model.exceptions.UserException
-import java.util.function.Function
 
 class RepoUsuario extends Repositorio<Usuario> {
 
@@ -38,6 +38,20 @@ class RepoUsuario extends Repositorio<Usuario> {
 		Long id) {
 		if (id !== null) {
 			query.where(criteria.equal(camposUsuario.get("id"), id))
+		}
+	}
+
+	def List<Usuario> getNoAmigosDeUsuario(Long id) {
+		val entityManager = this.entityManager
+		try {
+			var query = entityManager.createQuery(
+				"SELECT NEW Usuario(user.id, user.nombre, user.apellido) FROM Usuario user where user.id not in (SELECT amigos.id FROM Usuario user join user.listaDeAmigos as amigos on user.id = usuario_id) and user.id != :id_logueado",
+				Usuario).setParameter("id_logueado", id)
+			val List<Usuario> usuarios = query.resultList
+			usuarios
+
+		} finally {
+			entityManager.close
 		}
 	}
 

@@ -16,8 +16,7 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 class BuscarAmigos extends Ventana<BuscarAmigosViewModel> {
 
 	new(WindowOwner owner, Usuario usuarioLogueado) {
-		super(owner, new BuscarAmigosViewModel)
-		modelObject.usuarioLogueado = usuarioLogueado
+		super(owner, new BuscarAmigosViewModel(usuarioLogueado))
 	}
 
 	override addActions(Panel actionsPanel) {
