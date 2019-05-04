@@ -12,6 +12,11 @@ import org.uqbar.xtrest.api.annotation.Post
 import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.json.JSONUtils
 import repositorios.RepoLocator
+import java.util.List
+import java.util.ArrayList
+import domain.Carrito
+import domain.Funcion
+import java.util.HashSet
 
 @Controller
 class UsuariosApiRest {
@@ -52,10 +57,8 @@ class UsuariosApiRest {
 
 	@Get("/usuarios/:id/porConocer")
 	def getUsuariosNoAmigos() {
-		val usuarioLogueado = RepoLocator.repoUsuario.getUsuarioConAmigos(Long.parseLong(id))
-		return ok(RepoLocator.repoUsuario.allInstances.filter [ usuario |
-			!usuarioLogueado.listaDeAmigos.contains(usuario) && !usuario.equals(usuarioLogueado)
-		].toSet.toJson)
+		val idLogueado = Long.parseLong(id)
+		return ok(RepoLocator.repoUsuario.getNoAmigosDeUsuario(idLogueado).toSet.toJson)
 	}
 
 	@Put('/usuarios/actualizarAmigosDe/:id')
@@ -100,7 +103,6 @@ class UsuariosApiRest {
 //			badRequest(e.message)
 //		}
 //	}
-
 	@Get("/usuario/historial-pelis-vistas/:id")
 	def getHistorialUsuario() {
 		try {
@@ -112,18 +114,50 @@ class UsuariosApiRest {
 		}
 	}
 
-//	@Put("/usuario/finalizar-compra/:id")
-//	def Result finalizarCompra() {
-//		try {
-//			val idUsuario = Long.parseLong(id)
-//			val usuario = RepoLocator.repoUsuario.getUsuarioConCarritoCompleto(idUsuario)
-//			usuario.finalizarCompra()
-//			RepoLocator.repoUsuario.update(usuario)
-//			ok('{ "status" : "OK" }');
-//		} catch (Exception e) {
-//			badRequest(e.message)
-//		}
-//	}
+	@Put("/usuario/finalizar-compra/:id")
+	def Result finalizarCompra(@Body String body) {
+		try {
+			val idUsuario = Long.parseLong(id)
+			var usuario = RepoLocator.repoUsuario.getUsuarioConEntradas(idUsuario)
+			println(usuario.saldo)
+			val carrito = obtenerCarrito(body)
+			usuario.finalizarCompra(carrito)
+			RepoLocator.repoUsuario.update(usuario)
+			val usuario2 = RepoLocator.repoUsuario.searchById(idUsuario)
+			println(usuario2.saldo)
+			return ok('{ "status" : "OK" }');
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
+	}
+
+	def obtenerCarrito(String body) {
+		var i = 0
+		var j = 1
+		var Carrito carrito = new Carrito
+		val stringEntradas = body.getPropertyValue("entradas")
+		val List<Integer> entradasIds = stringEntradas.fromJson(ArrayList)
+		var Set<Funcion> funciones = new HashSet<Funcion>
+		while (i < entradasIds.size) {
+			val idContenido = new Long(entradasIds.get(i))
+			val idFuncion = new Long(entradasIds.get(j))
+			val contenido = RepoLocator.repoContenido.getContenidoConFunciones(idContenido)
+			val funcion = RepoLocator.repoContenido.getFuncionById(idFuncion)
+			var Entrada entrada
+			if (funciones.contains(funcion)) {
+				val funcionExistente = funciones.findFirst(func|func.id == funcion.id)
+				entrada = new Entrada(contenido, funcionExistente)
+			}
+			if (!funciones.contains(funcion)) {
+				funciones.add(funcion)
+				entrada = new Entrada(contenido, funcion)
+			}
+			carrito.agregarAlCarrito(entrada)
+			i = i + 2
+			j = j + 2
+		}
+		carrito
+	}
 
 //	@Put("/usuario/limpiar-carrito/:id")
 //	def Result limpiarCarrito() {
@@ -137,7 +171,6 @@ class UsuariosApiRest {
 //			badRequest(e.message)
 //		}
 //	}
-
 //	@Put("/usuario/eliminar-item-carrito/:id")
 //	def Result eliminarItemCarrito(@Body String body) {
 //		try {
@@ -150,7 +183,6 @@ class UsuariosApiRest {
 //			badRequest(e.message)
 //		}
 //	}
-
 //	@Put("/usuario/agregar-item-carrito/:id")
 //	def Result agregarItemCarrito(@Body String body) {
 //		try {
@@ -169,7 +201,6 @@ class UsuariosApiRest {
 //			badRequest(e.message)
 //		}
 //	}
-
 	@Put("/usuario/:id/cargar-saldo/")
 	def Result cargarSaldo(@Body String body) {
 		try {

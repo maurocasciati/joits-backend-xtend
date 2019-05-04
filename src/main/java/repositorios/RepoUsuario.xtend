@@ -8,6 +8,7 @@ import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.JoinType
 import javax.persistence.criteria.Root
 import org.uqbar.commons.model.exceptions.UserException
+import java.util.ArrayList
 
 class RepoUsuario extends Repositorio<Usuario> {
 
@@ -104,7 +105,7 @@ class RepoUsuario extends Repositorio<Usuario> {
 	}
 
 	override delete(Usuario usuario) {
-		usuario.entradas = new HashSet
+		usuario.entradas = new ArrayList
 		usuario.listaDeAmigos = new HashSet
 		super.delete(usuario)
 	}

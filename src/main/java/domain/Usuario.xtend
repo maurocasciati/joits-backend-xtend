@@ -20,6 +20,8 @@ import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
+import java.util.List
+import java.util.ArrayList
 
 @Entity
 @Accessors
@@ -55,10 +57,19 @@ class Usuario {
 	@Column(length=250)
 	String imagenURL
 
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn(name="usuario_id")
 	@JsonIgnore
-	Set<Entrada> entradas = new HashSet<Entrada>
+	List<Entrada> entradas = new ArrayList<Entrada>
+
+	new() {
+	}
+
+	new(Long _id, String _nombre, String _apellido) {
+		id = _id
+		nombre = _nombre
+		apellido = _apellido
+	}
 
 	@JsonIgnore
 	def getHistorial() {

@@ -29,7 +29,7 @@ class Saga extends Contenido {
 	@JsonIgnore
 	List<Pelicula> peliculas
 
-	override precio() {
+	override getPrecio() {
 		return this.precioPorPeliculas + nivelClasico
 	}
 

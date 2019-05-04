@@ -6,6 +6,7 @@ import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.JoinType
 import javax.persistence.criteria.Root
+import domain.Funcion
 
 class RepoContenido extends Repositorio<Contenido> {
 
@@ -39,8 +40,36 @@ class RepoContenido extends Repositorio<Contenido> {
 		}
 	}
 
+	def generateWhereIdFuncion(CriteriaBuilder criteria, CriteriaQuery<Funcion> query, Root<Funcion> camposFuncion,
+		Long id) {
+		if (id !== null) {
+			query.where(criteria.equal(camposFuncion.get("id"), id))
+		}
+	}
+
 	def getContenidoConFunciones(Long id) {
 		searchById(id, [fetchContenidoConFunciones])
+	}
+
+	def getFuncionById(Long id) {
+		val entityManager = this.entityManager
+		try {
+			val criteria = entityManager.criteriaBuilder
+			val query = criteria.createQuery(Funcion)
+			val from = query.from(Funcion)
+			query.select(from)
+			generateWhereIdFuncion(criteria, query, from, id)
+			val result = entityManager.createQuery(query).resultList
+
+			if (result.isEmpty) {
+				null
+			} else {
+				result.head as Funcion
+			}
+
+		} finally {
+			entityManager.close
+		}
 	}
 
 	def fetchContenidoConFunciones(Root<Contenido> query) {

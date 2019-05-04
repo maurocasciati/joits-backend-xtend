@@ -49,7 +49,7 @@ class Funcion {
 		}
 	}
 
-	def Double precio() {
+	def Double getPrecio() {
 		if(esFinDeSemana) 120.0 else if(esMiercoles) 50.0 else 80.0
 	}
 
@@ -69,5 +69,16 @@ class Funcion {
 	@JsonIgnore
 	def getHora() {
 		fechaHora.toLocalTime
+	}
+
+	override equals(Object other) {
+		if (other instanceof Funcion) {
+			return (other as Funcion).id == id
+		}
+		false
+	}
+
+	override hashCode() {
+		Objects.hashCode(id)
 	}
 }

@@ -28,7 +28,7 @@ class Pelicula extends Contenido {
 		apiID =_apiID
 	}
 
-	override precio() {
+	override getPrecio() {
 		return PRECIO_BASE
 	}
 

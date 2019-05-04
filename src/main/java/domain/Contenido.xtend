@@ -45,7 +45,7 @@ abstract class Contenido {
 	@Column(length=60)
 	String apiID
 
-	def Double precio()
+	def Double getPrecio()
 
 	def Integer getAnio()
 
