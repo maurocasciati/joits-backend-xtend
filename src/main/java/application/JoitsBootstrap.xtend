@@ -181,6 +181,8 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		repoUsuarios.createAll(usuarios)
 		cacho.listaDeAmigos.addAll(deNiro, aniston)
 		repoUsuarios.update(cacho)
+		cacho = repoUsuarios.getUsuarioConEntradas(cacho.id)
+
 	}
 
 	def crearFunciones() {
