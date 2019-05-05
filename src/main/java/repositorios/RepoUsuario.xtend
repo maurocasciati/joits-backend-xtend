@@ -9,6 +9,7 @@ import javax.persistence.criteria.JoinType
 import javax.persistence.criteria.Root
 import org.uqbar.commons.model.exceptions.UserException
 import java.util.ArrayList
+import javax.persistence.NoResultException
 
 class RepoUsuario extends Repositorio<Usuario> {
 
@@ -98,6 +99,9 @@ class RepoUsuario extends Repositorio<Usuario> {
 				throw new UserException("Credenciales incorrectas")
 			}
 			usuario
+
+		} catch (NoResultException e) {
+			throw new UserException("Credenciales incorrectas")
 
 		} finally {
 			entityManager.close
