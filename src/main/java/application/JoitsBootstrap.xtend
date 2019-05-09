@@ -53,8 +53,8 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	override run() {
 		if (RepoLocator.repoUsuario.searchByExample(new Usuario).isEmpty) {
 			crearContenido
-			crearUsuarios
 			crearFunciones
+			crearUsuarios
 			agregarEntradasAUsuarios
 		}
 	}
@@ -181,7 +181,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		repoUsuarios.createAll(usuarios)
 		cacho.listaDeAmigos.addAll(deNiro, aniston)
 		repoUsuarios.update(cacho)
-		cacho = repoUsuarios.getUsuarioConEntradas(cacho.id)
+//		cacho = repoUsuarios.getUsuarioConEntradas(cacho.id)
 
 	}
 

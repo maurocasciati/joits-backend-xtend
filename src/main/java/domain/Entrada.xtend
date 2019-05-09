@@ -29,7 +29,7 @@ class Entrada {
 	@JoinColumn(name="contenido_id")
 	Contenido contenido
 
-	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@OnDelete(action=OnDeleteAction.CASCADE)
 	@JoinColumn(name="funcion_id")
 	Funcion funcion
