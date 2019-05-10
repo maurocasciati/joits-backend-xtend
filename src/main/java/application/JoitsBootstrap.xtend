@@ -53,9 +53,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	override run() {
 		if (RepoLocator.repoUsuario.searchByExample(new Usuario).isEmpty) {
 			crearContenido
-			crearFunciones
 			crearUsuarios
-			agregarEntradasAUsuarios
 		}
 	}
 
@@ -96,10 +94,10 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			apiID = "603"
 		]
 
+		crearFunciones
 		var peliculas = new ArrayList
 		peliculas.addAll(matrix, matrix2, matrix3, sagaMatrix, duroDeMatar, nueveReinas, elDiaDeLaMarmota, pulpFiction,
 			redSocial, volverAlFuturoI, volverAlFuturoII, volverAlFuturoIII, volverAlFuturo, warGames, losBañeros4)
-
 		repoContenido.createAll(peliculas)
 	}
 
@@ -178,11 +176,9 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		var usuarios = new ArrayList
 		usuarios.addAll(aniston, cacho, deNiro, messi, scorsese, cora, paulina)
 
-		repoUsuarios.createAll(usuarios)
+		agregarEntradasAUsuarios
 		cacho.listaDeAmigos.addAll(deNiro, aniston)
-		repoUsuarios.update(cacho)
-//		cacho = repoUsuarios.getUsuarioConEntradas(cacho.id)
-
+		repoUsuarios.createAll(usuarios)
 	}
 
 	def crearFunciones() {
@@ -201,10 +197,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		agregarFuncionesRandom(volverAlFuturoII, 7)
 		agregarFuncionesRandom(volverAlFuturoIII, 11)
 		agregarFuncionesRandom(volverAlFuturo, 4)
-		var peliculas = new ArrayList
-		peliculas.addAll(matrix, matrix2, matrix3, sagaMatrix, duroDeMatar, nueveReinas, elDiaDeLaMarmota, pulpFiction,
-			redSocial, volverAlFuturoI, volverAlFuturoII, volverAlFuturoIII, volverAlFuturo, warGames, losBañeros4)
-		repoContenido.updateAll(peliculas)
 	}
 
 	def agregarFuncionesRandom(Contenido contenido, int cantidad) {
@@ -256,9 +248,5 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		deNiro.entradas.addAll(entrada4, entrada5)
 		messi.entradas.addAll(entrada9, entrada10, entrada11, entrada12)
 		scorsese.entradas.addAll(entrada13, entrada14, entrada15, entrada16, entrada17)
-
-		var usuarios = new ArrayList
-		usuarios.addAll(aniston, cacho, deNiro, messi, scorsese)
-		repoUsuarios.updateAll(usuarios)
 	}
 }
