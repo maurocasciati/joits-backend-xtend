@@ -4,27 +4,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Observable
-import javax.persistence.Entity
-import javax.persistence.Column
 import java.util.Objects
+import org.bson.types.ObjectId
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.mongodb.morphia.annotations.Entity
+import org.mongodb.morphia.annotations.Id
+import org.mongodb.morphia.annotations.Property
+import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
 @Observable
 @Entity
 class Funcion {
-	@Id
-	@GeneratedValue
-	Long id
+	@Id ObjectId id
 
-	@JsonIgnore
-	@Column
+	@Property("fechaHora")
 	LocalDateTime fechaHora
 
-	@Column(length=150)
+	@Property("nombreSala")
 	String nombreSala
 
 	new() {

@@ -1,31 +1,27 @@
 package domain
 
-import javax.persistence.Column
-import javax.persistence.DiscriminatorValue
-import javax.persistence.Entity
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Observable
-import javax.persistence.OneToMany
-import javax.persistence.JoinColumn
-import java.util.List
-import javax.persistence.FetchType
 import com.fasterxml.jackson.annotation.JsonIgnore
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.mongodb.morphia.annotations.Entity
+import org.mongodb.morphia.annotations.Property
+import org.uqbar.commons.model.annotations.Observable
+import org.mongodb.morphia.annotations.Embedded
 
 @Accessors
 @Observable
-@Entity
-@DiscriminatorValue("2")
+@Entity("contenidos")
 class Saga extends Contenido {
-	@Column
+	
 	val Double PRECIO_POR_PELICULA = 10.0
-	@Column
+	
+	@Property("anioRecopilacion")
 	Integer anioRecopilacion
-
-	@Column
+	
+	@Property("nivelClasico")
 	Integer nivelClasico
 
-	@OneToMany(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_saga")
+	@Embedded
 	@JsonIgnore
 	List<Pelicula> peliculas
 

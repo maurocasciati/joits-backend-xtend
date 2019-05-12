@@ -1,48 +1,38 @@
 package domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.util.ArrayList
 import java.util.List
-import javax.persistence.CascadeType
-import javax.persistence.Column
-import javax.persistence.DiscriminatorColumn
-import javax.persistence.DiscriminatorType
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.Inheritance
-import javax.persistence.InheritanceType
-import javax.persistence.OneToMany
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Observable
-import javax.persistence.JoinColumn
 import java.util.Objects
-import com.fasterxml.jackson.annotation.JsonIgnore
+import org.bson.types.ObjectId
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.mongodb.morphia.annotations.Entity
+import org.mongodb.morphia.annotations.Id
+import org.mongodb.morphia.annotations.Property
+import org.uqbar.commons.model.annotations.Observable
+import org.mongodb.morphia.annotations.Embedded
 
 @Observable
-@Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="tipo", discriminatorType=DiscriminatorType.INTEGER)
 @Accessors
+@Entity("contenido")
 abstract class Contenido {
-	@Id
-	@GeneratedValue
-	Long id
 
-	@Column(length=150)
+	@Id ObjectId id
+
+	@Property("titulo")
 	String titulo
-
-	@Column
+	
+	@Property("puntaje")
 	Double puntaje
+	
+	@Property("genero")
+	String genero
 
-	@Column(length=100)
-	String genero // accion, comedia, drama, ciencia ficcion	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
-	@JoinColumn(name="id_contenido")
+	@Embedded
 	@JsonIgnore
 	List<Funcion> funciones = new ArrayList<Funcion>
 
-	@Column(length=60)
+	@Property("apiID")
 	String apiID
 
 	def Double getPrecio()
@@ -63,5 +53,5 @@ abstract class Contenido {
 	override hashCode() {
 		Objects.hashCode(id)
 	}
-
+	
 }
