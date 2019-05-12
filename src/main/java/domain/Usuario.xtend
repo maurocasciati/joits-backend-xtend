@@ -58,7 +58,7 @@ class Usuario {
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn(name="usuario_id")
 	@JsonIgnore
-	List<Entrada> entradas = new ArrayList<Entrada>
+	List<Item> entradas = new ArrayList<Item>
 
 	new() {
 	}

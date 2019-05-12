@@ -1,6 +1,5 @@
 package vistas
 
-import domain.Entrada
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
@@ -13,6 +12,7 @@ import viewModels.FinalizarCompraViewModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import domain.Carrito
+import domain.Item
 
 class FinalizarCompra extends Ventana<FinalizarCompraViewModel> {
 
@@ -94,7 +94,7 @@ class FinalizarCompra extends Ventana<FinalizarCompraViewModel> {
 	}
 
 	def agregarTabla(Panel panel, String listado, Integer filas) {
-		val tabla = new Table<Entrada>(panel, typeof(Entrada)) => [
+		val tabla = new Table<Item>(panel, typeof(Item)) => [
 			items <=> listado
 			value <=> "itemSeleccionado"
 			numberVisibleRows = filas

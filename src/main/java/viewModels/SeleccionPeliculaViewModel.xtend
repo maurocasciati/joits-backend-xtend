@@ -2,7 +2,6 @@ package viewModels
 
 import domain.Carrito
 import domain.Contenido
-import domain.Entrada
 import domain.Funcion
 import domain.Usuario
 import java.time.LocalDate
@@ -12,6 +11,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import repositorios.RepoLocator
+import domain.Item
 
 @Accessors
 @Observable
@@ -62,7 +62,7 @@ class SeleccionPeliculaViewModel {
 	}
 
 	def agregarAlCarrito() {
-		val entrada = new Entrada(peliculaSeleccionada, funcionSeleccionada)
+		val entrada = new Item(peliculaSeleccionada, funcionSeleccionada)
 		carrito.agregarAlCarrito(entrada)
 	}
 

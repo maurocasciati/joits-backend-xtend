@@ -1,6 +1,5 @@
 package memoria
 
-import domain.Entrada
 import domain.Funcion
 import domain.Pelicula
 import domain.Saga
@@ -11,6 +10,7 @@ import java.time.Month
 import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
 import domain.Carrito
+import domain.Item
 
 @Accessors
 class SuperTest {
@@ -23,7 +23,7 @@ class SuperTest {
 	Saga sagaMatrix
 	Pelicula pulpFiction
 	Funcion funcion
-	Entrada entrada
+	Item entrada
 	Funcion funcionMiercoles
 	Funcion funcionSabado
 	Funcion funcionRegular
@@ -49,7 +49,7 @@ class SuperTest {
 	}
 
 	def crearEntradas() {
-		entrada = new Entrada => [
+		entrada = new Item => [
 			contenido = matrix
 		]
 		entrada.funcion = funcionMiercoles

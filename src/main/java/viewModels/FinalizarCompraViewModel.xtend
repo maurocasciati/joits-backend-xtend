@@ -1,19 +1,19 @@
 package viewModels
 
 import domain.Carrito
-import domain.Entrada
 import domain.Usuario
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import repositorios.RepoLocator
+import domain.Item
 
 @Accessors
 @Observable
 class FinalizarCompraViewModel {
 
 	Usuario usuarioLogueado
-	Entrada itemSeleccionado
+	Item itemSeleccionado
 	Carrito carrito
 
 	new(Long idLogueado, Carrito _carrito) {

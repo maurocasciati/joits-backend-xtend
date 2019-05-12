@@ -1,7 +1,6 @@
 package application
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import domain.Entrada
 import domain.Usuario
 import java.util.Set
 import org.uqbar.xtrest.api.Result
@@ -18,6 +17,7 @@ import domain.Carrito
 import domain.Funcion
 import java.util.HashSet
 import org.bson.types.ObjectId
+import domain.Item
 
 @Controller
 class UsuariosApiRest {
@@ -145,14 +145,14 @@ class UsuariosApiRest {
 			val objectId = new ObjectId(idContenido)
 			val contenido = RepoLocator.repoContenido.searchById(objectId)
 			val funcion = contenido.searchFuncionById(idFuncion)
-			var Entrada entrada
+			var Item entrada
 			if (funciones.contains(funcion)) {
 				val funcionExistente = funciones.findFirst(func|func.id == funcion.id)
-				entrada = new Entrada(contenido, funcionExistente)
+				entrada = new Item(contenido, funcionExistente)
 			}
 			if (!funciones.contains(funcion)) {
 				funciones.add(funcion)
-				entrada = new Entrada(contenido, funcion)
+				entrada = new Item(contenido, funcion)
 			}
 			carrito.agregarAlCarrito(entrada)
 			i = i + 2

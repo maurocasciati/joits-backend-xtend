@@ -1,7 +1,6 @@
 package persistencia
 
 import domain.Carrito
-import domain.Entrada
 import domain.Funcion
 import domain.Pelicula
 import domain.Usuario
@@ -15,6 +14,7 @@ import org.junit.Test
 import repositorios.RepoContenido
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
+import domain.Item
 
 class TestPersistenciaUsuario {
 
@@ -23,7 +23,7 @@ class TestPersistenciaUsuario {
 	Usuario aniston
 	Usuario deNiro
 	Pelicula matrix
-	Entrada entrada
+	Item entrada
 	Funcion funcion
 	Carrito carrito
 
@@ -77,7 +77,7 @@ class TestPersistenciaUsuario {
 	}
 
 	def crearEntradas() {
-		entrada = new Entrada(matrix, funcion)
+		entrada = new Item(matrix, funcion)
 	}
 
 	def crearCarrito() {

@@ -1,7 +1,6 @@
 package application
 
 import domain.Contenido
-import domain.Entrada
 import domain.Funcion
 import domain.Pelicula
 import domain.Saga
@@ -16,6 +15,7 @@ import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
 import repositorios.RepoContenido
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
+import domain.Item
 
 @Accessors
 class JoitsBootstrap extends CollectionBasedBootstrap {
@@ -227,22 +227,22 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	}
 
 	def agregarEntradasAUsuarios() {
-		var entrada = new Entrada(volverAlFuturoIII, volverAlFuturoIII.funciones.get(0))
-		var entrada2 = new Entrada(warGames, warGames.funciones.get(2))
-		var entrada3 = new Entrada(losBañeros4, losBañeros4.funciones.get(2))
-		var entrada4 = new Entrada(elDiaDeLaMarmota, elDiaDeLaMarmota.funciones.get(0))
-		var entrada5 = new Entrada(matrix, matrix.funciones.get(1))
-		var entrada6 = new Entrada(volverAlFuturoI, volverAlFuturoI.funciones.get(0))
-		var entrada7 = new Entrada(redSocial, redSocial.funciones.get(1))
-		var entrada9 = new Entrada(volverAlFuturoII, volverAlFuturoII.funciones.get(2))
-		var entrada10 = new Entrada(duroDeMatar, duroDeMatar.funciones.get(1))
-		var entrada11 = new Entrada(warGames, warGames.funciones.get(1))
-		var entrada12 = new Entrada(elDiaDeLaMarmota, elDiaDeLaMarmota.funciones.get(1))
-		var entrada13 = new Entrada(duroDeMatar, duroDeMatar.funciones.get(0))
-		var entrada14 = new Entrada(volverAlFuturoII, volverAlFuturoII.funciones.get(2))
-		var entrada15 = new Entrada(pulpFiction, pulpFiction.funciones.get(2))
-		var entrada16 = new Entrada(volverAlFuturo, volverAlFuturo.funciones.get(0))
-		var entrada17 = new Entrada(redSocial, redSocial.funciones.get(1))
+		var entrada = new Item(volverAlFuturoIII, volverAlFuturoIII.funciones.get(0))
+		var entrada2 = new Item(warGames, warGames.funciones.get(2))
+		var entrada3 = new Item(losBañeros4, losBañeros4.funciones.get(2))
+		var entrada4 = new Item(elDiaDeLaMarmota, elDiaDeLaMarmota.funciones.get(0))
+		var entrada5 = new Item(matrix, matrix.funciones.get(1))
+		var entrada6 = new Item(volverAlFuturoI, volverAlFuturoI.funciones.get(0))
+		var entrada7 = new Item(redSocial, redSocial.funciones.get(1))
+		var entrada9 = new Item(volverAlFuturoII, volverAlFuturoII.funciones.get(2))
+		var entrada10 = new Item(duroDeMatar, duroDeMatar.funciones.get(1))
+		var entrada11 = new Item(warGames, warGames.funciones.get(1))
+		var entrada12 = new Item(elDiaDeLaMarmota, elDiaDeLaMarmota.funciones.get(1))
+		var entrada13 = new Item(duroDeMatar, duroDeMatar.funciones.get(0))
+		var entrada14 = new Item(volverAlFuturoII, volverAlFuturoII.funciones.get(2))
+		var entrada15 = new Item(pulpFiction, pulpFiction.funciones.get(2))
+		var entrada16 = new Item(volverAlFuturo, volverAlFuturo.funciones.get(0))
+		var entrada17 = new Item(redSocial, redSocial.funciones.get(1))
 
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
 		cacho.entradas.addAll(entrada6, entrada7)

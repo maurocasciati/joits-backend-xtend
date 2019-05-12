@@ -18,7 +18,7 @@ import org.uqbar.commons.model.annotations.Observable
 @Entity
 @Accessors
 @Observable
-class Entrada {
+class Item {
 	@Id
 	@GeneratedValue
 	Long id
@@ -58,8 +58,8 @@ class Entrada {
 	}
 
 	override equals(Object other) {
-		if (other instanceof Entrada) {
-			return (other as Entrada).id == id
+		if (other instanceof Item) {
+			return (other as Item).id == id
 		}
 		false
 	}
