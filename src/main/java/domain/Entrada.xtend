@@ -2,7 +2,7 @@ package domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.time.LocalDateTime
-import javax.persistence.CascadeType
+import java.util.Objects
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -11,10 +11,9 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Observable
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
-import java.util.Objects
+import org.uqbar.commons.model.annotations.Observable
 
 @Entity
 @Accessors

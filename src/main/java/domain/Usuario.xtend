@@ -2,7 +2,9 @@ package domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.math.BigDecimal
+import java.util.ArrayList
 import java.util.HashSet
+import java.util.List
 import java.util.Objects
 import java.util.Set
 import javax.persistence.CascadeType
@@ -18,10 +20,6 @@ import org.apache.commons.lang.StringUtils
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
-import org.hibernate.annotations.OnDelete
-import org.hibernate.annotations.OnDeleteAction
-import java.util.List
-import java.util.ArrayList
 
 @Entity
 @Accessors

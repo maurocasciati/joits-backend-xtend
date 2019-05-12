@@ -15,7 +15,6 @@ import org.junit.Test
 import repositorios.RepoContenido
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
-import java.util.HashSet
 
 class TestPersistenciaUsuario {
 
