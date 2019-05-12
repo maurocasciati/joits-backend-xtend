@@ -10,23 +10,27 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Observable
 class Carrito {
 
-	List<Item> entradas = new ArrayList
+	List<Item> items = new ArrayList
 
 	def limpiarCarrito() {
-		entradas = new ArrayList
+		items = new ArrayList
 	}
 
 	def eliminarItem(Item item) {
-		entradas.remove(item)
+		items.remove(item)
 	}
 
 	def totalCarrito() {
-		var double[] precios = entradas.map[entrada|entrada.precio]
+		var double[] precios = items.map[item|item.precio]
 		Arrays.stream(precios).sum();
 	}
 
 	def agregarAlCarrito(Item entrada) {
-		entradas.add(entrada)
+		items.add(entrada)
+	}
+	
+	def getEntradas() {
+		items.map[ item | new Entrada(item.contenido.titulo) ]
 	}
 
 }

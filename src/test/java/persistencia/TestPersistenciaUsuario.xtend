@@ -82,7 +82,7 @@ class TestPersistenciaUsuario {
 
 	def crearCarrito() {
 		carrito = new Carrito
-		carrito.entradas.add(entrada)
+		carrito.getItems.add(entrada)
 	}
 
 	@Test

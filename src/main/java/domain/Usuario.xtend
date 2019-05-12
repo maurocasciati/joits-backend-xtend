@@ -58,7 +58,7 @@ class Usuario {
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn(name="usuario_id")
 	@JsonIgnore
-	List<Item> entradas = new ArrayList<Item>
+	List<Entrada> entradas = new ArrayList<Entrada>
 
 	new() {
 	}
@@ -71,7 +71,7 @@ class Usuario {
 
 	@JsonIgnore
 	def getHistorial() {
-		entradas.map[entrada|entrada.contenido.titulo].toSet
+		entradas.map[entrada|entrada.tituloContenido].toSet
 	}
 
 	def finalizarCompra(Carrito carrito) {
@@ -84,8 +84,7 @@ class Usuario {
 	}
 
 	def agregarEntradasDeCarrito(Carrito carrito) {
-		carrito.entradas.forEach[entrada|entrada.asignarFechaCompra]
-		carrito.entradas.forEach[entrada|entradas.add(entrada)]
+		carrito.getEntradas.forEach[entrada|entradas.add(entrada)]
 	}
 
 	def noLeAlcanzaSaldo(Carrito carrito) {

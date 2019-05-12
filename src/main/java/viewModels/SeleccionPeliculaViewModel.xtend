@@ -3,6 +3,7 @@ package viewModels
 import domain.Carrito
 import domain.Contenido
 import domain.Funcion
+import domain.Item
 import domain.Usuario
 import java.time.LocalDate
 import java.util.ArrayList
@@ -11,7 +12,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import repositorios.RepoLocator
-import domain.Item
 
 @Accessors
 @Observable
@@ -67,7 +67,7 @@ class SeleccionPeliculaViewModel {
 	}
 
 	def getCantidadItemsCarrito() {
-		carrito.entradas.size
+		carrito.getItems.size
 	}
 
 	@Dependencies("funcionSeleccionada")

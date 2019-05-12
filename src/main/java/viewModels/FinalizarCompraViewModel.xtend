@@ -22,7 +22,7 @@ class FinalizarCompraViewModel {
 	}
 
 	def getCarrito() {
-		carrito.entradas
+		carrito.getItems
 	}
 
 	def limpiarCarrito() {
@@ -45,7 +45,7 @@ class FinalizarCompraViewModel {
 
 	@Dependencies("carrito")
 	def getCarritoNoVacio() {
-		!carrito.entradas.isEmpty
+		!carrito.getItems.isEmpty
 	}
 
 	def finalizarCompra() {
