@@ -62,8 +62,7 @@ class RepoUsuario extends RepoRelacional<Usuario> {
 	}
 
 	def fetchUsuarioConEntradas(Root<Usuario> query) {
-		val camposEntrada = query.fetch("entradas", JoinType.LEFT)
-		camposEntrada.fetch("contenido", JoinType.LEFT)
+		query.fetch("entradas", JoinType.LEFT)
 //		camposEntrada.fetch("funcion", JoinType.LEFT)
 	}
 
@@ -73,8 +72,7 @@ class RepoUsuario extends RepoRelacional<Usuario> {
 
 	def FetchUsuarioConAmigosYEntradas(Root<Usuario> query) {
 		val camposAmigos = query.fetch("listaDeAmigos", JoinType.LEFT)
-		val camposEntradas = camposAmigos.fetch("entradas", JoinType.LEFT)
-		camposEntradas.fetch("contenido", JoinType.LEFT)
+		camposAmigos.fetch("entradas", JoinType.LEFT)
 	}
 
 	def getUsuarioConAmigos(Long id) {
