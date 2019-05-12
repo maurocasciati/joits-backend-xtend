@@ -13,7 +13,7 @@ import javax.persistence.EntityManager
 import java.util.ArrayList
 
 @TransactionalAndObservable
-abstract class Repositorio<T> {
+abstract class RepoRelacional<T> {
 
 	static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("joits")
 

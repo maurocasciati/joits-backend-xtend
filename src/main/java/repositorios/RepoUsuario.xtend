@@ -11,7 +11,7 @@ import org.uqbar.commons.model.exceptions.UserException
 import java.util.ArrayList
 import javax.persistence.NoResultException
 
-class RepoUsuario extends Repositorio<Usuario> {
+class RepoUsuario extends RepoRelacional<Usuario> {
 
 	static RepoUsuario instance
 
