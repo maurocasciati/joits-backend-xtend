@@ -14,7 +14,7 @@ import org.mongodb.morphia.annotations.Embedded
 
 @Observable
 @Accessors
-@Entity("contenido")
+@Entity("contenidos")
 abstract class Contenido {
 
 	@Id ObjectId id

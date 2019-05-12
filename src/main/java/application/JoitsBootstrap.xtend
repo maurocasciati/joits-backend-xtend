@@ -51,8 +51,10 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	}
 
 	override run() {
-		if (RepoLocator.repoUsuario.searchByExample(new Usuario).isEmpty) {
+		if (repoContenido.allInstances.isEmpty) {
 			crearContenido
+		}
+		if (RepoLocator.repoUsuario.searchByExample(new Usuario).isEmpty) {
 			crearUsuarios
 		}
 	}
@@ -98,7 +100,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		var peliculas = new ArrayList
 		peliculas.addAll(matrix, matrix2, matrix3, sagaMatrix, duroDeMatar, nueveReinas, elDiaDeLaMarmota, pulpFiction,
 			redSocial, volverAlFuturoI, volverAlFuturoII, volverAlFuturoIII, volverAlFuturo, warGames, losBañeros4)
-			
+
 		peliculas.forEach(pelicula|repoContenido.create(pelicula))
 	}
 
@@ -227,22 +229,22 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	}
 
 	def agregarEntradasAUsuarios() {
-		var entrada = new Entrada(volverAlFuturoIII.titulo)
-		var entrada2 = new Entrada(warGames.titulo)
-		var entrada3 = new Entrada(losBañeros4.titulo)
-		var entrada4 = new Entrada(elDiaDeLaMarmota.titulo)
-		var entrada5 = new Entrada(matrix.titulo)
-		var entrada6 = new Entrada(volverAlFuturoI.titulo)
-		var entrada7 = new Entrada(redSocial.titulo)
-		var entrada9 = new Entrada(volverAlFuturoII.titulo)
-		var entrada10 = new Entrada(duroDeMatar.titulo)
-		var entrada11 = new Entrada(warGames.titulo)
-		var entrada12 = new Entrada(elDiaDeLaMarmota.titulo)
-		var entrada13 = new Entrada(duroDeMatar.titulo)
-		var entrada14 = new Entrada(volverAlFuturoII.titulo)
-		var entrada15 = new Entrada(pulpFiction.titulo)
-		var entrada16 = new Entrada(volverAlFuturo.titulo)
-		var entrada17 = new Entrada(redSocial.titulo)
+		var entrada = new Entrada("volverAlFuturoIII")
+		var entrada2 = new Entrada("warGames")
+		var entrada3 = new Entrada("losBañeros4")
+		var entrada4 = new Entrada("elDiaDeLaMarmota")
+		var entrada5 = new Entrada("matrix")
+		var entrada6 = new Entrada("volverAlFuturoI")
+		var entrada7 = new Entrada("redSocial")
+		var entrada9 = new Entrada("volverAlFuturoII")
+		var entrada10 = new Entrada("duroDeMatar")
+		var entrada11 = new Entrada("warGames")
+		var entrada12 = new Entrada("elDiaDeLaMarmota")
+		var entrada13 = new Entrada("duroDeMatar")
+		var entrada14 = new Entrada("volverAlFuturoII")
+		var entrada15 = new Entrada("pulpFiction")
+		var entrada16 = new Entrada("volverAlFuturo")
+		var entrada17 = new Entrada("redSocial")
 
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
 		cacho.entradas.addAll(entrada6, entrada7)
