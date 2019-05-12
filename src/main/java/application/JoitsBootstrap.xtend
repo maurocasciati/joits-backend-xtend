@@ -98,7 +98,8 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		var peliculas = new ArrayList
 		peliculas.addAll(matrix, matrix2, matrix3, sagaMatrix, duroDeMatar, nueveReinas, elDiaDeLaMarmota, pulpFiction,
 			redSocial, volverAlFuturoI, volverAlFuturoII, volverAlFuturoIII, volverAlFuturo, warGames, losBañeros4)
-		repoContenido.createAll(peliculas)
+			
+		peliculas.forEach(pelicula|repoContenido.create(pelicula))
 	}
 
 	def crearUsuarios() {

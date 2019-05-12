@@ -26,14 +26,6 @@ class TestPersistenciaContenido {
 	}
 
 	@Test
-	def seActualizaPelicula() {
-		matrix.genero = "Test"
-		repoContenido.update(matrix)
-		val matrixBD = repoContenido.searchById(matrix.id)
-		Assert.assertEquals("Test", matrixBD.genero)
-	}
-
-	@Test
 	def seEliminaPelicula() {
 		repoContenido.delete(matrix)
 		val matrixBD = repoContenido.searchById(matrix.id)

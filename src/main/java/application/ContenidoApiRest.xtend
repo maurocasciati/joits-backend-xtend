@@ -5,6 +5,7 @@ import org.uqbar.xtrest.api.annotation.Controller
 import org.uqbar.xtrest.api.annotation.Get
 import org.uqbar.xtrest.json.JSONUtils
 import repositorios.RepoLocator
+import org.bson.types.ObjectId
 
 @Controller
 class ContenidoApiRest {
@@ -32,7 +33,8 @@ class ContenidoApiRest {
 	@Get("/funciones/:id")
 	def Result getFuncionesByIdContenido() {
 		try {
-			val contenido = RepoLocator.repoContenido.getContenidoConFunciones(Long.parseLong(id))
+			val objectId = new ObjectId(id)
+			val contenido = RepoLocator.repoContenido.searchById(objectId)
 			return ok(contenido.funciones.toJson)
 		} catch (Exception e) {
 			badRequest(e.message)

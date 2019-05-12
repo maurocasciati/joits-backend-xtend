@@ -8,7 +8,7 @@ import domain.Saga
 import java.util.List
 import org.mongodb.morphia.Datastore
 import org.mongodb.morphia.Morphia
-import org.mongodb.morphia.query.UpdateOperations
+import org.bson.types.ObjectId
 
 abstract class RepoDocumental<T> {
 
@@ -26,31 +26,6 @@ abstract class RepoDocumental<T> {
 		}
 	}
 
-	def T getByExample(T example) {
-		val result = searchByExample(example)
-		if (result.isEmpty) {
-			return null
-		} else {
-			return result.get(0)
-		}
-	}
-
-	def List<T> searchByExample(T t)
-
-	def T createIfNotExists(T t) {
-		val entidadAModificar = getByExample(t)
-		if (entidadAModificar !== null) {
-			return entidadAModificar
-		}
-		create(t)
-	}
-
-	def void update(T t) {
-		ds.update(t, this.defineUpdateOperations(t))
-	}
-
-	abstract def UpdateOperations<T> defineUpdateOperations(T t)
-
 	def T create(T t) {
 		ds.save(t)
 		t
@@ -59,6 +34,8 @@ abstract class RepoDocumental<T> {
 	def void delete(T t) {
 		ds.delete(t)
 	}
+
+	def T searchById(ObjectId id)
 
 	def List<T> allInstances() {
 		ds.createQuery(this.getEntityType()).asList

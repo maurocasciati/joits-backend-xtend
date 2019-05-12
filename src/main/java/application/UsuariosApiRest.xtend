@@ -17,6 +17,7 @@ import java.util.ArrayList
 import domain.Carrito
 import domain.Funcion
 import java.util.HashSet
+import org.bson.types.ObjectId
 
 @Controller
 class UsuariosApiRest {
@@ -139,10 +140,11 @@ class UsuariosApiRest {
 		val List<Integer> entradasIds = stringEntradas.fromJson(ArrayList)
 		var Set<Funcion> funciones = new HashSet<Funcion>
 		while (i < entradasIds.size) {
-			val idContenido = new Long(entradasIds.get(i))
+			val idContenido = String.valueOf(entradasIds.get(i))
 			val idFuncion = new Long(entradasIds.get(j))
-			val contenido = RepoLocator.repoContenido.getContenidoConFunciones(idContenido)
-			val funcion = RepoLocator.repoContenido.getFuncionById(idFuncion)
+			val objectId = new ObjectId(idContenido)
+			val contenido = RepoLocator.repoContenido.searchById(objectId)
+			val funcion = contenido.searchFuncionById(idFuncion)
 			var Entrada entrada
 			if (funciones.contains(funcion)) {
 				val funcionExistente = funciones.findFirst(func|func.id == funcion.id)
