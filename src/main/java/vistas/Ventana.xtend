@@ -58,7 +58,7 @@ abstract class Ventana<T> extends SimpleWindow<T> {
 		ObservableUtils.firePropertyChanged(this.modelObject, propiedad)
 	}
 
-	def void crearColumnaParaTabla(Table table, String titulo, String propiedad, int _fixedSize) {
+	def void crearColumnaParaTabla(Table<?> table, String titulo, String propiedad, int _fixedSize) {
 		new Column(table) => [
 			title = titulo
 			fixedSize = _fixedSize
