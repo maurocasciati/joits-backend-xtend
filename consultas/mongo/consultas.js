@@ -10,3 +10,6 @@ db.system.js.save({
 
    }
 });
+
+//db.loadServerScripts(); 
+//peliculasQueTienenFuncionesEn("Hoyts Dot")
