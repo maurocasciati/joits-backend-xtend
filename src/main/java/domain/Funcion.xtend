@@ -5,25 +5,17 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
-import org.bson.types.ObjectId
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.mongodb.morphia.annotations.Entity
-import org.mongodb.morphia.annotations.Id
-import org.mongodb.morphia.annotations.Property
 import org.uqbar.commons.model.annotations.Observable
+import org.mongodb.morphia.annotations.Id
 
 @Accessors
 @Observable
-@Entity("funcion")
 class Funcion {
 	
-	@JsonIgnore
-	@Id ObjectId id
+	@Id	Integer id
 
-	@Property("fechaHora")
 	LocalDateTime fechaHora
-
-	@Property("nombreSala")
 	String nombreSala
 
 	new() {

@@ -16,14 +16,12 @@ import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
 import repositorios.RepoContenido
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
-import repositorios.RepoFuncion
 
 @Accessors
 class JoitsBootstrap extends CollectionBasedBootstrap {
 
 	RepoContenido repoContenido
 	RepoUsuario repoUsuarios
-	RepoFuncion repoFuncion
 	Usuario aniston
 	Usuario scorsese
 	Usuario deNiro
@@ -50,7 +48,6 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	new() {
 		repoContenido = RepoLocator.repoContenido
 		repoUsuarios = RepoLocator.repoUsuario
-		repoFuncion = RepoLocator.repoFuncion
 	}
 
 	override run() {
@@ -226,8 +223,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			var funcion = new Funcion(
 				fecha.plusDays(diasRandom).plusHours(horasRandom).plusMinutes(minutos.get(indexMinutos)),
 				cines.get(index))
-			repoFuncion.create(funcion)
-			contenido.funciones.add(funcion)
+			contenido.agregarFuncion(funcion)
 			i++
 		}
 	}

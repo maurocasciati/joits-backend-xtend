@@ -59,5 +59,10 @@ abstract class Contenido {
 	override hashCode() {
 		Objects.hashCode(id)
 	}
+	
+	def agregarFuncion(Funcion funcion){
+		funcion.id = funciones.size
+		funciones.add(funcion)
+	}
 
 }
