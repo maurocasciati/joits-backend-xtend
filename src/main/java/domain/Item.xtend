@@ -1,7 +1,6 @@
 package domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import java.time.LocalDateTime
 import java.util.Objects
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
@@ -12,10 +11,8 @@ class Item {
 	Long id
 
 	Contenido contenido
-
+	
 	Funcion funcion
-
-	LocalDateTime fechaCompra
 
 	new(Contenido _contenido, Funcion _funcion) {
 		contenido = _contenido
