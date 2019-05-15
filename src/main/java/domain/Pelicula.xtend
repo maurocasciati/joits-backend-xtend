@@ -7,7 +7,6 @@ import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
 @Observable
-@Entity("contenidos")
 class Pelicula extends Contenido {
 
 	val Double PRECIO_BASE = 30.0
@@ -23,7 +22,7 @@ class Pelicula extends Contenido {
 		puntaje = _puntaje
 		genero = _genero
 		anioRodaje = _anioRodaje
-		apiID =_apiID
+		apiID = _apiID
 	}
 
 	override getPrecio() {
@@ -33,5 +32,5 @@ class Pelicula extends Contenido {
 	override getAnio() {
 		anioRodaje
 	}
-	
+
 }

@@ -10,14 +10,13 @@ import org.mongodb.morphia.annotations.Embedded
 
 @Accessors
 @Observable
-@Entity("contenidos")
 class Saga extends Contenido {
-	
+
 	val Double PRECIO_POR_PELICULA = 10.0
-	
+
 	@Property("anioRecopilacion")
 	Integer anioRecopilacion
-	
+
 	@Property("nivelClasico")
 	Integer nivelClasico
 

@@ -11,20 +11,21 @@ import org.mongodb.morphia.annotations.Id
 import org.mongodb.morphia.annotations.Property
 import org.uqbar.commons.model.annotations.Observable
 import org.mongodb.morphia.annotations.Embedded
+import com.fasterxml.jackson.annotation.JsonProperty
 
 @Observable
 @Accessors
-@Entity("contenidos")
+@Entity("contenido")
 abstract class Contenido {
-
+	@JsonIgnore
 	@Id ObjectId id
 
 	@Property("titulo")
 	String titulo
-	
+
 	@Property("puntaje")
 	Double puntaje
-	
+
 	@Property("genero")
 	String genero
 
@@ -43,6 +44,11 @@ abstract class Contenido {
 		funciones.findFirst[funcion|funcion.id == id]
 	}
 
+	@JsonProperty("id_contenido")
+	def String getIdContenido() {
+		id.toString
+	}
+
 	override equals(Object other) {
 		if (other instanceof Contenido) {
 			return (other as Contenido).id == id
@@ -53,5 +59,5 @@ abstract class Contenido {
 	override hashCode() {
 		Objects.hashCode(id)
 	}
-	
+
 }

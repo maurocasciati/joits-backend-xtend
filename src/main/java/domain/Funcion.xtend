@@ -14,8 +14,10 @@ import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
 @Observable
-@Entity
+@Entity("funcion")
 class Funcion {
+	
+	@JsonIgnore
 	@Id ObjectId id
 
 	@Property("fechaHora")
@@ -44,6 +46,11 @@ class Funcion {
 		} else {
 			fecha
 		}
+	}
+	
+	@JsonProperty("id_funcion")
+	def String getIdFuncion() {
+		id.toString
 	}
 
 	def Double getPrecio() {
