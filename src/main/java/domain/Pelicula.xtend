@@ -1,8 +1,6 @@
 package domain
 
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.mongodb.morphia.annotations.Entity
-import org.mongodb.morphia.annotations.Property
 import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
@@ -11,7 +9,6 @@ class Pelicula extends Contenido {
 
 	val Double PRECIO_BASE = 30.0
 
-	@Property("anioRodaje")
 	Integer anioRodaje
 
 	new() {
