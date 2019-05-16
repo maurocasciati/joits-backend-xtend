@@ -1,4 +1,6 @@
-//Consulta 1
+//CONSULTAS
+
+// Saber qué películas tienen funciones que para una sala determinada.
 
 db.system.js.save({
 
