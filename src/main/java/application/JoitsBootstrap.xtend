@@ -247,6 +247,8 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		var entrada17 = new Entrada("Red Social")
 
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
+		cora.entradas.addAll(entrada, entrada2, entrada3)
+		paulina.entradas.addAll(entrada6, entrada7)
 		cacho.entradas.addAll(entrada6, entrada7)
 		deNiro.entradas.addAll(entrada4, entrada5)
 		messi.entradas.addAll(entrada9, entrada10, entrada11, entrada12)
