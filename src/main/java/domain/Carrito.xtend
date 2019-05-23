@@ -6,6 +6,7 @@ import java.util.Arrays
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
+import com.fasterxml.jackson.annotation.JsonIgnore
 
 @Accessors
 @Observable
@@ -31,6 +32,7 @@ class Carrito implements Serializable {
 		items.add(entrada)
 	}
 	
+	@JsonIgnore
 	def getEntradas() {
 		items.map[ item | new Entrada(item.contenido.titulo) ]
 	}

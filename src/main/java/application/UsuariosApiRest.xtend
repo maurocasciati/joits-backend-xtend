@@ -1,8 +1,12 @@
 package application
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import domain.Carrito
+import domain.Item
 import domain.Usuario
+import java.util.ArrayList
 import java.util.Set
+import org.bson.types.ObjectId
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.annotation.Body
 import org.uqbar.xtrest.api.annotation.Controller
@@ -11,14 +15,6 @@ import org.uqbar.xtrest.api.annotation.Post
 import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.json.JSONUtils
 import repositorios.RepoLocator
-import java.util.List
-import java.util.ArrayList
-import domain.Carrito
-import domain.Funcion
-import java.util.HashSet
-import org.bson.types.ObjectId
-import domain.Item
-import org.apache.commons.codec.binary.Hex
 
 @Controller
 class UsuariosApiRest {
@@ -121,8 +117,9 @@ class UsuariosApiRest {
 		try {
 			val idUsuario = Long.parseLong(id)
 			var usuario = RepoLocator.repoUsuario.getUsuarioConEntradas(idUsuario)
-			val carrito = RepoLocator.repoCarrito.getCarritoByUserId(idUsuario.toString)
+			val carrito = RepoLocator.repoCarrito.getCarritoByUserId(id)
 			usuario.finalizarCompra(carrito)
+			RepoLocator.repoCarrito.limpiarCarrito(idUsuario.toString)
 			RepoLocator.repoUsuario.update(usuario)
 			return ok('{ "status" : "OK" }');
 		} catch (Exception e) {
@@ -162,13 +159,16 @@ class UsuariosApiRest {
 	@Put("/usuario/agregar-item-carrito/:id")
 	def Result agregarItemCarrito(@Body String body) {
 		try {
-			var idUsuario = id
 			var idContenido = body.getPropertyValue("id_contenido")
 			val idFuncion = Integer.parseInt(body.getPropertyValue("id_funcion"))
 			var contenido = RepoLocator.repoContenido.searchById(new ObjectId(idContenido))
 			var funcion = contenido.funciones.findFirst[funcion|funcion.id == idFuncion]
-			var carrito = RepoLocator.repoCarrito.getCarritoByUserId(idUsuario.toString)
+			var carrito = RepoLocator.repoCarrito.getCarritoByUserId(id)
 			var item = new Item(contenido, funcion)
+			if (carrito === null) {
+				carrito = new Carrito
+				carrito.items = new ArrayList
+			}
 			carrito.agregarAlCarrito(item)
 			RepoLocator.repoCarrito.guardarCarrito(id, carrito)
 			ok('{ "status" : "OK" }');
