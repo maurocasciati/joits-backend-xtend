@@ -2,7 +2,8 @@ language: java
 
 services:
   - mysql
-  - mongodb  
+  - mongodb
+  - redis-server
 
 jdk:
   - openjdk8
