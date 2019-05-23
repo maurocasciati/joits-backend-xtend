@@ -29,10 +29,6 @@ class SeleccionPeliculaViewModel {
 	new(Usuario usuario) {
 		usuarioLogueado = usuario
 		carrito = RepoLocator.repoCarrito.getCarritoByUserId(usuarioLogueado.id.toString)
-		if (carrito === null) {
-			carrito = new Carrito
-			carrito.items = new ArrayList
-		}
 	}
 
 	def getResultadoBusqueda() {
