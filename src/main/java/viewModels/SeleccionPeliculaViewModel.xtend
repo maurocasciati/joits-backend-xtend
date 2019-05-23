@@ -24,7 +24,16 @@ class SeleccionPeliculaViewModel {
 	Funcion funcionSeleccionada
 	Contenido peliculaFromDB
 	String valorDeBusqueda = null
-	Carrito carrito = new Carrito
+	Carrito carrito
+
+	new(Usuario usuario) {
+		usuarioLogueado = usuario
+		carrito = RepoLocator.repoCarrito.getCarritoByUserId(usuarioLogueado.id.toString)
+		if (carrito === null) {
+			carrito = new Carrito
+			carrito.items = new ArrayList
+		}
+	}
 
 	def getResultadoBusqueda() {
 		peliculas.filter [ contenido |
@@ -62,8 +71,10 @@ class SeleccionPeliculaViewModel {
 	}
 
 	def agregarAlCarrito() {
-		val entrada = new Item(peliculaSeleccionada, funcionSeleccionada)
-		carrito.agregarAlCarrito(entrada)
+		val idLogueado = usuarioLogueado.id.toString
+		val item = new Item(peliculaSeleccionada, funcionSeleccionada)
+		carrito.agregarAlCarrito(item)
+		RepoLocator.repoCarrito.guardarCarrito(idLogueado, carrito)
 	}
 
 	def getCantidadItemsCarrito() {

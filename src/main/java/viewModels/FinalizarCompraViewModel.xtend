@@ -27,10 +27,12 @@ class FinalizarCompraViewModel {
 
 	def limpiarCarrito() {
 		carrito.limpiarCarrito
+		RepoLocator.repoCarrito.limpiarCarrito(usuarioLogueado.id.toString)
 	}
 
 	def eliminarItem() {
 		carrito.eliminarItem(itemSeleccionado)
+		RepoLocator.repoCarrito.guardarCarrito(usuarioLogueado.id.toString, carrito)
 	}
 
 	@Dependencies("carrito")
@@ -50,6 +52,7 @@ class FinalizarCompraViewModel {
 
 	def finalizarCompra() {
 		usuarioLogueado.finalizarCompra(carrito)
+		RepoLocator.repoCarrito.limpiarCarrito(usuarioLogueado.id.toString)
 		RepoLocator.repoUsuario.update(usuarioLogueado)
 	}
 }

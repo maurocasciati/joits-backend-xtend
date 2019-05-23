@@ -19,8 +19,7 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 
 	new(WindowOwner parent, Usuario usuarioLogueado) {
-		super(parent, new SeleccionPeliculaViewModel)
-		modelObject.usuarioLogueado = usuarioLogueado
+		super(parent, new SeleccionPeliculaViewModel(usuarioLogueado))
 	}
 
 	override addActions(Panel mainPanel) {
