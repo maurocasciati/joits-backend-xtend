@@ -21,10 +21,8 @@ class RepoCarrito {
 	}
 
 	def guardarCarrito(String id_usuario, Carrito _carrito) {
-		var carrito = new Carrito
-		carrito.items = _carrito.items.toList
 		var RBucket<Carrito> bucket = redisson.getBucket(id_usuario)
-		bucket.set(carrito);
+		bucket.set(_carrito);
 	}
 
 	def getCarritoByUserId(String id_usuario) {
