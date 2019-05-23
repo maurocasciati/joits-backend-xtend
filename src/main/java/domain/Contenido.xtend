@@ -11,11 +11,12 @@ import org.mongodb.morphia.annotations.Embedded
 import org.mongodb.morphia.annotations.Entity
 import org.mongodb.morphia.annotations.Id
 import org.uqbar.commons.model.annotations.Observable
+import java.io.Serializable
 
 @Observable
 @Accessors
 @Entity("contenido")
-abstract class Contenido {
+abstract class Contenido implements Serializable{
 	@JsonIgnore
 	@Id ObjectId id
 

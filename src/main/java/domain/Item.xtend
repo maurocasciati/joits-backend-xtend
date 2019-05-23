@@ -1,13 +1,15 @@
 package domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import java.io.Serializable
 import java.util.Objects
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 
 @Accessors
 @Observable
-class Item {
+
+class Item implements Serializable {
 	Long id
 
 	Contenido contenido

@@ -8,10 +8,12 @@ import java.util.Objects
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
 import org.mongodb.morphia.annotations.Id
+import java.io.Serializable
 
 @Accessors
 @Observable
-class Funcion {
+
+class Funcion implements Serializable{
 	
 	@Id	Integer id
 

@@ -2,10 +2,11 @@ package domain
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Observable
+import java.io.Serializable
 
 @Accessors
 @Observable
-class Pelicula extends Contenido {
+class Pelicula extends Contenido implements Serializable {
 
 	val Double PRECIO_BASE = 30.0
 
