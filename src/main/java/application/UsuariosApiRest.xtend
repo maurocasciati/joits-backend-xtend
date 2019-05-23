@@ -18,6 +18,7 @@ import domain.Funcion
 import java.util.HashSet
 import org.bson.types.ObjectId
 import domain.Item
+import org.apache.commons.codec.binary.Hex
 
 @Controller
 class UsuariosApiRest {
@@ -94,16 +95,16 @@ class UsuariosApiRest {
 		}
 	}
 
-//	@Get("/usuario/carrito/:id")
-//	def getCarritoUsuario() {
-//		try {
-//			val idUsuario = Long.parseLong(id)
-//			val usuario = RepoLocator.repoUsuario.getUsuarioConCarritoCompleto(idUsuario)
-//			return ok(usuario.carrito.toJson)
-//		} catch (Exception e) {
-//			badRequest(e.message)
-//		}
-//	}
+	@Get("/usuario/carrito/:id")
+	def getCarritoUsuario() {
+		try {
+			val carrito = RepoLocator.repoCarrito.getCarritoByUserId(id)
+			return ok(carrito.toJson)
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
+	}
+
 	@Get("/usuario/historial-pelis-vistas/:id")
 	def getHistorialUsuario() {
 		try {
@@ -120,89 +121,62 @@ class UsuariosApiRest {
 		try {
 			val idUsuario = Long.parseLong(id)
 			var usuario = RepoLocator.repoUsuario.getUsuarioConEntradas(idUsuario)
-			println(usuario.saldo)
-			val carrito = obtenerCarrito(body)
+			val carrito = RepoLocator.repoCarrito.getCarritoByUserId(idUsuario.toString)
 			usuario.finalizarCompra(carrito)
 			RepoLocator.repoUsuario.update(usuario)
-			val usuario2 = RepoLocator.repoUsuario.searchById(idUsuario)
-			println(usuario2.saldo)
 			return ok('{ "status" : "OK" }');
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
 	}
 
-	def obtenerCarrito(String body) {
-		var i = 0
-		var j = 1
-		var Carrito carrito = new Carrito
-		val stringEntradas = body.getPropertyValue("entradas")
-		val List<Integer> entradasIds = stringEntradas.fromJson(ArrayList)
-		var Set<Funcion> funciones = new HashSet<Funcion>
-		while (i < entradasIds.size) {
-			val idContenido = String.valueOf(entradasIds.get(i))
-			val idFuncion = new Long(entradasIds.get(j))
-			val objectId = new ObjectId(idContenido)
-			val contenido = RepoLocator.repoContenido.searchById(objectId)
-			val funcion = contenido.searchFuncionById(idFuncion)
-			var Item entrada
-			if (funciones.contains(funcion)) {
-				val funcionExistente = funciones.findFirst(func|func.id == funcion.id)
-				entrada = new Item(contenido, funcionExistente)
-			}
-			if (!funciones.contains(funcion)) {
-				funciones.add(funcion)
-				entrada = new Item(contenido, funcion)
-			}
-			carrito.agregarAlCarrito(entrada)
-			i = i + 2
-			j = j + 2
+	@Put("/usuario/limpiar-carrito/:id")
+	def Result limpiarCarrito() {
+		try {
+			val idUsuario = Long.parseLong(id)
+			RepoLocator.repoCarrito.limpiarCarrito(idUsuario.toString)
+			ok('{ "status" : "OK" }');
+		} catch (Exception e) {
+			badRequest(e.message)
 		}
-		carrito
 	}
 
-//	@Put("/usuario/limpiar-carrito/:id")
-//	def Result limpiarCarrito() {
-//		try {
-//			val idUsuario = Long.parseLong(id)
-//			val usuario = RepoLocator.repoUsuario.searchById(idUsuario)
-//			usuario.limpiarCarrito()
-//			RepoLocator.repoUsuario.update(usuario)
-//			ok('{ "status" : "OK" }');
-//		} catch (Exception e) {
-//			badRequest(e.message)
-//		}
-//	}
-//	@Put("/usuario/eliminar-item-carrito/:id")
-//	def Result eliminarItemCarrito(@Body String body) {
-//		try {
-//			val idUsuario = Long.parseLong(id)
-//			val idEntrada = Long.parseLong(body.getPropertyValue("idEntrada"))
-//			val usuario = RepoLocator.repoUsuario.getUsuarioConCarrito(idUsuario)
-//			RepoLocator.repoUsuario.update(usuario)
-//			ok('{ "status" : "OK" }');
-//		} catch (Exception e) {
-//			badRequest(e.message)
-//		}
-//	}
-//	@Put("/usuario/agregar-item-carrito/:id")
-//	def Result agregarItemCarrito(@Body String body) {
-//		try {
-//			val idUsuario = Long.parseLong(id)
-//			val idContenido = Long.parseLong(body.getPropertyValue("idContenido"))
-//			val idFuncion = Long.parseLong(body.getPropertyValue("idFuncion"))
-//			val contenido = RepoLocator.repoContenido.getContenidoConFunciones(idContenido)
-//			val funcion = contenido.searchFuncionById(idFuncion)
-//			val usuario = RepoLocator.repoUsuario.getUsuarioConCarrito(idUsuario)
-//			val entrada = new Entrada(contenido, funcion)
-//			usuario.agregarAlCarrito(entrada)
-//			RepoLocator.repoUsuario.update(usuario)
-//
-//			ok('{ "status" : "OK" }');
-//		} catch (Exception e) {
-//			badRequest(e.message)
-//		}
-//	}
+	@Put("/usuario/eliminar-item-carrito/:id")
+	def Result eliminarItemCarrito(@Body String body) {
+		try {
+			var idUsuario = id
+			var idContenido = body.getPropertyValue("id_contenido")
+			val idFuncion = Integer.parseInt(body.getPropertyValue("id_funcion"))
+			var contenido = RepoLocator.repoContenido.searchById(new ObjectId(idContenido))
+			var funcion = contenido.funciones.findFirst[funcion|funcion.id == idFuncion]
+			var carrito = RepoLocator.repoCarrito.getCarritoByUserId(idUsuario.toString)
+			var item = new Item(contenido, funcion)
+			carrito.eliminarItem(item)
+			RepoLocator.repoCarrito.guardarCarrito(id, carrito)
+			ok('{ "status" : "OK" }');
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
+	}
+
+	@Put("/usuario/agregar-item-carrito/:id")
+	def Result agregarItemCarrito(@Body String body) {
+		try {
+			var idUsuario = id
+			var idContenido = body.getPropertyValue("id_contenido")
+			val idFuncion = Integer.parseInt(body.getPropertyValue("id_funcion"))
+			var contenido = RepoLocator.repoContenido.searchById(new ObjectId(idContenido))
+			var funcion = contenido.funciones.findFirst[funcion|funcion.id == idFuncion]
+			var carrito = RepoLocator.repoCarrito.getCarritoByUserId(idUsuario.toString)
+			var item = new Item(contenido, funcion)
+			carrito.agregarAlCarrito(item)
+			RepoLocator.repoCarrito.guardarCarrito(id, carrito)
+			ok('{ "status" : "OK" }');
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
+	}
+
 	@Put("/usuario/:id/cargar-saldo/")
 	def Result cargarSaldo(@Body String body) {
 		try {
