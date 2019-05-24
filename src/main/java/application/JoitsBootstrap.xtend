@@ -51,7 +51,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	}
 
 	override run() {
-		if (repoContenido.getCount > 0) {
+		if (repoContenido.getCount == 0) {
 			crearContenido
 		}
 		if (RepoLocator.repoUsuario.searchByExample(new Usuario).isEmpty) {
