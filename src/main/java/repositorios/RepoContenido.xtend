@@ -18,6 +18,10 @@ class RepoContenido extends RepoDocumental<Contenido> {
 		Contenido
 	}
 	
+	def getCount(){
+		ds.getCount(Contenido)
+	}
+	
 	override searchById(ObjectId id) {
 		ds.get(Contenido, id)
 	}
