@@ -58,12 +58,10 @@ mongo --port 30000 --eval "db.adminCommand( { listShards: 1 } )"
 
 
 # definiendo shard key hashed
-# db.contenido.ensureIndex({"_id": "hashed"})
+echo "defino la shard key a partir del hash del _id"
+mongo tpJoits --port 30000 --eval "db.createCollection('contenido');db.contenido.ensureIndex({'_id': 'hashed'});sh.enableSharding('tpJoits');sh.shardCollection('tpJoits.contenido', {'_id': 'hashed' }, false)"
 
-# sh.enableSharding("tpJoits")
-
-# sh.shardCollection("tpJoits.contenido", {"_id": "hashed"}, false)
-
-# use config
-# db.chunks.find({},{min:1,max:1,shard:1,_id:0,ns:1}).pretty()
+echo "muestro stats sobre los shard que se generaron"
+# mongo config --port 30000 --eval "db.chunks.find({},{min:1,max:1,shard:1,_id:0,ns:1}).pretty()"
+mongo tpJoits --port 30000 --eval "db.nombreDeLaCollection.getShardDistribution()" # solucion mas linda
 
