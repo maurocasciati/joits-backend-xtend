@@ -165,10 +165,6 @@ class UsuariosApiRest {
 			var funcion = contenido.funciones.findFirst[funcion|funcion.id == idFuncion]
 			var carrito = RepoLocator.repoCarrito.getCarritoByUserId(id)
 			var item = new Item(contenido, funcion)
-			if (carrito === null) {
-				carrito = new Carrito
-				carrito.items = new ArrayList
-			}
 			carrito.agregarAlCarrito(item)
 			RepoLocator.repoCarrito.guardarCarrito(id, carrito)
 			ok('{ "status" : "OK" }');
