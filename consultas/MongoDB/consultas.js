@@ -26,13 +26,13 @@ db.system.js.save({
 
       const cantidad_peliculas = db.contenido.find({ $where: "this.funciones.length > 1", anioRodaje: anio }).count();
 
-      return "Hay " + cantidad_peliculas + " película de " + anio + " reproduciendose en más de una sala"
+      return "Cantidad de películas de " + anio + " repoduciendose en más de una sala: " + cantidad_peliculas
    }
 
 });
 
-//db.loadServerScripts(); 
-//peliculasDeUnAñoEnMasDeUnaSala(1999)
+db.loadServerScripts(); 
+peliculasDeUnAñoEnMasDeUnaSala(1999)
 
 
 // 3 - Saber qué películas están disponibles para ver a partir de una determinada fecha.
