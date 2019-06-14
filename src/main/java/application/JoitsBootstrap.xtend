@@ -180,13 +180,15 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		]
 
 		var usuarios = new ArrayList
-		usuarios.addAll(aniston, deNiro, messi, scorsese, cora, paulina, cacho)
+		usuarios.addAll(aniston, deNiro, messi, scorsese, cora, paulina)
 
 		agregarEntradasAUsuarios
-		cacho.listaDeAmigos.add(aniston)
-		cacho.listaDeAmigos.add(messi)
 		repoUsuariosNeo.crearUsuarios(usuarios)
 		repoUsuarios.createAll(usuarios)
+		cacho.listaDeAmigos.add(aniston)
+		cacho.listaDeAmigos.add(messi)
+		repoUsuariosNeo.guardarUsuario(cacho)
+		repoUsuarios.update(cacho)
 	}
 
 	def crearFunciones() {
