@@ -16,12 +16,14 @@ import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
 import repositorios.RepoContenido
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
+import repositorios.RepoUsuariosNeo4j
 
 @Accessors
 class JoitsBootstrap extends CollectionBasedBootstrap {
 
 	RepoContenido repoContenido
 	RepoUsuario repoUsuarios
+	RepoUsuariosNeo4j repoUsuariosNeo
 	Usuario aniston
 	Usuario scorsese
 	Usuario deNiro
@@ -48,6 +50,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	new() {
 		repoContenido = RepoLocator.repoContenido
 		repoUsuarios = RepoLocator.repoUsuario
+		repoUsuariosNeo = RepoLocator.repoUsuarioNeo
 	}
 
 	override run() {
@@ -177,10 +180,12 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		]
 
 		var usuarios = new ArrayList
-		usuarios.addAll(aniston, cacho, deNiro, messi, scorsese, cora, paulina)
+		usuarios.addAll(aniston, deNiro, messi, scorsese, cora, paulina, cacho)
 
 		agregarEntradasAUsuarios
-		cacho.listaDeAmigos.addAll(deNiro, aniston)
+		cacho.listaDeAmigos.add(aniston)
+		cacho.listaDeAmigos.add(messi)
+		repoUsuariosNeo.crearUsuarios(usuarios)
 		repoUsuarios.createAll(usuarios)
 	}
 

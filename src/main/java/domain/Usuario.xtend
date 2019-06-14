@@ -18,21 +18,28 @@ import javax.persistence.ManyToMany
 import javax.persistence.OneToMany
 import org.apache.commons.lang.StringUtils
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.neo4j.ogm.annotation.NodeEntity
+import org.neo4j.ogm.annotation.Property
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
+import org.neo4j.ogm.annotation.Relationship
 
+@NodeEntity
 @Entity
 @Accessors
 @Observable
 class Usuario {
 	@Id
-	@GeneratedValue
+	@org.neo4j.ogm.annotation.Id
+	@org.neo4j.ogm.annotation.GeneratedValue
 	Long id
 
 	@Column(length=50)
+	@Property()
 	String nombre
 
 	@Column(length=50)
+	@Property
 	String apellido
 
 	@Column(length=50)
@@ -43,6 +50,8 @@ class Usuario {
 
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JsonIgnore
+//	@Transient
+	@Relationship(type="ES_AMIGO", direction="OUTGOING")
 	Set<Usuario> listaDeAmigos = new HashSet<Usuario>
 
 	@Column(nullable=false)
@@ -58,6 +67,8 @@ class Usuario {
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn(name="usuario_id")
 	@JsonIgnore
+//	@Transient
+	@Relationship(type="TIENE_ENTRADA", direction="OUTGOING")
 	List<Entrada> entradas = new ArrayList<Entrada>
 
 	new() {
