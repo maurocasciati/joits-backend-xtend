@@ -11,18 +11,18 @@ import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToMany
 import javax.persistence.OneToMany
 import org.apache.commons.lang.StringUtils
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.neo4j.ogm.annotation.GeneratedValue
 import org.neo4j.ogm.annotation.NodeEntity
 import org.neo4j.ogm.annotation.Property
+import org.neo4j.ogm.annotation.Relationship
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
-import org.neo4j.ogm.annotation.Relationship
 
 @NodeEntity
 @Entity
@@ -31,7 +31,7 @@ import org.neo4j.ogm.annotation.Relationship
 class Usuario {
 	@Id
 	@org.neo4j.ogm.annotation.Id
-	@org.neo4j.ogm.annotation.GeneratedValue
+	@GeneratedValue
 	Long id
 
 	@Column(length=50)
@@ -48,7 +48,7 @@ class Usuario {
 	@Column
 	Integer edad
 
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JsonIgnore
 //	@Transient
 	@Relationship(type="ES_AMIGO", direction="OUTGOING")
@@ -64,7 +64,7 @@ class Usuario {
 	@Column(length=250)
 	String imagenURL
 
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn(name="usuario_id")
 	@JsonIgnore
 //	@Transient

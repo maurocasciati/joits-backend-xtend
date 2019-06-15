@@ -39,6 +39,7 @@ class BuscarAmigosViewModel {
 	}
 
 	def aceptar() {
+		RepoLocator.repoUsuarioNeo.guardarUsuario(usuarioLogueado)
 		RepoLocator.repoUsuario.update(usuarioLogueado)
 //		usuarioLogueado = RepoLocator.repoUsuario.searchById(usuarioLogueado.id)		
 	}

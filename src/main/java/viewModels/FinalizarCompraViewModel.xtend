@@ -53,6 +53,7 @@ class FinalizarCompraViewModel {
 	def finalizarCompra() {
 		usuarioLogueado.finalizarCompra(carrito)
 		RepoLocator.repoCarrito.limpiarCarrito(usuarioLogueado.id.toString)
+		RepoLocator.repoUsuarioNeo.guardarUsuario(usuarioLogueado)
 		RepoLocator.repoUsuario.update(usuarioLogueado)
 	}
 }
