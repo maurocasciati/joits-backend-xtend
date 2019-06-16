@@ -239,7 +239,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 		var entrada = new Entrada("Volver al futuro III")
 		var entrada2 = new Entrada("War Games")
 		var entrada3 = new Entrada("Los Bañeros 4: Los Rompeolas")
-		var entrada4 = new Entrada("El dia de la marmota")
+		var entrada4 = new Entrada("El día de la marmota")
 		var entrada5 = new Entrada("The Matrix")
 		var entrada6 = new Entrada("Volver al futuro I")
 		var entrada7 = new Entrada("Red Social")
