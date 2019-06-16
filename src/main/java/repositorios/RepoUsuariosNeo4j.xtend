@@ -6,6 +6,12 @@ import org.neo4j.ogm.cypher.ComparisonOperator
 import org.neo4j.ogm.cypher.Filter
 import org.neo4j.ogm.cypher.Filters
 import domain.Usuario
+import domain.Entrada
+import java.util.HashMap
+import java.util.Map
+import java.util.Set
+import domain.Contenido
+import domain.Pelicula
 
 class RepoUsuariosNeo4j extends AbstractRepoNeo4j {
 
@@ -18,6 +24,26 @@ class RepoUsuariosNeo4j extends AbstractRepoNeo4j {
 		instance
 	}
 
+	def peliculasRecomendadas(Long id) {
+		var Map<String, Object> params = new HashMap<String, Object>(1);
+		var String cypher = "match (entradas_usuario)-[:TIENE_ENTRADA]-(usuario)-[:ES_AMIGO]-(amigos)-[:TIENE_ENTRADA]-(entradas_amigos)
+		WHERE ID(usuario) = " + id.toString + " with collect(entradas_usuario.tituloContenido) as entradas,
+		entradas_amigos as entradas_amigo
+		where not entradas_amigo.tituloContenido in entradas
+		RETURN distinct entradas_amigo.tituloContenido"
+		val peliculas = new ArrayList<Contenido>
+		val entradas = session.query(String, cypher, params).toList;
+		entradas.forEach[entrada|peliculas.add(RepoLocator.repoContenido.searchByTitle(entrada))]
+		peliculas.forEach[pelicula | println(pelicula.titulo)]
+		peliculas
+
+	}
+
+//		val filtroPorNombreActor = 
+//			new Filter("name", ComparisonOperator.MATCHES, "(?i).*" + valor + ".*")
+//		return new ArrayList(session.loadAll(typeof(Actor), filtroPorNombreActor, PROFUNDIDAD_BUSQUEDA_LISTA))
+//		session.countEntitiesOfType(Entrada)
+//	}
 //	def static void main(String[] args) {
 //		new RepoPeliculas => [
 //			getPeliculas(new PeliculaBusqueda => [
@@ -69,7 +95,7 @@ class RepoUsuariosNeo4j extends AbstractRepoNeo4j {
 //	}
 //
 	def void guardarUsuario(Usuario usuario) {
-		session.save(usuario)
+		session.save(usuario, PROFUNDIDAD_BUSQUEDA_CONCRETA)
 	// ver save(entity, depth). Aquí por defecto depth es -1 que
 	// implica hacer una pasada recorriendo todo el grafo en profundidad
 	}

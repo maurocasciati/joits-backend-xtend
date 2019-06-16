@@ -12,6 +12,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import repositorios.RepoLocator
+import domain.Entrada
 
 @Accessors
 @Observable
@@ -20,6 +21,7 @@ class SeleccionPeliculaViewModel {
 	Usuario usuarioLogueado
 	LocalDate fechaHoy = LocalDate.now
 	List<Contenido> peliculas = RepoLocator.repoContenido.allInstances as List<Contenido>
+	List<Contenido> recomendaciones 
 	Contenido peliculaSeleccionada
 	Funcion funcionSeleccionada
 	Contenido peliculaFromDB
@@ -29,6 +31,7 @@ class SeleccionPeliculaViewModel {
 	new(Usuario usuario) {
 		usuarioLogueado = usuario
 		carrito = RepoLocator.repoCarrito.getCarritoByUserId(usuarioLogueado.id.toString)
+		recomendaciones = RepoLocator.repoUsuarioNeo.peliculasRecomendadas(usuarioLogueado.id)
 	}
 
 	def getResultadoBusqueda() {
@@ -48,7 +51,7 @@ class SeleccionPeliculaViewModel {
 	}
 
 	def getPeliculasRecomendadas() {
-		getResultadoBusqueda.subList(4, 7)
+		recomendaciones
 	}
 
 	@Dependencies("peliculaSeleccionada") // USO peliculaFromDB PARA EVITAR LLAMAR AL SETTER DE PELICULASELECCIONADA Y CAER EN LOOP
