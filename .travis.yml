@@ -15,7 +15,7 @@ before_install:
   - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
 
 before_script:
-  - neo4j start  # No longer uses systemctl service
+  #- neo4j start  # No longer uses systemctl service
   - sleep 10  # give Neo4J some time to start
   - curl -v POST http://neo4j:neo4j@localhost:7474/user/neo4j/password -d"password=lamarr"
 
