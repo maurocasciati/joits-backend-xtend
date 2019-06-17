@@ -48,6 +48,8 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 				caption = "Panel de control"
 				onClick[
 					new PanelControl(this, modelObject.usuarioLogueado.id).open
+					modelObject.actualizarRecomendaciones
+					actualizarVista("peliculasRecomendadas")
 				]
 			]
 		]

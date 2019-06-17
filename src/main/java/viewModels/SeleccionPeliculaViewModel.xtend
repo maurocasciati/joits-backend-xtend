@@ -21,7 +21,7 @@ class SeleccionPeliculaViewModel {
 	Usuario usuarioLogueado
 	LocalDate fechaHoy = LocalDate.now
 	List<Contenido> peliculas = RepoLocator.repoContenido.allInstances as List<Contenido>
-	List<Contenido> recomendaciones 
+	List<Contenido> recomendaciones
 	Contenido peliculaSeleccionada
 	Funcion funcionSeleccionada
 	Contenido peliculaFromDB
@@ -52,6 +52,10 @@ class SeleccionPeliculaViewModel {
 
 	def getPeliculasRecomendadas() {
 		recomendaciones
+	}
+
+	def actualizarRecomendaciones() {
+		recomendaciones = RepoLocator.repoUsuarioNeo.peliculasRecomendadas(usuarioLogueado.id)
 	}
 
 	@Dependencies("peliculaSeleccionada") // USO peliculaFromDB PARA EVITAR LLAMAR AL SETTER DE PELICULASELECCIONADA Y CAER EN LOOP
