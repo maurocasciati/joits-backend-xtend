@@ -110,9 +110,9 @@ class RepoUsuariosNeo4j extends AbstractRepoNeo4j {
 //	 * Contra, tuve que agregar el eliminarPersonaje porque la actualización en cascada
 //	 * no detectó la ausencia de una relación, quizás por la forma en que está configurada
 //	 */
-//	def void eliminarPersonaje(Personaje personaje) {
-//		session.delete(personaje)
-//	}
+	def void eliminarUsuario(Usuario usuario) {
+		session.delete(usuario)
+	}
 //
 	def void guardarUsuario(Usuario usuario) {
 		session.save(usuario, PROFUNDIDAD_BUSQUEDA_CONCRETA)

@@ -15,11 +15,13 @@ import repositorios.RepoContenido
 import repositorios.RepoLocator
 import repositorios.RepoUsuario
 import domain.Item
+import repositorios.RepoUsuariosNeo4j
 
 class TestPersistenciaUsuario {
 
 	RepoContenido repoContenido
 	RepoUsuario repoUsuarios
+	RepoUsuariosNeo4j repoUsuariosNeo4j
 	Usuario aniston
 	Usuario deNiro
 	Pelicula matrix
@@ -39,6 +41,7 @@ class TestPersistenciaUsuario {
 
 	def inicializarRepos() {
 		repoUsuarios = RepoLocator.repoUsuario
+		repoUsuariosNeo4j = RepoLocator.repoUsuarioNeo
 		repoContenido = RepoLocator.repoContenido
 	}
 
@@ -62,6 +65,7 @@ class TestPersistenciaUsuario {
 			setPasswordHash = "72534C4A93DDC043FE3229ED46B1D526C4CCC747FEBDCD0F284F7F6057A37858"
 		]
 
+		repoUsuariosNeo4j.crearUsuarios(#[aniston, deNiro])
 		repoUsuarios.create(aniston)
 		repoUsuarios.create(deNiro)
 	}
@@ -128,6 +132,7 @@ class TestPersistenciaUsuario {
 		val saldoAnterior = aniston.saldo
 		val totalCompra = new BigDecimal(carrito.totalCarrito.toString)
 		aniston.finalizarCompra(carrito)
+		repoUsuariosNeo4j.guardarUsuario(aniston)
 		repoUsuarios.update(aniston)
 		var anistonDB = repoUsuarios.getUsuarioConEntradas(aniston.id)
 		Assert.assertTrue((saldoAnterior - totalCompra).compareTo(anistonDB.saldo) == 0)
@@ -135,6 +140,8 @@ class TestPersistenciaUsuario {
 
 	@After
 	def void end() {
+		repoUsuariosNeo4j.eliminarUsuario(aniston)
+		repoUsuariosNeo4j.eliminarUsuario(deNiro)
 		repoContenido.delete(matrix)
 		repoUsuarios.delete(aniston)
 		repoUsuarios.delete(deNiro)
