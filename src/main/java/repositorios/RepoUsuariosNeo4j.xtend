@@ -24,10 +24,10 @@ class RepoUsuariosNeo4j extends AbstractRepoNeo4j {
 		instance
 	}
 
-	def peliculasRecomendadas(Long id) {
+	def peliculasRecomendadas(Long idUsuarioLogueado) {
 		var Map<String, Object> params = new HashMap<String, Object>(1);
 		var String cypher = "match (entradas_usuario)-[:TIENE_ENTRADA]-(usuario)-[:ES_AMIGO]-(amigos)-[:TIENE_ENTRADA]-(entradas_amigos)
-		WHERE ID(usuario) = " + id.toString + " with collect(entradas_usuario.tituloContenido) as entradas,
+		WHERE ID(usuario) = " + idUsuarioLogueado.toString + " with collect(entradas_usuario.tituloContenido) as entradas,
 		entradas_amigos as entradas_amigo
 		where not entradas_amigo.tituloContenido in entradas
 		RETURN distinct entradas_amigo.tituloContenido
@@ -35,8 +35,27 @@ class RepoUsuariosNeo4j extends AbstractRepoNeo4j {
 		val peliculas = new ArrayList<Contenido>
 		val entradas = session.query(String, cypher, params).toList;
 		entradas.forEach[entrada|peliculas.add(RepoLocator.repoContenido.searchByTitle(entrada))]
-		peliculas.forEach[pelicula | println(pelicula.titulo)]
+		peliculas.forEach[pelicula|println(pelicula.titulo)]
 		peliculas
+
+	}
+
+	def amigosRecomendados(Long idUsuarioLogueado) {
+		var Map<String, Object> params = new HashMap<String, Object>(1);
+		var String cypher = "MATCH (usuarios:Usuario)-[:TIENE_ENTRADA]-(entradas_usuarios:Entrada),
+		(usuario:Usuario)-[:TIENE_ENTRADA]-(entradas_usuario:Entrada)
+		WHERE ID(usuario) = " + idUsuarioLogueado + " AND usuario<>usuarios AND NOT (usuario)-[:ES_AMIGO]-(usuarios)
+		AND entradas_usuarios.tituloContenido = entradas_usuario.tituloContenido
+		RETURN usuarios
+		LIMIT 5"
+		// val recomendados = new ArrayList<Usuario>
+		val resultado = session.query(Usuario, cypher, params).toList;
+		// resultado.forEach[nodo|recomendados.add(RepoLocator.repoUsuario.searchByExample(nodo))]
+		// peliculas.forEach[pelicula|println(pelicula.titulo)]
+		// peliculas
+		println("AMIGOS SUGERIDOS")
+		println(resultado)
+		resultado
 
 	}
 

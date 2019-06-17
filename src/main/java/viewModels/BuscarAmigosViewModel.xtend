@@ -5,6 +5,7 @@ import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import repositorios.RepoLocator
+import repositorios.RepoUsuariosNeo4j
 
 @TransactionalAndObservable
 @Accessors
@@ -29,7 +30,7 @@ class BuscarAmigosViewModel {
 	}
 
 	def Set<Usuario> getListadoSugeridos() {
-		getListadoUsuarios
+		RepoLocator.repoUsuarioNeo.amigosRecomendados(usuarioLogueado.id).toSet
 	}
 
 	def agregarAmigo() {
