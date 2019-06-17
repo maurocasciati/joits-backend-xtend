@@ -30,7 +30,8 @@ class RepoUsuariosNeo4j extends AbstractRepoNeo4j {
 		WHERE ID(usuario) = " + id.toString + " with collect(entradas_usuario.tituloContenido) as entradas,
 		entradas_amigos as entradas_amigo
 		where not entradas_amigo.tituloContenido in entradas
-		RETURN distinct entradas_amigo.tituloContenido"
+		RETURN distinct entradas_amigo.tituloContenido
+		LIMIT 5"
 		val peliculas = new ArrayList<Contenido>
 		val entradas = session.query(String, cypher, params).toList;
 		entradas.forEach[entrada|peliculas.add(RepoLocator.repoContenido.searchByTitle(entrada))]
