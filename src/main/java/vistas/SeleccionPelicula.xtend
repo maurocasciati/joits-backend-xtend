@@ -110,6 +110,8 @@ class SeleccionPelicula extends Ventana<SeleccionPeliculaViewModel> {
 				onClick[
 					new FinalizarCompra(this, modelObject.usuarioLogueado.id, modelObject.carrito).open
 					actualizarVista("cantidadItemsCarrito")
+					modelObject.actualizarRecomendaciones
+					actualizarVista("peliculasRecomendadas")
 				]
 			]
 		]
