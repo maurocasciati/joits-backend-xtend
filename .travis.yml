@@ -10,12 +10,15 @@ jdk:
   - openjdk8
 
 before_install:
-  - neo4j start # No longer uses systemctl service
   - echo "CREATE USER 'tpuser'@'%' IDENTIFIED BY 'tpuser';\nGRANT ALL PRIVILEGES ON *.* TO 'tpuser'@'%' WITH GRANT OPTION;\nFLUSH PRIVILEGES;\n" | mysql -u root
   - mysql --user=tpuser --password=tpuser -e 'CREATE DATABASE IF NOT EXISTS joits;'
   - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
+
+before_script:
+  - neo4j start  # No longer uses systemctl service
   - sleep 10  # give Neo4J some time to start
   - curl -v POST http://neo4j:neo4j@localhost:7474/user/neo4j/password -d"password=lamarr"
+
 
 
 #script:
