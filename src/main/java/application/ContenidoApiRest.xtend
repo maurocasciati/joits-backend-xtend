@@ -21,10 +21,10 @@ class ContenidoApiRest {
 		}
 	}
 
-	@Get("/recomendaciones")
+	@Get("/recomendaciones/:id")
 	def Result getContenidoRecomendado() {
 		try {
-			return ok(RepoLocator.repoContenido.allInstances.subList(4, 7).toJson)
+			return ok(RepoLocator.repoUsuarioNeo.peliculasRecomendadas(Long.parseLong(id)).toJson)
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
