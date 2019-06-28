@@ -47,7 +47,7 @@ class RepoUsuario extends RepoRelacional<Usuario> {
 		val entityManager = this.entityManager
 		try {
 			var query = entityManager.createQuery(
-				"SELECT NEW Usuario(user.id, user.nombre, user.apellido) FROM Usuario user where user.id not in (SELECT amigos.id FROM Usuario user join user.listaDeAmigos as amigos on user.id = usuario_id) and user.id != :id_logueado",
+				"SELECT NEW Usuario(user.id, user.nombre, user.apellido, user.imagenURL) FROM Usuario user where user.id not in (SELECT amigos.id FROM Usuario user join user.listaDeAmigos as amigos on user.id = usuario_id) and user.id != :id_logueado",
 				Usuario).setParameter("id_logueado", id)
 			val List<Usuario> usuarios = query.resultList
 			usuarios

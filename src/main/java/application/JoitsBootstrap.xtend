@@ -174,7 +174,7 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 			apellido = "Rodriguez"
 			username = "cora"
 			edad = 28
-			imagenURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Cora_logo.svg/1200px-Cora_logo.svg.png"
+			imagenURL = "https://www.milbank.com/images/content/1/0/v2/107787/Hillman-Cora-NYC-web.jpg"
 			saldo = new BigDecimal("150")
 			setPasswordHash = "B8D8A9B672985B1DF0C1C580E2981200646F9120945B31F5407722BDA0E1E62A" // cora
 		]
@@ -236,22 +236,22 @@ class JoitsBootstrap extends CollectionBasedBootstrap {
 	}
 
 	def agregarEntradasAUsuarios() {
-		var entrada = new Entrada("Volver al futuro III","Ciencia ficcion")
+		var entrada = new Entrada("Volver al futuro III", "Ciencia ficcion")
 		var entrada2 = new Entrada("War Games", "Ciencia ficcion")
 		var entrada3 = new Entrada("Los Bañeros 4: Los Rompeolas", "Comedia")
-		var entrada4 = new Entrada("El día de la marmota","Comedia")
-		var entrada5 = new Entrada("The Matrix","Ciencia ficcion")
-		var entrada6 = new Entrada("Volver al futuro I","Ciencia ficcion")
-		var entrada7 = new Entrada("Red Social","Drama")
-		var entrada9 = new Entrada("Volver al futuro II","Ciencia ficcion")
-		var entrada10 = new Entrada("Duro de matar","Accion")
+		var entrada4 = new Entrada("El día de la marmota", "Comedia")
+		var entrada5 = new Entrada("The Matrix", "Ciencia ficcion")
+		var entrada6 = new Entrada("Volver al futuro I", "Ciencia ficcion")
+		var entrada7 = new Entrada("Red Social", "Drama")
+		var entrada9 = new Entrada("Volver al futuro II", "Ciencia ficcion")
+		var entrada10 = new Entrada("Duro de matar", "Accion")
 		var entrada11 = new Entrada("War Games", "Drama")
-		var entrada12 = new Entrada("El día de la marmota","Comedia")
-		var entrada13 = new Entrada("Duro de matar","Accion")
-		var entrada14 = new Entrada("Volver al futuro II","Ciencia ficcion")
-		var entrada15 = new Entrada("Pulp Fiction","Drama")
-		var entrada16 = new Entrada("Saga Volver al futuro","Ciencia ficcion")
-		var entrada17 = new Entrada("Red Social","Drama")
+		var entrada12 = new Entrada("El día de la marmota", "Comedia")
+		var entrada13 = new Entrada("Duro de matar", "Accion")
+		var entrada14 = new Entrada("Volver al futuro II", "Ciencia ficcion")
+		var entrada15 = new Entrada("Pulp Fiction", "Drama")
+		var entrada16 = new Entrada("Saga Volver al futuro", "Ciencia ficcion")
+		var entrada17 = new Entrada("Red Social", "Drama")
 
 		aniston.entradas.addAll(entrada, entrada2, entrada3)
 		cora.entradas.addAll(entrada, entrada2, entrada3)
