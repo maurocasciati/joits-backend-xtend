@@ -120,6 +120,7 @@ class UsuariosApiRest {
 			val carrito = RepoLocator.repoCarrito.getCarritoByUserId(id)
 			usuario.finalizarCompra(carrito)
 			RepoLocator.repoCarrito.limpiarCarrito(idUsuario.toString)
+			RepoLocator.repoUsuarioNeo.guardarUsuario(usuario)
 			RepoLocator.repoUsuario.update(usuario)
 			return ok('{ "status" : "OK" }');
 		} catch (Exception e) {
