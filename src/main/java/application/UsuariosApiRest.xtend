@@ -59,6 +59,15 @@ class UsuariosApiRest {
 		return ok(RepoLocator.repoUsuario.getNoAmigosDeUsuario(idLogueado).toSet.toJson)
 	}
 
+	@Get("/recomendaciones-amigos/:id")
+	def Result getAmigosRecomendados() {
+		try {
+			return ok(RepoLocator.repoUsuarioNeo.amigosRecomendados(Long.parseLong(id)).toJson)
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
+	}
+
 	@Put('/usuarios/actualizarAmigosDe/:id')
 	def Result actualizarAmigosDeUsuario(@Body String body) {
 		try {
@@ -69,7 +78,7 @@ class UsuariosApiRest {
 				RepoLocator.repoUsuario.searchById(cadaId)
 			].toSet
 			listaDeAmigos.forEach[nuevoAmigo|actualizado.agregarAmigo(nuevoAmigo)]
-
+			RepoLocator.repoUsuarioNeo.guardarUsuario(actualizado)
 			RepoLocator.repoUsuario.update(actualizado)
 			ok('{ "status" : "OK" }');
 		} catch (Exception e) {

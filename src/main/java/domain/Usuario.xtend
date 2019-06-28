@@ -74,10 +74,11 @@ class Usuario {
 	new() {
 	}
 
-	new(Long _id, String _nombre, String _apellido) {
+	new(Long _id, String _nombre, String _apellido, String _imagenURL) {
 		id = _id
 		nombre = _nombre
 		apellido = _apellido
+		imagenURL = _imagenURL
 	}
 
 	@JsonIgnore
