@@ -54,6 +54,7 @@ class FinalizarCompraViewModel {
 		usuarioLogueado.finalizarCompra(carrito)
 		RepoLocator.repoCarrito.limpiarCarrito(usuarioLogueado.id.toString)
 		RepoLocator.repoUsuarioNeo.guardarUsuario(usuarioLogueado)
+		println(RepoLocator.repoUsuarioNeo.getUsuario(usuarioLogueado.id))
 		RepoLocator.repoUsuario.update(usuarioLogueado)
 	}
 }

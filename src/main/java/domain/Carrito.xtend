@@ -34,7 +34,7 @@ class Carrito implements Serializable {
 	
 	@JsonIgnore
 	def getEntradas() {
-		items.map[ item | new Entrada(item.contenido.titulo) ]
+		items.map[ item | new Entrada(item.contenido.titulo, item.contenido.genero) ]
 	}
 
 }

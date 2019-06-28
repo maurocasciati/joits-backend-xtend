@@ -28,6 +28,10 @@ class Entrada {
 	String tituloContenido
 	
 	@Column
+	@Property
+	String generoContenido
+	
+	@Column
 	LocalDateTime fechaCompra
 
 //No los persistimos porque no son requerimientos de los casos de uso.
@@ -36,8 +40,9 @@ class Entrada {
 //	LocalDateTime fechaFuncion
 
 
-	new(String titulo) {
+	new(String titulo, String genero) {
 		tituloContenido = titulo
+		generoContenido = genero
 		fechaCompra = LocalDateTime.now
 	}
 
