@@ -46,7 +46,7 @@ class RepoUsuariosNeo4j extends AbstractRepoNeo4j {
 		(usuario:Usuario)-[:TIENE_ENTRADA]-(entradas_usuario:Entrada)
 		WHERE ID(usuario) = " + idUsuarioLogueado + " AND usuario<>usuarios AND NOT (usuario)-[:ES_AMIGO]-(usuarios)
 		AND entradas_usuarios.tituloContenido = entradas_usuario.tituloContenido
-		RETURN usuarios
+		RETURN distinct usuarios
 		LIMIT 5"
 		// val recomendados = new ArrayList<Usuario>
 		val resultado = session.query(Usuario, cypher, params).toList;
